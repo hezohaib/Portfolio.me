@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,24 +8,56 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Pre-render theme check to prevent flash of wrong theme -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
+
 <body>
-  <!-- Header / Navbar -->
+  <!-- Header / Navbar with Glassmorphic Styling and Theme Toggle -->
   <header class="header">
     <nav class="nav container">
       <a href="#" class="logo">Zohaib Ali</a>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#journey">Journey</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero reveal">
     <div class="container hero-content">
       <span class="badge">Welcome to my portfolio</span>
       <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib Ali</span></h1>
@@ -33,13 +66,13 @@
       </p>
       <div class="hero-buttons">
         <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <button class="btn btn-outline open-contact-modal" id="openContactModal">Contact Me</button>
       </div>
     </div>
   </section>
 
   <!-- About Me Section -->
-  <section id="about" class="section about">
+  <section id="about" class="section about reveal">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">About Me</h2>
@@ -48,10 +81,13 @@
       <div class="about-card">
         <div class="about-text">
           <p>
-            Hello! I am <strong>Zohaib Ali</strong>, a university student actively learning and exploring <strong>Web Development</strong>. I enjoy building clean, user-friendly, and responsive web applications while exploring modern front-end technologies.
+            Hello! I am <strong>Zohaib Ali</strong>, a university student actively learning and exploring <strong>Web
+              Development</strong>. I enjoy building clean, user-friendly, and responsive web applications while
+            exploring modern front-end technologies.
           </p>
           <p>
-            Alongside web development, I have a solid background in core computer science subjects like <strong>Data Structures</strong> and <strong>C++</strong>, which helps me write efficient and structured code.
+            Alongside web development, I have a solid background in core computer science subjects like <strong>Data
+              Structures</strong> and <strong>C++</strong>, which helps me write efficient and structured code.
           </p>
           <div class="about-stats">
             <div class="stat-item">
@@ -73,7 +109,7 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="section skills">
+  <section id="skills" class="section skills reveal">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Skills</h2>
@@ -81,7 +117,7 @@
         <p class="section-description">Core technical proficiencies and foundational knowledge</p>
       </div>
       <div class="skills-grid">
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon">🌐</div>
           <h3>HTML</h3>
           <p>Building structured, accessible, and semantic web layouts conforming to modern HTML5 standards.</p>
@@ -92,7 +128,7 @@
           </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon">🎨</div>
           <h3>CSS</h3>
           <p>Designing modern, responsive interfaces using Flexbox, CSS Grid, media queries, and smooth animations.</p>
@@ -104,7 +140,7 @@
           </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon">⚙️</div>
           <h3>C++</h3>
           <p>Proficient in object-oriented programming, algorithmic problem solving, pointers, and memory control.</p>
@@ -115,7 +151,7 @@
           </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon">🧩</div>
           <h3>Data Structures</h3>
           <p>Hands-on experience with Arrays, Linked Lists, Stacks, Queues, Trees, and algorithmic efficiency.</p>
@@ -129,37 +165,338 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="section projects">
+  <!-- freeCodeCamp Certification Journey Section -->
+  <section id="journey" class="section journey reveal">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Projects</h2>
+        <div class="fcc-badge">
+          <span class="fcc-fire">🔥</span> Verified Developer Path
+        </div>
+        <h2 class="section-title">My freeCodeCamp Journey</h2>
         <div class="title-underline"></div>
-        <p class="section-description">Academic assignments and development projects</p>
+        <p class="section-description">
+          Progressing through industry-standard curriculums and building real-world projects to earn verified
+          certifications.
+        </p>
+        <div class="fcc-official-link-wrapper">
+          <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
+            class="btn btn-outline fcc-official-btn">
+            <span class="fcc-fire-icon">🔥</span>
+            <span>Visit freeCodeCamp.org</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Curriculum Cards Grid -->
+      <div class="fcc-grid">
+        <!-- Module 1: Responsive Web Design -->
+        <article class="fcc-card reveal">
+          <div class="fcc-card-top">
+            <div class="fcc-module-pill">
+              <span>Module 01</span>
+              <span class="fcc-dot-sep">&bull;</span>
+              <span>300 Hours</span>
+            </div>
+            <span class="timeline-status-badge status-in-progress">
+              <span class="status-dot pulsing"></span> In Progress
+            </span>
+          </div>
+
+          <div class="fcc-card-body">
+            <div class="fcc-icon-header">
+              <div class="fcc-icon-box">📱</div>
+              <div>
+                <h3 class="fcc-title">Responsive Web Design</h3>
+                <span class="fcc-curriculum-label">Core Curriculum</span>
+              </div>
+            </div>
+            <p class="fcc-desc">
+              Mastering modern responsive web development principles. Covers building accessible user interfaces with
+              semantic HTML5, fluid layouts via Flexbox and CSS Grid, and media query breakpoints.
+            </p>
+            <div class="fcc-tags">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>Flexbox</span>
+              <span>CSS Grid</span>
+              <span>Accessibility</span>
+            </div>
+          </div>
+
+          <!-- Dedicated Certificate Placeholder Area -->
+          <div class="cert-card-area cert-active">
+            <div class="cert-area-header">
+              <div class="cert-badge-icon">📜</div>
+              <div class="cert-details">
+                <span class="cert-tag">Certification Credential</span>
+                <h4 class="cert-name">Responsive Web Design Certification</h4>
+                <span class="cert-org">freeCodeCamp &bull; Verified</span>
+              </div>
+            </div>
+            <!-- Placeholder link ready for real certificate URL -->
+            <a href="#" class="btn-cert btn-cert-active"
+              onclick="alert('Attach your live freeCodeCamp certificate URL to this button href in index.html!'); return false;">
+              <span>Certificate Coming Soon</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Module 2: JavaScript Algorithms and Data Structures -->
+        <article class="fcc-card reveal">
+          <div class="fcc-card-top">
+            <div class="fcc-module-pill">
+              <span>Module 02</span>
+              <span class="fcc-dot-sep">&bull;</span>
+              <span>300 Hours</span>
+            </div>
+            <span class="timeline-status-badge status-upcoming">
+              <span class="status-dot"></span> Upcoming
+            </span>
+          </div>
+
+          <div class="fcc-card-body">
+            <div class="fcc-icon-header">
+              <div class="fcc-icon-box">⚡</div>
+              <div>
+                <h3 class="fcc-title">JavaScript Algorithms &amp; DS</h3>
+                <span class="fcc-curriculum-label">Next Milestone</span>
+              </div>
+            </div>
+            <p class="fcc-desc">
+              Diving into core JavaScript programming fundamentals, ES6+ features, Object-Oriented Programming (OOP),
+              Functional Programming paradigms, and algorithm problem-solving script challenges.
+            </p>
+            <div class="fcc-tags">
+              <span>Basic JS</span>
+              <span>ES6+</span>
+              <span>OOP</span>
+              <span>Functional Programming</span>
+              <span>Data Structures</span>
+            </div>
+          </div>
+
+          <!-- Dedicated Certificate Placeholder Area -->
+          <div class="cert-card-area cert-locked">
+            <div class="cert-area-header">
+              <div class="cert-badge-icon">🔒</div>
+              <div class="cert-details">
+                <span class="cert-tag tag-locked">Locked Credential</span>
+                <h4 class="cert-name">JS Algorithms &amp; DS Certification</h4>
+                <span class="cert-org">freeCodeCamp &bull; Next Milestone</span>
+              </div>
+            </div>
+            <div class="btn-cert btn-cert-locked">
+              <span>Certificate Locked</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Module 3: Front End Development Libraries -->
+        <article class="fcc-card reveal">
+          <div class="fcc-card-top">
+            <div class="fcc-module-pill">
+              <span>Module 03</span>
+              <span class="fcc-dot-sep">&bull;</span>
+              <span>300 Hours</span>
+            </div>
+            <span class="timeline-status-badge status-future">
+              <span class="status-dot"></span> Future Goal
+            </span>
+          </div>
+
+          <div class="fcc-card-body">
+            <div class="fcc-icon-header">
+              <div class="fcc-icon-box">⚛️</div>
+              <div>
+                <h3 class="fcc-title">Front End Libraries</h3>
+                <span class="fcc-curriculum-label">Advanced Pathway</span>
+              </div>
+            </div>
+            <p class="fcc-desc">
+              Learning industry-standard UI libraries and component architectures. Focuses on building interactive
+              single-page applications with React, styling with SASS, and component design with Bootstrap.
+            </p>
+            <div class="fcc-tags">
+              <span>React</span>
+              <span>Bootstrap</span>
+              <span>SASS</span>
+              <span>Redux</span>
+              <span>State Management</span>
+            </div>
+          </div>
+
+          <!-- Dedicated Certificate Placeholder Area -->
+          <div class="cert-card-area cert-locked">
+            <div class="cert-area-header">
+              <div class="cert-badge-icon">🔒</div>
+              <div class="cert-details">
+                <span class="cert-tag tag-future">Future Milestone</span>
+                <h4 class="cert-name">Front End Libraries Certification</h4>
+                <span class="cert-org">freeCodeCamp &bull; Future Goal</span>
+              </div>
+            </div>
+            <div class="btn-cert btn-cert-locked">
+              <span>Certificate Locked</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section projects reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="title-underline"></div>
+        <p class="section-description">Handcrafted web applications and computer science tools</p>
       </div>
       <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-content">
-            <span class="project-tag">C++ / Algorithms</span>
-            <h3>DSA Lab Implementations</h3>
-            <p>Comprehensive solutions and implementations for linked lists, stacks, queues, and tree structures in C++.</p>
-            <a href="#skills" class="project-link">Explore Skills &rarr;</a>
+        <!-- Project 1: HTML Browser Guide -->
+        <article class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon-box">🧭</div>
+            <span class="project-tag">HTML / Frontend</span>
           </div>
-        </div>
-        <div class="project-card">
-          <div class="project-content">
-            <span class="project-tag">Frontend</span>
-            <h3>Responsive Portfolio Page</h3>
-            <p>A sleek, mobile-friendly personal portfolio designed with semantic HTML5 elements and modern CSS.</p>
-            <a href="#about" class="project-link">Learn More &rarr;</a>
+          <div class="project-body">
+            <h3 class="project-title">HTML Browser Guide</h3>
+            <p class="project-desc">
+              An interactive visual handbook explaining HTML5 semantics, browser rendering lifecycles, and DOM
+              construction for modern web developers.
+            </p>
+            <div class="project-tags">
+              <span>HTML5</span>
+              <span>DOM Tree</span>
+              <span>Web Standards</span>
+            </div>
           </div>
-        </div>
+          <div class="project-actions">
+            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
+              <span>Live Demo</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
+              rel="noopener noreferrer">
+              <span>GitHub Code</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2: C++ Linked List Visualizer -->
+        <article class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon-box">🔗</div>
+            <span class="project-tag">C++ / Data Structures</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">C++ Linked List Visualizer</h3>
+            <p class="project-desc">
+              Visualizes node allocations, pointer traversals, and structural mutations for singly, doubly, and circular
+              linked lists in real time.
+            </p>
+            <div class="project-tags">
+              <span>C++</span>
+              <span>Pointers</span>
+              <span>Algorithms</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
+              <span>Live Demo</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
+              rel="noopener noreferrer">
+              <span>GitHub Code</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3: Web Dev Roadmap Tracker -->
+        <article class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon-box">🗺️</div>
+            <span class="project-tag">Web Dev / Tracker</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Web Dev Roadmap Tracker</h3>
+            <p class="project-desc">
+              A comprehensive milestone tracking app structured for undergraduate students to track study progress from
+              core foundations to advanced stacks.
+            </p>
+            <div class="project-tags">
+              <span>CSS Grid</span>
+              <span>JavaScript</span>
+              <span>Productivity</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
+              <span>Live Demo</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
+              rel="noopener noreferrer">
+              <span>GitHub Code</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="section contact">
+  <section id="contact" class="section contact reveal">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Contact</h2>
@@ -175,20 +512,36 @@
               <p>Focusing on Web Development &amp; Software Engineering</p>
             </div>
           </div>
-          <div class="contact-item">
+          <a href="mailto:zohaibatkh4x@gmail.com" class="contact-item contact-link">
             <div class="contact-icon">📧</div>
             <div>
               <h4>Email</h4>
-              <p>zohaibatkh4x@gamil.com</p>
+              <p>zohaibatkh4x@gmail.com</p>
             </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">💻</div>
+          </a>
+          <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
+            class="contact-item contact-link">
+            <div class="contact-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </div>
             <div>
               <h4>GitHub &amp; Labs</h4>
-              <p>DSA Lab &amp; Web Development Practice</p>
+              <p>github.com/hezohaib</p>
             </div>
-          </div>
+          </a>
+        </div>
+        <div class="contact-cta">
+          <button class="btn btn-primary open-contact-modal">
+            <span>Send a Direct Message</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -198,9 +551,75 @@
   <footer class="footer">
     <div class="container footer-content">
       <p>&copy; 2026 Zohaib Ali. All rights reserved.</p>
-      <p class="footer-sub">Built with HTML5 &amp; CSS3</p>
+      <p class="footer-sub">Built with Modern Glassmorphism &amp; Clean Web Standards</p>
     </div>
   </footer>
-</body>
-</html>
 
+  <!-- Modern Glassmorphism Floating GitHub Button -->
+  <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="floating-github-btn"
+    aria-label="Visit my GitHub profile: @hezohaib" title="View GitHub Profile: @hezohaib">
+    <svg class="github-octocat-svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+    </svg>
+    <span class="floating-github-label">GitHub</span>
+  </a>
+
+  <!-- Glassmorphism Smooth Contact Modal -->
+  <div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="badge">Let's Connect</span>
+        <h2 id="modalTitle" class="modal-title">Get In Touch</h2>
+        <p class="modal-subtitle">Have a question, feedback, or want to collaborate? Send me a message below!</p>
+      </div>
+
+      <form id="contactForm" class="modal-form">
+        <div class="form-group">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" name="name" placeholder="Zohaib Ali" required />
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Your Email</label>
+          <input type="email" id="userEmail" name="email" placeholder="zohaibatkh4x@gmail.com" required />
+        </div>
+        <div class="form-group">
+          <label for="userMessage">Your Message</label>
+          <textarea id="userMessage" name="message" rows="4"
+            placeholder="Hello Zohaib, I'd like to reach out regarding..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span>Send Message</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+        <div id="formSuccessMessage" class="form-success" style="display: none;">
+          ✨ Thanks for reaching out! Your message has been sent.
+        </div>
+      </form>
+
+      <div class="modal-divider"><span>or connect directly</span></div>
+
+      <div class="modal-direct-links">
+        <a href="mailto:zohaibatkh4x@gmail.com" class="direct-link">
+          <span class="direct-icon">✉️</span>
+          <span>zohaibatkh4x@gmail.com</span>
+        </a>
+        <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="direct-link">
+          <span class="direct-icon">💻</span>
+          <span>github.com/hezohaib</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
+</html>
