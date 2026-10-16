@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModalBtn = document.getElementById('closeModalBtn');
   const contactForm = document.getElementById('contactForm');
   const formSuccessMessage = document.getElementById('formSuccessMessage');
+  const formErrorMessage = document.getElementById('formErrorMessage');
+  const replyToInput = document.getElementById('replyTo');
 
   const openModal = () => {
     if (!contactModal) return;
@@ -81,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Focus first input for accessibility
     setTimeout(() => {
-      const firstInput = contactModal.querySelector('input');
+      const firstInput = contactModal.querySelector('input:not([type="hidden"]), textarea, select');
       if (firstInput) firstInput.focus();
     }, 150);
   };
@@ -122,36 +124,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle contact form submission
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Sending...</span>';
+      const submitLabel = submitBtn ? submitBtn.querySelector('.submit-label') : null;
+      const accessKey = contactForm.querySelector('input[name="access_key"]')?.value.trim();
+
+      if (formSuccessMessage) formSuccessMessage.hidden = true;
+      if (formErrorMessage) formErrorMessage.hidden = true;
+
+      if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        if (formErrorMessage) {
+          formErrorMessage.textContent = 'Contact form is not configured yet. Please add the Web3Forms access key.';
+          formErrorMessage.hidden = false;
+        }
+        return;
       }
 
-      // Simulate sending delay
-      setTimeout(() => {
+      if (replyToInput) {
+        replyToInput.value = contactForm.elements.email.value.trim();
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
+        if (submitLabel) submitLabel.textContent = 'Sending';
+      }
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+        });
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Unable to send your message.');
+        }
+
         if (formSuccessMessage) {
-          formSuccessMessage.style.display = 'block';
+          formSuccessMessage.hidden = false;
         }
         contactForm.reset();
 
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Send Message</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+          submitBtn.classList.remove('is-loading');
+          if (submitLabel) submitLabel.textContent = 'Send Message';
         }
 
         // Auto close modal after successful submission
         setTimeout(() => {
           if (formSuccessMessage) {
-            formSuccessMessage.style.display = 'none';
+            formSuccessMessage.hidden = true;
           }
           closeModal();
         }, 2200);
-      }, 700);
+      } catch (error) {
+        if (formErrorMessage) {
+          formErrorMessage.textContent = error instanceof Error
+            ? error.message
+            : 'Something went wrong while sending your message. Please try again.';
+          formErrorMessage.hidden = false;
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-loading');
+          if (submitLabel) submitLabel.textContent = 'Send Message';
+        }
+      }
     });
   }
 });
-
