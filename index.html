@@ -386,252 +386,108 @@
   <section id="projects" class="section projects reveal">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">Featured Project</h2>
         <div class="title-underline"></div>
-        <p class="section-description">Handcrafted web applications and computer science tools</p>
+        <p class="section-description">High-performance full-stack web application &amp; production engineering</p>
       </div>
-      <div class="projects-grid">
-        <!-- Primary Featured Project: Clothing Store -->
-        <article class="project-card project-card-featured reveal">
+      <div class="featured-project-container">
+        <div class="project-info-side">
           <div class="project-featured-badge-top">
-            <span class="featured-project-badge">
-              <svg class="featured-star-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"
-                aria-hidden="true">
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                </polygon>
-              </svg>
-              <span>Featured Project</span>
-            </span>
-            <span class="featured-status-pill">
-              <span class="status-dot pulsing"></span>
-              <span>Live Deployment</span>
-            </span>
+            <span class="featured-project-badge"><span class="featured-star-icon" aria-hidden="true">&#9733;</span><span>Featured Project</span></span>
+            <div class="featured-badge-group">
+              <span class="featured-status-pill"><span class="status-dot pulsing"></span><span>Live Deployment</span></span>
+              <span class="project-tag">Full-Stack Platform</span>
+            </div>
           </div>
-
-          <div class="project-featured-content-wrapper">
-            <div class="project-featured-details">
-              <div class="project-header">
-                <div class="project-icon-box">🛍️</div>
-                <span class="project-tag">Full-Stack / E-Commerce</span>
+          <div class="project-header">
+            <div class="project-icon-box">&#128717;</div>
+            <div class="project-title-group">
+              <h3 class="project-title">Clothing Store (Full-Stack E-Commerce Platform)</h3>
+              <p class="project-subtitle">Production-Ready Full-Stack E-Commerce Solution</p>
+            </div>
+          </div>
+          <p class="project-desc">A modern, high-performance full-stack e-commerce application featuring product management, authenticated user accounts, persistent shopping cart, dynamic order handling, and dark/light theme integration.</p>
+          <ul class="project-technical-points">
+            <li>Serverless API endpoints with Vercel functions</li>
+            <li>Real-time payment processing with Stripe integration</li>
+          </ul>
+          <div class="project-highlights">
+            <h4>Core Capabilities</h4>
+            <ul>
+              <li>Dynamic catalog browsing with product management workflows</li>
+              <li>Secure JWT authentication sessions with Auth.js</li>
+              <li>Role-based admin controls for protected operations</li>
+              <li>Persistent shopping cart and dynamic order handling</li>
+              <li>Responsive dark/light theme integration across the storefront</li>
+            </ul>
+          </div>
+          <div class="project-actions">
+            <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer"><span>Live Demo</span><span aria-hidden="true">&#8599;</span></a>
+            <a href="https://github.com/hezohaib/clothing-store" class="btn-card btn-card-secondary" target="_blank" rel="noopener noreferrer"><span>View Source Code</span><span aria-hidden="true">&#8984;</span></a>
+          </div>
+        </div>
+        <div class="project-card-side">
+          <article class="project-card project-card-featured reveal">
+            <div class="project-tech-architecture">
+              <div class="tech-category">
+                <div class="tech-category-header"><span class="tech-cat-icon">&#127912;</span><span class="tech-category-title">Frontend</span></div>
+                <div class="project-tags"><span>Next.js 16 (App Router &amp; Turbopack)</span><span>React 19</span><span>TypeScript</span><span>Tailwind CSS v4</span><span>Zustand</span><span>Framer Motion</span></div>
               </div>
-              <div class="project-body">
-                <h3 class="project-title">Clothing Store (Full-Stack E-Commerce Platform)</h3>
-                <p class="project-desc">
-                  A modern, full-stack online clothing store with product cataloging, responsive user interface, dynamic
-                  shopping cart functionality, and seamless user navigation.
-                </p>
-                <div class="project-tags">
-                  <span>HTML5</span>
-                  <span>CSS3</span>
-                  <span>JavaScript</span>
-                  <span>Full-Stack Architecture</span>
-                  <span>Vercel Deployment</span>
-                </div>
+              <div class="tech-category">
+                <div class="tech-category-header"><span class="tech-cat-icon">&#9881;</span><span class="tech-category-title">Backend &amp; Database</span></div>
+                <div class="project-tags"><span>Neon Postgres (Cloud SQL)</span><span>Prisma 7 ORM</span><span>Auth.js (JWT)</span><span>bcryptjs</span><span>Redis (Cache)</span><span>SendGrid</span></div>
               </div>
             </div>
-
-            <div class="project-actions">
-              <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-card btn-card-primary" target="_blank"
-                rel="noopener noreferrer">
-                <span>Live Demo</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-              <a href="#" class="btn-card btn-card-secondary" target="_blank" rel="noopener noreferrer">
-                <span>View Source Code</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 1: HTML Browser Guide -->
-        <article class="project-card reveal">
-          <div class="project-header">
-            <div class="project-icon-box">🧭</div>
-            <span class="project-tag">HTML / Frontend</span>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">HTML Browser Guide</h3>
-            <p class="project-desc">
-              An interactive visual handbook explaining HTML5 semantics, browser rendering lifecycles, and DOM
-              construction for modern web developers.
-            </p>
-            <div class="project-tags">
-              <span>HTML5</span>
-              <span>DOM Tree</span>
-              <span>Web Standards</span>
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
-              <span>Live Demo</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
-            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
-              rel="noopener noreferrer">
-              <span>GitHub Code</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 2: C++ Linked List Visualizer -->
-        <article class="project-card reveal">
-          <div class="project-header">
-            <div class="project-icon-box">🔗</div>
-            <span class="project-tag">C++ / Data Structures</span>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">C++ Linked List Visualizer</h3>
-            <p class="project-desc">
-              Visualizes node allocations, pointer traversals, and structural mutations for singly, doubly, and circular
-              linked lists in real time.
-            </p>
-            <div class="project-tags">
-              <span>C++</span>
-              <span>Pointers</span>
-              <span>Algorithms</span>
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
-              <span>Live Demo</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
-            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
-              rel="noopener noreferrer">
-              <span>GitHub Code</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 3: Web Dev Roadmap Tracker -->
-        <article class="project-card reveal">
-          <div class="project-header">
-            <div class="project-icon-box">🗺️</div>
-            <span class="project-tag">Web Dev / Tracker</span>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">Web Dev Roadmap Tracker</h3>
-            <p class="project-desc">
-              A comprehensive milestone tracking app structured for undergraduate students to track study progress from
-              core foundations to advanced stacks.
-            </p>
-            <div class="project-tags">
-              <span>CSS Grid</span>
-              <span>JavaScript</span>
-              <span>Productivity</span>
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="#" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer">
-              <span>Live Demo</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
-            <a href="https://github.com/hezohaib" class="btn-card btn-card-secondary" target="_blank"
-              rel="noopener noreferrer">
-              <span>GitHub Code</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-            </a>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section contact reveal">
+  <!-- CTA / Contact Section -->
+  <section id="contact" class="section cta-section reveal">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Contact</h2>
-        <div class="title-underline"></div>
-        <p class="section-description">Feel free to connect with me</p>
-      </div>
-      <div class="contact-card">
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">🎓</div>
-            <div>
-              <h4>University Student</h4>
-              <p>Focusing on Web Development &amp; Software Engineering</p>
-            </div>
-          </div>
-          <a href="mailto:zohaibatkh4x@gmail.com" class="contact-item contact-link">
-            <div class="contact-icon">📧</div>
-            <div>
-              <h4>Email</h4>
-              <p>zohaibatkh4x@gmail.com</p>
-            </div>
-          </a>
-          <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
-            class="contact-item contact-link">
-            <div class="contact-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-            </div>
-            <div>
-              <h4>GitHub &amp; Labs</h4>
-              <p>github.com/hezohaib</p>
-            </div>
-          </a>
+      <div class="cta-wrapper">
+        <!-- Status Badge -->
+        <div class="cta-status-badge">
+          <span class="cta-status-dot"></span>
+          <span>Available for new projects &amp; work opportunities</span>
         </div>
-        <div class="contact-cta">
-          <button class="btn btn-primary open-contact-modal">
-            <span>Send a Direct Message</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+
+        <!-- Heading & Description -->
+        <h2 class="cta-heading">Have a project in mind or need a custom web solution?<br><span class="cta-heading-highlight">Let's build it.</span></h2>
+        <p class="cta-subtext">
+          Available for freelance projects, technical consulting, and full-stack web development opportunities.
+          Let's create scalable, high-performance applications together.
+        </p>
+
+        <!-- Action Pill Links -->
+        <div class="cta-actions">
+          <a href="mailto:zohaibatkh4x@gmail.com" class="cta-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-          </button>
+            <span>zohaibatkh4x@gmail.com</span>
+          </a>
+          <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="cta-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>@hezohaib</span>
+          </a>
         </div>
+
+        <!-- Send Message CTA -->
+        <button class="btn btn-primary open-contact-modal cta-message-btn" id="openContactModal">
+          <span>Send a Direct Message</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>&copy; 2026 Zohaib Ali. All rights reserved.</p>
-      <p class="footer-sub">Built with Modern Glassmorphism &amp; Clean Web Standards</p>
-    </div>
-  </footer>
 
   <!-- Glassmorphism Smooth Contact Modal -->
   <div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
@@ -694,8 +550,21 @@
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="glass-footer">
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <span class="footer-name">Zohaib Ali</span>
+        <span class="footer-sep">—</span>
+        <span class="footer-role">Software Developer &amp; Web Engineer.</span>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; 2026 Zohaib Ali. Designed &amp; Engineered for performance.</p>
+      </div>
+    </div>
+  </footer>
+
   <!-- Main JavaScript File -->
   <script src="script.js"></script>
 </body>
-
 </html>
