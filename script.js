@@ -1,5 +1,5 @@
 /**
- * Zohaib Ali Portfolio - Core Interactive Features
+ * Zohaib Portfolio - Core Interactive Features
  * - Dark / Light Theme Toggle with LocalStorage persistence
  * - Fade-in on Scroll using IntersectionObserver
  * - Glassmorphism Contact Modal with smooth transitions
@@ -63,9 +63,82 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('active'));
   }
 
+  /* ==========================================================================
+     3. Featured Project Interactions
+     ========================================================================== */
+  const featuredCard = document.querySelector('.project-card-featured');
+  const projectPreview = featuredCard?.querySelector('.browser-screen img');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const desktopPointer = window.matchMedia('(min-width: 769px) and (pointer: fine)');
+
+  if (featuredCard) {
+    if (projectPreview) {
+      const showPreviewFallback = () => {
+        projectPreview.closest('.browser-screen').classList.add('image-fallback');
+      };
+
+      projectPreview.addEventListener('error', showPreviewFallback, { once: true });
+      if (projectPreview.complete && projectPreview.naturalWidth === 0) {
+        showPreviewFallback();
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      const chipObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            featuredCard.classList.add('tech-chips-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      chipObserver.observe(featuredCard);
+    } else {
+      featuredCard.classList.add('tech-chips-visible');
+    }
+
+    if (!reducedMotion.matches && desktopPointer.matches) {
+      const updateTilt = (event) => {
+        const bounds = featuredCard.getBoundingClientRect();
+        const rotateX = ((event.clientY - bounds.top) / bounds.height - 0.5) * -4;
+        const rotateY = ((event.clientX - bounds.left) / bounds.width - 0.5) * 5;
+        featuredCard.style.setProperty('--tilt-x', `${rotateX}deg`);
+        featuredCard.style.setProperty('--tilt-y', `${rotateY}deg`);
+      };
+
+      featuredCard.addEventListener('mousemove', updateTilt);
+      featuredCard.addEventListener('mouseleave', () => {
+        featuredCard.style.setProperty('--tilt-x', '0deg');
+        featuredCard.style.setProperty('--tilt-y', '0deg');
+      });
+    }
+  }
+
+  const quickEmailButton = document.querySelector('.quick-connect-email');
+  if (quickEmailButton) {
+    quickEmailButton.addEventListener('click', async () => {
+      const email = quickEmailButton.dataset.email;
+      if (!email || !navigator.clipboard) return;
+
+      const label = quickEmailButton.querySelector('.quick-connect-label');
+      navigator.clipboard.writeText(email)
+        .then(() => {
+          if (!label) return;
+          label.textContent = 'Email Copied';
+          setTimeout(() => {
+            label.textContent = 'Copy Email to Clipboard';
+          }, 1600);
+        })
+        .catch(() => {
+          if (label) label.textContent = 'Copy Failed';
+        });
+    });
+  }
+
 
   /* ==========================================================================
-     3. Smooth Popup Contact Modal
+     4. Smooth Popup Contact Modal
      ========================================================================== */
   const contactModal = document.getElementById('contactModal');
   const openModalButtons = document.querySelectorAll('.open-contact-modal, #openContactModal');

@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zohaib Ali | Portfolio</title>
+  <title>Zohaib | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
   <!-- Pre-render theme check to prevent flash of wrong theme -->
   <script>
     (function () {
@@ -36,27 +37,18 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
-          <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="header-github-btn"
-            aria-label="Visit Zohaib Ali's GitHub Profile: @hezohaib" title="GitHub: @hezohaib">
-            <svg class="header-github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
-              aria-hidden="true">
-              <path
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
-            <span>GitHub</span>
-          </a>
           <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
             <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
             </svg>
             <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -68,13 +60,37 @@
     </nav>
   </header>
 
+  <aside class="floating-social-sidebar" aria-label="Social links">
+    <div class="floating-social-links">
+      <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
+        aria-label="Visit Zohaib's GitHub profile" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/in/zohaib-ali/" target="_blank" rel="noopener noreferrer"
+        aria-label="Visit Zohaib's LinkedIn profile" title="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14ZM7.1 20.45H3.54V9H7.1v11.45Z" />
+        </svg>
+      </a>
+      <a href="mailto:zohaibatkh4x@gmail.com" aria-label="Email Zohaib" title="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 5h18v14H3V5Zm0 1 9 7 9-7M3 19l6.5-6M21 19l-6.5-6" />
+        </svg>
+      </a>
+    </div>
+    <span class="floating-sidebar-line" aria-hidden="true"></span>
+  </aside>
+
   <!-- Hero Section -->
   <section class="hero reveal">
     <div class="container hero-content">
-      <span class="badge">Welcome to my portfolio</span>
-      <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib Ali</span></h1>
+      <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib</span></h1>
       <p class="hero-subtitle">
-        A university student passionate about Web Development, C++, and Data Structures.
+        I help businesses and startups build modern, scalable web applications from idea to deployment.
       </p>
       <div class="hero-buttons">
         <a href="#projects" class="btn btn-primary">View Projects</a>
@@ -90,33 +106,25 @@
         <h2 class="section-title">About Me</h2>
         <div class="title-underline"></div>
       </div>
-      <div class="about-card">
+      <div class="about-content">
         <div class="about-text">
           <p>
-            Hello! I am <strong>Zohaib</strong>, a passionate university student actively learning and
-            exploring<strong>Web
-              Development</strong>.I love crafting clean, efficient, and user-friendly web applications, combining
-            modern front-end technologies with strong software engineering principles to deliver impactful digital
-            solutions.
-          </p>
-          </p>
-          <p>
-            Backed by a strong academic foundation in Computer Science, I bridge the gap between creative front-end
-            design and robust backend logic. My proficiency in <strong>C++</strong> and <strong>Data Structures &
-              Algorithms (DSA)</strong> enables me to write highly optimized, scalable, and memory-efficient code.
+            Full Stack Developer focused on building scalable, high-performance web applications. I design responsive,
+            intuitive front-ends and engineer reliable back-end systems that work seamlessly together. I care about
+            clean architecture, efficient code, and delivering products that make a real impact.
           </p>
           <div class="about-stats">
             <div class="stat-item">
-              <span class="stat-number">CS</span>
-              <span class="stat-label">University Major</span>
+              <span class="stat-number">10+</span>
+              <span class="stat-label">Production Ready Apps</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">4+</span>
-              <span class="stat-label">Core Technologies</span>
+              <span class="stat-number">99%</span>
+              <span class="stat-label">Code Optimization &amp; Quality</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Learning &amp; Growth</span>
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">System Reliability &amp; Uptime</span>
             </div>
           </div>
         </div>
@@ -130,51 +138,35 @@
       <div class="section-header">
         <h2 class="section-title">Skills</h2>
         <div class="title-underline"></div>
-        <p class="section-description">Core technical proficiencies and foundational knowledge</p>
+        <p class="section-description">Professional full-stack development technologies and tools</p>
       </div>
       <div class="skills-grid">
-        <div class="skill-card reveal">
-          <div class="skill-icon">🌐</div>
-          <h3>HTML</h3>
-          <p>Building structured, accessible, and semantic web layouts conforming to modern HTML5 standards.</p>
+        <div class="skill-category reveal">
+          <h3>Frontend</h3>
           <div class="skill-tags">
-            <span>HTML5</span>
-            <span>Semantic Tags</span>
-            <span>Forms &amp; Accessibility</span>
+            <span>React</span>
+            <span>Next.js</span>
+            <span>TypeScript</span>
+            <span>Tailwind CSS</span>
           </div>
         </div>
 
-        <div class="skill-card reveal">
-          <div class="skill-icon">🎨</div>
-          <h3>CSS</h3>
-          <p>Designing modern, responsive interfaces using Flexbox, CSS Grid, media queries, and smooth animations.</p>
+        <div class="skill-category reveal">
+          <h3>Backend &amp; APIs</h3>
           <div class="skill-tags">
-            <span>CSS3</span>
-            <span>Flexbox</span>
-            <span>Grid</span>
-            <span>Mobile-First</span>
+            <span>Node.js</span>
+            <span>Express</span>
+            <span>RESTful APIs</span>
           </div>
         </div>
 
-        <div class="skill-card reveal">
-          <div class="skill-icon">⚙️</div>
-          <h3>C++</h3>
-          <p>Proficient in object-oriented programming, algorithmic problem solving, pointers, and memory control.</p>
+        <div class="skill-category reveal">
+          <h3>Database &amp; Tools</h3>
           <div class="skill-tags">
-            <span>OOP</span>
-            <span>Pointers</span>
-            <span>Algorithms</span>
-          </div>
-        </div>
-
-        <div class="skill-card reveal">
-          <div class="skill-icon">🧩</div>
-          <h3>Data Structures</h3>
-          <p>Hands-on experience with Arrays, Linked Lists, Stacks, Queues, Trees, and algorithmic efficiency.</p>
-          <div class="skill-tags">
-            <span>Linked Lists</span>
-            <span>Stacks &amp; Queues</span>
-            <span>Trees</span>
+            <span>PostgreSQL</span>
+            <span>Prisma ORM</span>
+            <span>Git</span>
+            <span>Vercel</span>
           </div>
         </div>
       </div>
@@ -209,175 +201,116 @@
         </div>
       </div>
 
-      <!-- Curriculum Cards Grid -->
-      <div class="fcc-grid">
-        <!-- Module 1: Responsive Web Design -->
-        <article class="fcc-card reveal">
-          <div class="fcc-card-top">
-            <div class="fcc-module-pill">
-              <span>Module 01</span>
-              <span class="fcc-dot-sep">&bull;</span>
-              <span>300 Hours</span>
-            </div>
-            <span class="timeline-status-badge status-in-progress">
-              <span class="status-dot pulsing"></span> In Progress
-            </span>
-          </div>
-
-          <div class="fcc-card-body">
-            <div class="fcc-icon-header">
-              <div class="fcc-icon-box">📱</div>
-              <div>
-                <h3 class="fcc-title">Responsive Web Design</h3>
-                <span class="fcc-curriculum-label">Core Curriculum</span>
+      <div class="fcc-roadmap" aria-label="Completed freeCodeCamp certifications">
+        <div class="fcc-roadmap-line" aria-hidden="true"></div>
+        <ol class="fcc-roadmap-list">
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/"
+              target="_blank" rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">&#128187;</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 01</span>
+                  <h3>Responsive Web Design Certification</h3>
+                  <p>Responsive layouts, accessibility, semantic HTML, and modern CSS foundations.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
               </div>
-            </div>
-            <p class="fcc-desc">
-              Mastering modern responsive web development principles. Covers building accessible user interfaces with
-              semantic HTML5, fluid layouts via Flexbox and CSS Grid, and media query breakpoints.
-            </p>
-            <div class="fcc-tags">
-              <span>HTML5</span>
-              <span>CSS3</span>
-              <span>Flexbox</span>
-              <span>CSS Grid</span>
-              <span>Accessibility</span>
-            </div>
-          </div>
-
-          <!-- Dedicated Certificate Placeholder Area -->
-          <div class="cert-card-area cert-active">
-            <div class="cert-area-header">
-              <div class="cert-badge-icon">📜</div>
-              <div class="cert-details">
-                <span class="cert-tag">Certification Credential</span>
-                <h4 class="cert-name">Responsive Web Design Certification</h4>
-                <span class="cert-org">freeCodeCamp &bull; Verified</span>
-              </div>
-            </div>
-            <!-- Placeholder link ready for real certificate URL -->
-            <a href="#" class="btn-cert btn-cert-active"
-              onclick="alert('Attach your live freeCodeCamp certificate URL to this button href in index.html!'); return false;">
-              <span>Certificate Coming Soon</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
             </a>
-          </div>
-        </article>
-
-        <!-- Module 2: JavaScript Algorithms and Data Structures -->
-        <article class="fcc-card reveal">
-          <div class="fcc-card-top">
-            <div class="fcc-module-pill">
-              <span>Module 02</span>
-              <span class="fcc-dot-sep">&bull;</span>
-              <span>300 Hours</span>
-            </div>
-            <span class="timeline-status-badge status-upcoming">
-              <span class="status-dot"></span> Upcoming
-            </span>
-          </div>
-
-          <div class="fcc-card-body">
-            <div class="fcc-icon-header">
-              <div class="fcc-icon-box">⚡</div>
-              <div>
-                <h3 class="fcc-title">JavaScript Algorithms &amp; DS</h3>
-                <span class="fcc-curriculum-label">Next Milestone</span>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link"
+              href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/" target="_blank"
+              rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">JS</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 02</span>
+                  <h3>JavaScript Algorithms and Data Structures Certification</h3>
+                  <p>Core JavaScript, algorithms, data structures, and problem-solving techniques.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
               </div>
-            </div>
-            <p class="fcc-desc">
-              Diving into core JavaScript programming fundamentals, ES6+ features, Object-Oriented Programming (OOP),
-              Functional Programming paradigms, and algorithm problem-solving script challenges.
-            </p>
-            <div class="fcc-tags">
-              <span>Basic JS</span>
-              <span>ES6+</span>
-              <span>OOP</span>
-              <span>Functional Programming</span>
-              <span>Data Structures</span>
-            </div>
-          </div>
-
-          <!-- Dedicated Certificate Placeholder Area -->
-          <div class="cert-card-area cert-locked">
-            <div class="cert-area-header">
-              <div class="cert-badge-icon">🔒</div>
-              <div class="cert-details">
-                <span class="cert-tag tag-locked">Locked Credential</span>
-                <h4 class="cert-name">JS Algorithms &amp; DS Certification</h4>
-                <span class="cert-org">freeCodeCamp &bull; Next Milestone</span>
+            </a>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/front-end-development-libraries/"
+              target="_blank" rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">&#9883;</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 03</span>
+                  <h3>Front-End Development Libraries Certification</h3>
+                  <p>React interfaces, component architecture, state management, and responsive UI.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
               </div>
-            </div>
-            <div class="btn-cert btn-cert-locked">
-              <span>Certificate Locked</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-            </div>
-          </div>
-        </article>
-
-        <!-- Module 3: Front End Development Libraries -->
-        <article class="fcc-card reveal">
-          <div class="fcc-card-top">
-            <div class="fcc-module-pill">
-              <span>Module 03</span>
-              <span class="fcc-dot-sep">&bull;</span>
-              <span>300 Hours</span>
-            </div>
-            <span class="timeline-status-badge status-future">
-              <span class="status-dot"></span> Future Goal
-            </span>
-          </div>
-
-          <div class="fcc-card-body">
-            <div class="fcc-icon-header">
-              <div class="fcc-icon-box">⚛️</div>
-              <div>
-                <h3 class="fcc-title">Front End Libraries</h3>
-                <span class="fcc-curriculum-label">Advanced Pathway</span>
+            </a>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
+              target="_blank" rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon fcc-python-icon" aria-hidden="true">Py</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 04</span>
+                  <h3>Python Certification</h3>
+                  <p>Python fundamentals, scripting, object-oriented programming, and automation.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
               </div>
-            </div>
-            <p class="fcc-desc">
-              Learning industry-standard UI libraries and component architectures. Focuses on building interactive
-              single-page applications with React, styling with SASS, and component design with Bootstrap.
-            </p>
-            <div class="fcc-tags">
-              <span>React</span>
-              <span>Bootstrap</span>
-              <span>SASS</span>
-              <span>Redux</span>
-              <span>State Management</span>
-            </div>
-          </div>
-
-          <!-- Dedicated Certificate Placeholder Area -->
-          <div class="cert-card-area cert-locked">
-            <div class="cert-area-header">
-              <div class="cert-badge-icon">🔒</div>
-              <div class="cert-details">
-                <span class="cert-tag tag-future">Future Milestone</span>
-                <h4 class="cert-name">Front End Libraries Certification</h4>
-                <span class="cert-org">freeCodeCamp &bull; Future Goal</span>
+            </a>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/relational-database/" target="_blank"
+              rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">&#128451;</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 05</span>
+                  <h3>Relational Databases Certification</h3>
+                  <p>SQL, relational data modeling, PostgreSQL workflows, and database management.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
               </div>
-            </div>
-            <div class="btn-cert btn-cert-locked">
-              <span>Certificate Locked</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-            </div>
-          </div>
-        </article>
+            </a>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/back-end-development-and-apis/"
+              target="_blank" rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">&#9881;</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 06</span>
+                  <h3>Back-End Development and APIs Certification</h3>
+                  <p>Server-side applications, RESTful APIs, authentication, and production services.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
+              </div>
+            </a>
+          </li>
+          <li class="fcc-roadmap-step reveal">
+            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/full-stack-developer/" target="_blank"
+              rel="noopener noreferrer">
+              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+              <div class="fcc-step-content">
+                <div class="fcc-step-icon" aria-hidden="true">&lt;/&gt;</div>
+                <div class="fcc-step-copy">
+                  <span class="fcc-step-number">Step 07</span>
+                  <h3>Certified Full-Stack Developer Curriculum</h3>
+                  <p>End-to-end product development across frontend, backend, databases, and deployment.</p>
+                </div>
+                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
+              </div>
+            </a>
+          </li>
+        </ol>
       </div>
     </div>
   </section>
@@ -393,9 +326,13 @@
       <div class="featured-project-container">
         <div class="project-info-side">
           <div class="project-featured-badge-top">
-            <span class="featured-project-badge"><span class="featured-star-icon" aria-hidden="true">&#9733;</span><span>Featured Project</span></span>
+            <div class="featured-badge-top-row">
+              <span class="featured-project-badge"><span class="featured-star-icon"
+                aria-hidden="true">&#9733;</span><span>Featured Project</span></span>
+            </div>
             <div class="featured-badge-group">
-              <span class="featured-status-pill"><span class="status-dot pulsing"></span><span>Live Deployment</span></span>
+              <span class="featured-status-pill"><span class="status-dot pulsing"></span><span>Live
+                  Deployment</span></span>
               <span class="project-tag">Full-Stack Platform</span>
             </div>
           </div>
@@ -403,39 +340,55 @@
             <div class="project-icon-box">&#128717;</div>
             <div class="project-title-group">
               <h3 class="project-title">Clothing Store (Full-Stack E-Commerce Platform)</h3>
-              <p class="project-subtitle">Production-Ready Full-Stack E-Commerce Solution</p>
+              <p class="project-subtitle">Next.js E-Commerce Platform</p>
             </div>
           </div>
-          <p class="project-desc">A modern, high-performance full-stack e-commerce application featuring product management, authenticated user accounts, persistent shopping cart, dynamic order handling, and dark/light theme integration.</p>
-          <ul class="project-technical-points">
-            <li>Serverless API endpoints with Vercel functions</li>
-            <li>Real-time payment processing with Stripe integration</li>
-          </ul>
-          <div class="project-highlights">
-            <h4>Core Capabilities</h4>
-            <ul>
-              <li>Dynamic catalog browsing with product management workflows</li>
-              <li>Secure JWT authentication sessions with Auth.js</li>
-              <li>Role-based admin controls for protected operations</li>
-              <li>Persistent shopping cart and dynamic order handling</li>
-              <li>Responsive dark/light theme integration across the storefront</li>
-            </ul>
+          <div class="project-stats" aria-label="Project highlights">
+            <div class="project-stat"><strong>4</strong><span>Categories</span></div>
+            <div class="project-stat"><strong>Stripe</strong><span>Payments</span></div>
+            <div class="project-stat"><strong>Admin</strong><span>Panel</span></div>
           </div>
+          <p class="project-desc">A full-stack clothing store built with Next.js and TypeScript, featuring Stripe
+            checkout, user accounts, and an admin panel, backed by Postgres and Prisma.</p>
+          <ul class="project-technical-points">
+
+            <li>Secure authentication with Auth.js (JWT) and bcrypt password hashing</li>
+            <li>Stripe checkout with webhook-confirmed orders and order history</li>
+            <li>Role-based admin panel for product and order management</li>
+            <li>Redis caching and SendGrid order emails</li>
+            <li>Dark/light theme, fully responsive, deployed on Vercel</li>
+          </ul>
           <div class="project-actions">
-            <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-card btn-card-primary" target="_blank" rel="noopener noreferrer"><span>Live Demo</span><span aria-hidden="true">&#8599;</span></a>
-            <a href="https://github.com/hezohaib/clothing-store" class="btn-card btn-card-secondary" target="_blank" rel="noopener noreferrer"><span>View Source Code</span><span aria-hidden="true">&#8984;</span></a>
+            <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-card btn-card-primary" target="_blank"
+              rel="noopener noreferrer"><span>Live Demo</span><span aria-hidden="true">&#8599;</span></a>
+            <a href="https://github.com/hezohaib/clothing-store" class="btn-card btn-card-secondary" target="_blank"
+              rel="noopener noreferrer"><span>View Source Code</span><span aria-hidden="true">&#8984;</span></a>
           </div>
         </div>
         <div class="project-card-side">
           <article class="project-card project-card-featured reveal">
             <div class="project-tech-architecture">
               <div class="tech-category">
-                <div class="tech-category-header"><span class="tech-cat-icon">&#127912;</span><span class="tech-category-title">Frontend</span></div>
-                <div class="project-tags"><span>Next.js 16 (App Router &amp; Turbopack)</span><span>React 19</span><span>TypeScript</span><span>Tailwind CSS v4</span><span>Zustand</span><span>Framer Motion</span></div>
+                <div class="tech-category-header"><span class="tech-cat-icon">&#127912;</span><span
+                    class="tech-category-title">Frontend</span></div>
+                <div class="project-tags"><span>Next.js 16 (App Router &amp; Turbopack)</span><span>React
+                    19</span><span>TypeScript</span><span>Tailwind CSS v4</span><span>Zustand</span><span>Framer
+                    Motion</span></div>
               </div>
               <div class="tech-category">
-                <div class="tech-category-header"><span class="tech-cat-icon">&#9881;</span><span class="tech-category-title">Backend &amp; Database</span></div>
-                <div class="project-tags"><span>Neon Postgres (Cloud SQL)</span><span>Prisma 7 ORM</span><span>Auth.js (JWT)</span><span>bcryptjs</span><span>Redis (Cache)</span><span>SendGrid</span></div>
+                <div class="tech-category-header"><span class="tech-cat-icon">&#9881;</span><span
+                    class="tech-category-title">Backend &amp; Database</span></div>
+                <div class="project-tags"><span>Neon Postgres (Cloud SQL)</span><span>Prisma 7 ORM</span><span>Auth.js
+                    (JWT)</span><span>bcryptjs</span><span>Redis (Cache)</span><span>SendGrid</span></div>
+              </div>
+            </div>
+            <div class="project-browser-mockup" aria-label="Threadly project preview">
+              <div class="browser-toolbar">
+                <span></span><span></span><span></span>
+                <div class="browser-address">threadly.app</div>
+              </div>
+              <div class="browser-screen">
+                <img src="images/threadly-preview.png" alt="Threadly E-Commerce Platform Preview" loading="lazy">
               </div>
             </div>
           </article>
@@ -447,40 +400,38 @@
   <section id="contact" class="section cta-section reveal">
     <div class="container">
       <div class="cta-wrapper">
-        <!-- Status Badge -->
-        <div class="cta-status-badge">
-          <span class="cta-status-dot"></span>
-          <span>Available for new projects &amp; work opportunities</span>
-        </div>
-
         <!-- Heading & Description -->
-        <h2 class="cta-heading">Have a project in mind or need a custom web solution?<br><span class="cta-heading-highlight">Let's build it.</span></h2>
+        <h2 class="cta-heading">Have a project in mind or need a custom web solution?<br><span
+            class="cta-heading-highlight">Let's build it.</span></h2>
         <p class="cta-subtext">
           Available for freelance projects, technical consulting, and full-stack web development opportunities.
           Let's create scalable, high-performance applications together.
         </p>
 
-        <!-- Action Pill Links -->
-        <div class="cta-actions">
-          <a href="mailto:zohaibatkh4x@gmail.com" class="cta-pill">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
+        <!-- Availability Badges -->
+        <div class="cta-info-badges" aria-label="Availability information">
+          <div class="cta-info-badge">
+            <span class="cta-status-dot" aria-hidden="true"></span>
+            <span>Usually responds in &lt; 2 hours</span>
+          </div>
+          <div class="cta-info-badge">
+            <svg class="cta-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <path d="M12 3a14 14 0 0 1 0 18"></path>
+              <path d="M12 3a14 14 0 0 0 0 18"></path>
             </svg>
-            <span>zohaibatkh4x@gmail.com</span>
-          </a>
-          <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="cta-pill">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            <span>@hezohaib</span>
-          </a>
+            <span>Remote / Available Worldwide</span>
+          </div>
         </div>
 
         <!-- Send Message CTA -->
         <button class="btn btn-primary open-contact-modal cta-message-btn" id="openContactModal">
           <span>Send a Direct Message</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
@@ -492,18 +443,17 @@
   <!-- Glassmorphism Smooth Contact Modal -->
   <div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
     aria-labelledby="modalTitle">
-    <div class="modal-card">
+    <div class="modal-card contact-modal-card">
       <button id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-header">
-        <span class="badge">Let's Connect</span>
         <h2 id="modalTitle" class="modal-title">Get In Touch</h2>
         <p class="modal-subtitle">Have a question, feedback, or want to collaborate? Send me a message below!</p>
       </div>
 
       <form id="contactForm" class="modal-form" method="POST">
         <input type="hidden" name="access_key" value="5600b9e7-5055-4db0-a275-9e7ce4200d1a" />
-        <input type="hidden" name="subject" value="New message from Zohaib Ali's portfolio" />
-        <input type="hidden" name="from_name" value="Zohaib Ali Portfolio" />
+        <input type="hidden" name="subject" value="New message from Zohaib's portfolio" />
+        <input type="hidden" name="from_name" value="Zohaib Portfolio" />
         <input type="hidden" name="replyto" id="replyTo" value="" />
         <input type="hidden" name="botcheck" value="" />
         <div class="form-group">
@@ -535,31 +485,43 @@
         <div id="formErrorMessage" class="form-status form-error" role="alert" aria-live="assertive" hidden></div>
       </form>
 
-      <div class="modal-divider"><span>or connect directly</span></div>
-
-      <div class="modal-direct-links">
-        <a href="mailto:zohaibatkh4x@gmail.com" class="direct-link">
-          <span class="direct-icon">✉️</span>
-          <span>zohaibatkh4x@gmail.com</span>
+      <div class="quick-connect" aria-label="Quick connect">
+        <button type="button" class="quick-connect-action quick-connect-email" data-email="zohaibatkh4x@gmail.com"
+          aria-label="Copy email address">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 5h18v14H3V5Zm0 1 9 7 9-7M3 19l6.5-6M21 19l-6.5-6" />
+          </svg>
+          <span class="quick-connect-label">Copy Email to Clipboard</span>
+        </button>
+        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank"
+          rel="noopener noreferrer" aria-label="View GitHub project source">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span class="quick-connect-label">View Project Source</span>
         </a>
-        <a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer" class="direct-link">
-          <span class="direct-icon">💻</span>
-          <span>github.com/hezohaib</span>
+        <a class="quick-connect-action" href="https://www.linkedin.com/in/zohaib-ali/" target="_blank"
+          rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14ZM7.1 20.45H3.54V9H7.1v11.45Z" />
+          </svg>
+          <span class="quick-connect-label">View LinkedIn Profile</span>
         </a>
       </div>
     </div>
   </div>
-
   <!-- Footer -->
   <footer class="glass-footer">
     <div class="footer-inner container">
       <div class="footer-brand">
-        <span class="footer-name">Zohaib Ali</span>
+        <span class="footer-name">Zohaib</span>
         <span class="footer-sep">—</span>
         <span class="footer-role">Software Developer &amp; Web Engineer.</span>
       </div>
       <div class="footer-copyright">
-        <p>&copy; 2026 Zohaib Ali. Designed &amp; Engineered for performance.</p>
+        <p>&copy; 2026 Zohaib. Designed &amp; Engineered for performance.</p>
       </div>
     </div>
   </footer>
@@ -567,4 +529,5 @@
   <!-- Main JavaScript File -->
   <script src="script.js"></script>
 </body>
+
 </html>
