@@ -1,11 +1,35 @@
 /**
  * Zohaib Portfolio - Core Interactive Features
- * - Dark / Light Theme Toggle with LocalStorage persistence
+ * - Dark / Light Theme Toggle with safe LocalStorage persistence
  * - Fade-in on Scroll using IntersectionObserver
- * - Glassmorphism Contact Modal with smooth transitions
+ * - Accessible Glassmorphism Contact Modal (focus trap + focus return)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* ==========================================================================
+     0. Helpers
+     ========================================================================== */
+
+  // localStorage can throw (private mode, in-app browsers, blocked cookies).
+  // These helpers make sure a storage failure never stops the rest of the script.
+  const safeStorage = {
+    get(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+    }
+  };
+
+  // Older Safari (<14) only supports addListener on MediaQueryList.
+  const onMediaChange = (mql, handler) => {
+    if (typeof mql.addEventListener === 'function') {
+      mql.addEventListener('change', handler);
+    } else if (typeof mql.addListener === 'function') {
+      mql.addListener(handler);
+    }
+  };
+
   /* ==========================================================================
      1. Dark / Light Mode Toggle
      ========================================================================== */
@@ -13,10 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
   // Determine initial theme: saved preference -> system preference -> light
-  const savedTheme = localStorage.getItem('theme');
+  const savedTheme = safeStorage.get('theme');
   const initialTheme = savedTheme ? savedTheme : (prefersDarkScheme.matches ? 'dark' : 'light');
 
-  // Apply initial theme
   document.documentElement.setAttribute('data-theme', initialTheme);
 
   if (themeToggleBtn) {
@@ -25,15 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
       document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      safeStorage.set('theme', newTheme);
     });
   }
 
-  // Listen for system theme changes if user has no manual override
-  prefersDarkScheme.addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      const newSystemTheme = e.matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newSystemTheme);
+  // Follow system theme changes only if the user has no manual override
+  onMediaChange(prefersDarkScheme, (e) => {
+    if (!safeStorage.get('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
     }
   });
 
@@ -59,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
-    // Fallback if IntersectionObserver is unsupported
     revealElements.forEach(el => el.classList.add('active'));
   }
 
@@ -115,30 +136,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ==========================================================================
+     4. Copy Email Button (with fallback for browsers without Clipboard API)
+     ========================================================================== */
+  const copyTextFallback = (text) => {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  };
+
   const quickEmailButton = document.querySelector('.quick-connect-email');
   if (quickEmailButton) {
+    const label = quickEmailButton.querySelector('.quick-connect-label');
+    const defaultLabel = label ? label.textContent : '';
+    let labelTimer;
+
+    const flashLabel = (text) => {
+      if (!label) return;
+      label.textContent = text;
+      clearTimeout(labelTimer);
+      labelTimer = setTimeout(() => { label.textContent = defaultLabel; }, 1600);
+    };
+
     quickEmailButton.addEventListener('click', async () => {
       const email = quickEmailButton.dataset.email;
-      if (!email || !navigator.clipboard) return;
+      if (!email) return;
 
-      const label = quickEmailButton.querySelector('.quick-connect-label');
-      navigator.clipboard.writeText(email)
-        .then(() => {
-          if (!label) return;
-          label.textContent = 'Email Copied';
-          setTimeout(() => {
-            label.textContent = 'Copy Email to Clipboard';
-          }, 1600);
-        })
-        .catch(() => {
-          if (label) label.textContent = 'Copy Failed';
-        });
+      let copied = false;
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(email);
+          copied = true;
+        } catch (e) {
+          copied = false;
+        }
+      }
+      if (!copied) copied = copyTextFallback(email);
+
+      flashLabel(copied ? 'Email Copied' : 'Copy Failed');
     });
   }
 
-
   /* ==========================================================================
-     4. Smooth Popup Contact Modal
+     5. Accessible Popup Contact Modal
      ========================================================================== */
   const contactModal = document.getElementById('contactModal');
   const openModalButtons = document.querySelectorAll('.open-contact-modal, #openContactModal');
@@ -148,24 +195,58 @@ document.addEventListener('DOMContentLoaded', () => {
   const formErrorMessage = document.getElementById('formErrorMessage');
   const replyToInput = document.getElementById('replyTo');
 
+  const FOCUSABLE = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([type="hidden"]):not([disabled]):not([tabindex="-1"])',
+    'textarea:not([disabled])',
+    'select:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+
+  let lastFocusedElement = null;
+  let autoCloseTimer = null;
+
+  const getFocusable = () =>
+    Array.from(contactModal.querySelectorAll(FOCUSABLE))
+      .filter(el => el.offsetParent !== null);
+
+  const hideStatusMessages = () => {
+    if (formSuccessMessage) formSuccessMessage.hidden = true;
+    if (formErrorMessage) formErrorMessage.hidden = true;
+  };
+
   const openModal = () => {
     if (!contactModal) return;
+
+    // Cancel a pending auto-close from a previous successful send
+    clearTimeout(autoCloseTimer);
+    hideStatusMessages();
+
+    lastFocusedElement = document.activeElement;
     contactModal.classList.add('active');
     contactModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Focus first input for accessibility
     setTimeout(() => {
-      const firstInput = contactModal.querySelector('input:not([type="hidden"]), textarea, select');
+      const firstInput = contactModal.querySelector('input:not([type="hidden"]):not([tabindex="-1"]), textarea, select');
       if (firstInput) firstInput.focus();
     }, 150);
   };
 
   const closeModal = () => {
     if (!contactModal) return;
+
+    clearTimeout(autoCloseTimer);
     contactModal.classList.remove('active');
     contactModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+
+    // Return focus to the control that opened the modal
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
   };
 
   openModalButtons.forEach(btn => {
@@ -179,23 +260,45 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModalBtn.addEventListener('click', closeModal);
   }
 
-  // Close when clicking on the blurred backdrop overlay
+  // Close when clicking the blurred backdrop
   if (contactModal) {
     contactModal.addEventListener('click', (e) => {
-      if (e.target === contactModal) {
-        closeModal();
-      }
+      if (e.target === contactModal) closeModal();
     });
   }
 
-  // Close on Escape key press
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && contactModal && contactModal.classList.contains('active')) {
+    if (!contactModal || !contactModal.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
       closeModal();
+      return;
+    }
+
+    // Focus trap: keep Tab / Shift+Tab inside the modal
+    if (e.key === 'Tab') {
+      const focusable = getFocusable();
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey && (active === first || !contactModal.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !contactModal.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
     }
   });
 
-  // Handle contact form submission
+  /* ==========================================================================
+     6. Contact Form Submission
+     ========================================================================== */
+  const GENERIC_ERROR = 'Something went wrong while sending your message. Please try again.';
+
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -204,8 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitLabel = submitBtn ? submitBtn.querySelector('.submit-label') : null;
       const accessKey = contactForm.querySelector('input[name="access_key"]')?.value.trim();
 
-      if (formSuccessMessage) formSuccessMessage.hidden = true;
-      if (formErrorMessage) formErrorMessage.hidden = true;
+      hideStatusMessages();
 
       if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
         if (formErrorMessage) {
@@ -234,35 +336,36 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
         });
-        const result = await response.json();
 
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || 'Unable to send your message.');
+        // The server might return non-JSON (e.g. an HTML error page)
+        let result = null;
+        try {
+          result = await response.json();
+        } catch (parseError) {
+          result = null;
         }
 
-        if (formSuccessMessage) {
-          formSuccessMessage.hidden = false;
+        if (!response.ok || !result || !result.success) {
+          throw new Error(result && result.message ? result.message : GENERIC_ERROR);
         }
+
+        if (formSuccessMessage) formSuccessMessage.hidden = false;
         contactForm.reset();
 
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('is-loading');
-          if (submitLabel) submitLabel.textContent = 'Send Message';
-        }
-
-        // Auto close modal after successful submission
-        setTimeout(() => {
-          if (formSuccessMessage) {
-            formSuccessMessage.hidden = true;
-          }
+        // Auto-close after success (cancelled if the modal is reopened or closed manually)
+        clearTimeout(autoCloseTimer);
+        autoCloseTimer = setTimeout(() => {
+          hideStatusMessages();
           closeModal();
         }, 2200);
       } catch (error) {
+        // Network failures throw a TypeError with a technical message; show a friendly one instead
+        const message = error instanceof Error && error.name !== 'TypeError'
+          ? error.message
+          : GENERIC_ERROR;
+
         if (formErrorMessage) {
-          formErrorMessage.textContent = error instanceof Error
-            ? error.message
-            : 'Something went wrong while sending your message. Please try again.';
+          formErrorMessage.textContent = message;
           formErrorMessage.hidden = false;
         }
       } finally {

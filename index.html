@@ -12,48 +12,74 @@
     content="Full Stack Developer building modern, scalable web applications from idea to deployment." />
   <meta name="author" content="Zohaib Ali" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b0c10" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)" />
   <link rel="canonical" href="https://iamzohaib.me/" />
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp / Discord -->
+  <!-- NOTE: bump ?v=2 to ?v=3 (and so on) every time you replace og-image.png -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://iamzohaib.me/" />
   <meta property="og:site_name" content="Zohaib Ali Portfolio" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Zohaib Ali | Full Stack Developer" />
   <meta property="og:description"
     content="Full Stack Developer building modern, scalable web applications from idea to deployment." />
-  <meta property="og:image" content="https://iamzohaib.me/Images/og-image.png" />
-  <meta property="og:image:secure_url" content="https://iamzohaib.me/Images/og-image.png" />
+  <meta property="og:image" content="https://iamzohaib.me/images/og-image.png?v=2" />
+  <meta property="og:image:secure_url" content="https://iamzohaib.me/images/og-image.png?v=2" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Zohaib Ali - Full Stack Developer Portfolio" />
 
-  <!-- Twitter -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://iamzohaib.me/" />
   <meta name="twitter:title" content="Zohaib Ali | Full Stack Developer" />
   <meta name="twitter:description"
     content="Full Stack Developer building modern, scalable web applications from idea to deployment." />
-  <meta name="twitter:image" content="https://iamzohaib.me/Images/og-image.png" />
+  <meta name="twitter:image" content="https://iamzohaib.me/images/og-image.png?v=2" />
   <meta name="twitter:image:alt" content="Zohaib Ali - Full Stack Developer Portfolio" />
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+    href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌐%3C/text%3E%3C/svg%3E">
   <!-- Pre-render theme check to prevent flash of wrong theme -->
   <script>
     (function () {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) { /* storage blocked (private mode / in-app browser) */ }
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
-<base target="_blank">
+  <!-- If JavaScript is disabled, show all sections instead of leaving them invisible -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .project-card-featured .tech-category .project-tags span { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+  <!-- Structured data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Zohaib Ali",
+    "url": "https://iamzohaib.me/",
+    "jobTitle": "Full Stack Developer",
+    "description": "Full Stack Developer building modern, scalable web applications from idea to deployment.",
+    "sameAs": [
+      "https://github.com/hezohaib",
+      "https://www.linkedin.com/in/zohaib-ali/"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -70,7 +96,7 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
-          <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
             <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="5"></circle>
@@ -109,7 +135,7 @@
             d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14ZM7.1 20.45H3.54V9H7.1v11.45Z" />
         </svg>
       </a>
-      <a href="/cdn-cgi/l/email-protection#5923363138303b382d32316d21193e34383035773a3634" aria-label="Email Zohaib" title="Email">
+      <a href="mailto:zohaibatkh4x@gmail.com" aria-label="Email Zohaib" title="Email">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 5h18v14H3V5Zm0 1 9 7 9-7M3 19l6.5-6M21 19l-6.5-6" />
         </svg>
@@ -118,8 +144,9 @@
     <span class="floating-sidebar-line" aria-hidden="true"></span>
   </aside>
 
+  <main id="main">
   <!-- Hero Section -->
-  <section class="hero reveal">
+  <section class="hero">
     <div class="container hero-content">
       <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib</span></h1>
       <p class="hero-subtitle">
@@ -127,7 +154,7 @@
       </p>
       <div class="hero-buttons">
         <a href="#projects" class="btn btn-primary">View Projects</a>
-        <button class="btn btn-outline open-contact-modal">Contact Me</button>
+        <button type="button" class="btn btn-outline open-contact-modal">Contact Me</button>
       </div>
     </div>
   </section>
@@ -211,7 +238,7 @@
     <div class="container">
       <div class="section-header">
         <div class="fcc-badge">
-          <span class="fcc-fire"></span> Verified Developer Path
+          <span class="fcc-fire" aria-hidden="true">&#128293;</span> Verified Developer Path
         </div>
         <h2 class="section-title">My freeCodeCamp Journey</h2>
         <div class="title-underline"></div>
@@ -222,7 +249,7 @@
         <div class="fcc-official-link-wrapper">
           <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
             class="btn btn-outline fcc-official-btn">
-            <span class="fcc-fire-icon"></span>
+            <span class="fcc-fire-icon" aria-hidden="true">&#128293;</span>
             <span>Visit freeCodeCamp.org</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -461,7 +488,7 @@
         </div>
 
         <!-- Send Message CTA -->
-        <button class="btn btn-primary open-contact-modal cta-message-btn">
+        <button type="button" class="btn btn-primary open-contact-modal cta-message-btn">
           <span>Send a Direct Message</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -473,11 +500,13 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Glassmorphism Smooth Contact Modal -->
   <div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
     aria-labelledby="modalTitle">
     <div class="modal-card contact-modal-card">
-      <button id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-header">
         <h2 id="modalTitle" class="modal-title">Get In Touch</h2>
         <p class="modal-subtitle">Have a question, feedback, or want to collaborate? Send me a message below!</p>
@@ -488,7 +517,7 @@
         <input type="hidden" name="subject" value="New message from Zohaib's portfolio" />
         <input type="hidden" name="from_name" value="Zohaib Portfolio" />
         <input type="hidden" name="replyto" id="replyTo" value="" />
-        <input type="hidden" name="botcheck" value="" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
         <div class="form-group">
           <label for="userName">Your Name</label>
           <input type="text" id="userName" name="name" placeholder="Your Name" autocomplete="name" maxlength="100"
@@ -526,13 +555,13 @@
           </svg>
           <span class="quick-connect-label">Copy Email to Clipboard</span>
         </button>
-        <a class="quick-connect-action" href="https://github.com/hezohaib/clothing-store" target="_blank"
-          rel="noopener noreferrer" aria-label="View Clothing Store source code">
+        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank"
+          rel="noopener noreferrer" aria-label="Visit GitHub profile">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
               d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
           </svg>
-          <span class="quick-connect-label">View Project Source</span>
+          <span class="quick-connect-label">View GitHub Profile</span>
         </a>
         <a class="quick-connect-action" href="https://www.linkedin.com/in/zohaib-ali/" target="_blank"
           rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
@@ -549,18 +578,18 @@
   <footer class="glass-footer">
     <div class="footer-inner container">
       <div class="footer-brand">
-        <span class="footer-name">Zohaib</span>
+        <span class="footer-name">Zohaib Ali</span>
         <span class="footer-sep">—</span>
-        <span class="footer-role">Software Developer &amp; Web Engineer.</span>
+        <span class="footer-role">Full Stack Developer</span>
       </div>
       <div class="footer-copyright">
-        <p>&copy; 2026 Zohaib. Designed &amp; Engineered for performance.</p>
+        <p>&copy; 2026 Zohaib Ali. Designed &amp; Engineered for performance.</p>
       </div>
     </div>
   </footer>
 
   <!-- Main JavaScript File -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 
 </html>
