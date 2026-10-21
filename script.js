@@ -84,58 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('active'));
   }
 
-  /* ==========================================================================
-     3. Featured Project Interactions
+    /* ==========================================================================
+     3. Project Preview Image Fallback
      ========================================================================== */
-  const featuredCard = document.querySelector('.project-card-featured');
-  const projectPreview = featuredCard?.querySelector('.browser-screen img');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const desktopPointer = window.matchMedia('(min-width: 769px) and (pointer: fine)');
+  const projectPreview = document.querySelector('.browser-screen img');
 
-  if (featuredCard) {
-    if (projectPreview) {
-      const showPreviewFallback = () => {
-        projectPreview.closest('.browser-screen').classList.add('image-fallback');
-      };
+  if (projectPreview) {
+    const showPreviewFallback = () => {
+      projectPreview.closest('.browser-screen').classList.add('image-fallback');
+    };
 
-      projectPreview.addEventListener('error', showPreviewFallback, { once: true });
-      if (projectPreview.complete && projectPreview.naturalWidth === 0) {
-        showPreviewFallback();
-      }
-    }
-
-    if ('IntersectionObserver' in window) {
-      const chipObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            featuredCard.classList.add('tech-chips-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-
-      chipObserver.observe(featuredCard);
-    } else {
-      featuredCard.classList.add('tech-chips-visible');
-    }
-
-    if (!reducedMotion.matches && desktopPointer.matches) {
-      const updateTilt = (event) => {
-        const bounds = featuredCard.getBoundingClientRect();
-        const rotateX = ((event.clientY - bounds.top) / bounds.height - 0.5) * -4;
-        const rotateY = ((event.clientX - bounds.left) / bounds.width - 0.5) * 5;
-        featuredCard.style.setProperty('--tilt-x', `${rotateX}deg`);
-        featuredCard.style.setProperty('--tilt-y', `${rotateY}deg`);
-      };
-
-      featuredCard.addEventListener('mousemove', updateTilt);
-      featuredCard.addEventListener('mouseleave', () => {
-        featuredCard.style.setProperty('--tilt-x', '0deg');
-        featuredCard.style.setProperty('--tilt-y', '0deg');
-      });
+    projectPreview.addEventListener('error', showPreviewFallback, { once: true });
+    if (projectPreview.complete && projectPreview.naturalWidth === 0) {
+      showPreviewFallback();
     }
   }
-
   /* ==========================================================================
      4. Copy Email Button (with fallback for browsers without Clipboard API)
      ========================================================================== */
@@ -316,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return;
       }
-
       if (replyToInput) {
         replyToInput.value = contactForm.elements.email.value.trim();
       }
@@ -377,4 +339,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  
 });

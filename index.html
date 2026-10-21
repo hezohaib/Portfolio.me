@@ -41,7 +41,7 @@
   <meta name="twitter:image" content="https://iamzohaib.me/images/og-image.png?v=2" />
   <meta name="twitter:image:alt" content="Zohaib Ali - Full Stack Developer Portfolio" />
 
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
@@ -61,8 +61,15 @@
   <!-- If JavaScript is disabled, show all sections instead of leaving them invisible -->
   <noscript>
     <style>
-      .reveal { opacity: 1 !important; transform: none !important; }
-      .project-card-featured .tech-category .project-tags span { opacity: 1 !important; transform: none !important; }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .project-card-featured .tech-category .project-tags span {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     </style>
   </noscript>
   <!-- Structured data for Google -->
@@ -96,7 +103,8 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
-          <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme"
+            title="Toggle theme">
             <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="5"></circle>
@@ -145,360 +153,349 @@
   </aside>
 
   <main id="main">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-content">
-      <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib</span></h1>
-      <p class="hero-subtitle">
-        I help businesses and startups build modern, scalable web applications from idea to deployment.
-      </p>
-      <div class="hero-buttons">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <button type="button" class="btn btn-outline open-contact-modal">Contact Me</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Me Section -->
-  <section id="about" class="section about reveal">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">About Me</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="about-content">
-        <div class="about-text">
-          <p>
-            Full Stack Developer focused on building scalable, high-performance web applications. I design responsive,
-            intuitive front-ends and engineer reliable back-end systems that work seamlessly together. I care about
-            clean architecture, efficient code, and delivering products that make a real impact.
-          </p>
-          <div class="about-stats">
-            <div class="stat-item">
-              <span class="stat-number">10+</span>
-              <span class="stat-label">Production Ready Apps</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">99%</span>
-              <span class="stat-label">Code Optimization &amp; Quality</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">24/7</span>
-              <span class="stat-label">System Reliability &amp; Uptime</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" class="section skills reveal">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Skills</h2>
-        <div class="title-underline"></div>
-        <p class="section-description">Professional full-stack development technologies and tools</p>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-category reveal">
-          <h3>Frontend</h3>
-          <div class="skill-tags">
-            <span>React</span>
-            <span>Next.js</span>
-            <span>TypeScript</span>
-            <span>Tailwind CSS</span>
-          </div>
-        </div>
-
-        <div class="skill-category reveal">
-          <h3>Backend &amp; APIs</h3>
-          <div class="skill-tags">
-            <span>Node.js</span>
-            <span>Express</span>
-            <span>RESTful APIs</span>
-          </div>
-        </div>
-
-        <div class="skill-category reveal">
-          <h3>Database &amp; Tools</h3>
-          <div class="skill-tags">
-            <span>PostgreSQL</span>
-            <span>Prisma ORM</span>
-            <span>Git</span>
-            <span>Vercel</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- freeCodeCamp Certification Journey Section -->
-  <section id="journey" class="section journey reveal">
-    <div class="container">
-      <div class="section-header">
-        <div class="fcc-badge">
-          <span class="fcc-fire" aria-hidden="true">&#128293;</span> Verified Developer Path
-        </div>
-        <h2 class="section-title">My freeCodeCamp Journey</h2>
-        <div class="title-underline"></div>
-        <p class="section-description">
-          Progressing through industry-standard curriculums and building real-world projects to earn verified
-          certifications.
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <p class="hero-eyebrow">Full Stack Developer · Next.js · TypeScript</p>
+        <h1 class="hero-title">Hi, I'm <span class="highlight">Zohaib</span></h1>
+        <p class="hero-subtitle">
+          I help businesses and startups build modern, scalable web applications from idea to deployment.
         </p>
-        <div class="fcc-official-link-wrapper">
-          <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer"
-            class="btn btn-outline fcc-official-btn">
-            <span class="fcc-fire-icon" aria-hidden="true">&#128293;</span>
-            <span>Visit freeCodeCamp.org</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn-pill">View Projects <span class="arrows"
+              aria-hidden="true">&gt;&gt;&gt;</span></a>
+          <button type="button" class="btn-pill btn-pill-ghost open-contact-modal">Contact Me</button>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section about reveal">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About Me</h2>
+          <div class="title-underline"></div>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              Full Stack Developer focused on building scalable, high-performance web applications. I design responsive,
+              intuitive front-ends and engineer reliable back-end systems that work seamlessly together. I care about
+              clean architecture, efficient code, and delivering products that make a real impact.
+            </p>
+            <div class="about-stats">
+              <div class="stat-item">
+                <span class="stat-number">7</span>
+                <span class="stat-label">freeCodeCamp Certification Tracks</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Live Full-Stack Production App</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">Next.js</span>
+                <span class="stat-label">Primary Stack, End to End</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="fcc-roadmap" aria-label="Completed freeCodeCamp certifications">
-        <div class="fcc-roadmap-line" aria-hidden="true"></div>
-        <ol class="fcc-roadmap-list">
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/"
-              target="_blank" rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">&#128187;</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 01</span>
-                  <h3>Responsive Web Design Certification</h3>
-                  <p>Responsive layouts, accessibility, semantic HTML, and modern CSS foundations.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link"
-              href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/" target="_blank"
-              rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">JS</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 02</span>
-                  <h3>JavaScript Algorithms and Data Structures Certification</h3>
-                  <p>Core JavaScript, algorithms, data structures, and problem-solving techniques.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/front-end-development-libraries/"
-              target="_blank" rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">&#9883;</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 03</span>
-                  <h3>Front-End Development Libraries Certification</h3>
-                  <p>React interfaces, component architecture, state management, and responsive UI.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
-              target="_blank" rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon fcc-python-icon" aria-hidden="true">Py</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 04</span>
-                  <h3>Python Certification</h3>
-                  <p>Python fundamentals, scripting, object-oriented programming, and automation.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/relational-database/" target="_blank"
-              rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">&#128451;</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 05</span>
-                  <h3>Relational Databases Certification</h3>
-                  <p>SQL, relational data modeling, PostgreSQL workflows, and database management.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/back-end-development-and-apis/"
-              target="_blank" rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">&#9881;</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 06</span>
-                  <h3>Back-End Development and APIs Certification</h3>
-                  <p>Server-side applications, RESTful APIs, authentication, and production services.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-          <li class="fcc-roadmap-step reveal">
-            <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/full-stack-developer/" target="_blank"
-              rel="noopener noreferrer">
-              <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
-              <div class="fcc-step-content">
-                <div class="fcc-step-icon" aria-hidden="true">&lt;/&gt;</div>
-                <div class="fcc-step-copy">
-                  <span class="fcc-step-number">Step 07</span>
-                  <h3>Certified Full-Stack Developer Curriculum</h3>
-                  <p>End-to-end product development across frontend, backend, databases, and deployment.</p>
-                </div>
-                <span class="fcc-completed-badge"><span aria-hidden="true">&#10003;</span> Completed</span>
-              </div>
-            </a>
-          </li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="section projects reveal">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Featured Project</h2>
-        <div class="title-underline"></div>
-        <p class="section-description">High-performance full-stack web application &amp; production engineering</p>
-      </div>
-      <div class="featured-project-container">
-        <div class="project-info-side">
-          <div class="project-featured-badge-top">
-            <div class="featured-badge-top-row">
-              <span class="featured-project-badge"><span class="featured-star-icon"
-                aria-hidden="true">&#9733;</span><span>Featured Project</span></span>
-            </div>
-            <div class="featured-badge-group">
-              <span class="featured-status-pill"><span class="status-dot pulsing"></span><span>Live
-                  Deployment</span></span>
-              <span class="project-tag">Full-Stack Platform</span>
+    <!-- Skills Section -->
+    <section id="skills" class="section skills reveal">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Skills</h2>
+          <div class="title-underline"></div>
+          <p class="section-description">Professional full-stack development technologies and tools</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-category reveal">
+            <h3>Frontend</h3>
+            <div class="skill-tags">
+              <span>React</span>
+              <span>Next.js</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
             </div>
           </div>
-          <div class="project-header">
-            <div class="project-icon-box">&#128717;</div>
-            <div class="project-title-group">
-              <h3 class="project-title">Clothing Store (Full-Stack E-Commerce Platform)</h3>
-              <p class="project-subtitle">Next.js E-Commerce Platform</p>
+
+          <div class="skill-category reveal">
+            <h3>Backend &amp; APIs</h3>
+            <div class="skill-tags">
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>RESTful APIs</span>
             </div>
           </div>
-          <div class="project-stats" aria-label="Project highlights">
-            <div class="project-stat"><strong>4</strong><span>Categories</span></div>
-            <div class="project-stat"><strong>Stripe</strong><span>Payments</span></div>
-            <div class="project-stat"><strong>Admin</strong><span>Panel</span></div>
-          </div>
-          <p class="project-desc">A full-stack clothing store built with Next.js and TypeScript, featuring Stripe
-            checkout, user accounts, and an admin panel, backed by Postgres and Prisma.</p>
-          <ul class="project-technical-points">
 
-            <li>Secure authentication with Auth.js (JWT) and bcrypt password hashing</li>
-            <li>Stripe checkout with webhook-confirmed orders and order history</li>
-            <li>Role-based admin panel for product and order management</li>
-            <li>Redis caching and SendGrid order emails</li>
-            <li>Dark/light theme, fully responsive, deployed on Vercel</li>
-          </ul>
-          <div class="project-actions">
-            <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-card btn-card-primary" target="_blank"
-              rel="noopener noreferrer"><span>Live Demo</span><span aria-hidden="true">&#8599;</span></a>
-            <a href="https://github.com/hezohaib/clothing-store" class="btn-card btn-card-secondary" target="_blank"
-              rel="noopener noreferrer"><span>View Source Code</span><span aria-hidden="true">&#8984;</span></a>
+          <div class="skill-category reveal">
+            <h3>Database &amp; Tools</h3>
+            <div class="skill-tags">
+              <span>PostgreSQL</span>
+              <span>Prisma ORM</span>
+              <span>Git</span>
+              <span>Vercel</span>
+            </div>
           </div>
         </div>
-        <div class="project-card-side">
-          <article class="project-card project-card-featured reveal">
-            <div class="project-tech-architecture">
-              <div class="tech-category">
-                <div class="tech-category-header"><span class="tech-cat-icon">&#127912;</span><span
-                    class="tech-category-title">Frontend</span></div>
-                <div class="project-tags"><span>Next.js 16 (App Router &amp; Turbopack)</span><span>React
-                    19</span><span>TypeScript</span><span>Tailwind CSS v4</span><span>Zustand</span><span>Framer
-                    Motion</span></div>
-              </div>
-              <div class="tech-category">
-                <div class="tech-category-header"><span class="tech-cat-icon">&#9881;</span><span
-                    class="tech-category-title">Backend &amp; Database</span></div>
-                <div class="project-tags"><span>Neon Postgres (Cloud SQL)</span><span>Prisma 7 ORM</span><span>Auth.js
-                    (JWT)</span><span>bcryptjs</span><span>Redis (Cache)</span><span>SendGrid</span></div>
-              </div>
+      </div>
+    </section>
+
+    <!-- freeCodeCamp Certification Journey Section -->
+    <section id="journey" class="section journey reveal">
+      <div class="container">
+        <div class="section-header">
+          <div class="fcc-badge">
+            <span class="fcc-fire" aria-hidden="true">&#128293;</span>Learning Path
+          </div>
+          <h2 class="section-title">My freeCodeCamp Journey</h2>
+          <div class="title-underline"></div>
+          <p class="section-description">
+            Progressing through industry-standard curriculums and building real-world projects on the way to verified certifications.
+          </p>
+          <div class="fcc-official-link-wrapper">
+            <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer" class="btn-pill">
+              Visit freeCodeCamp.org <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="fcc-roadmap" aria-label="Completed freeCodeCamp certifications">
+          <div class="fcc-roadmap-line" aria-hidden="true"></div>
+          <ol class="fcc-roadmap-list">
+            <li class="fcc-roadmap-step reveal">
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/"
+                target="_blank" rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">&#128187;</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 01</span>
+                    <h3>Responsive Web Design Certification</h3>
+                    <p>Responsive layouts, accessibility, semantic HTML, and modern CSS foundations.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+              
+              <a class="fcc-step-link"
+                href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/" target="_blank"
+                rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">JS</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 02</span>
+                    <h3>JavaScript Algorithms and Data Structures Certification</h3>
+                    <p>Core JavaScript, algorithms, data structures, and problem-solving techniques.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+              
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/front-end-development-libraries/"
+                target="_blank" rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">&#9883;</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 03</span>
+                    <h3>Front-End Development Libraries Certification</h3>
+                    <p>React interfaces, component architecture, state management, and responsive UI.</p>
+                  </div>
+                  <s<span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+             
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
+                target="_blank" rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon fcc-python-icon" aria-hidden="true">Py</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 04</span>
+                    <h3>Python Certification</h3>
+                    <p>Python fundamentals, scripting, object-oriented programming, and automation.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+              
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/relational-database/" target="_blank"
+                rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">&#128451;</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 05</span>
+                    <h3>Relational Databases Certification</h3>
+                    <p>SQL, relational data modeling, PostgreSQL workflows, and database management.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/back-end-development-and-apis/"
+                target="_blank" rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">&#9881;</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 06</span>
+                    <h3>Back-End Development and APIs Certification</h3>
+                    <p>Server-side applications, RESTful APIs, authentication, and production services.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+            <li class="fcc-roadmap-step reveal">
+              <a class="fcc-step-link" href="https://www.freecodecamp.org/learn/full-stack-developer/" target="_blank"
+                rel="noopener noreferrer">
+                <div class="fcc-step-marker" aria-hidden="true">&#10003;</div>
+                <div class="fcc-step-content">
+                  <div class="fcc-step-icon" aria-hidden="true">&lt;/&gt;</div>
+                  <div class="fcc-step-copy">
+                    <span class="fcc-step-number">Step 07</span>
+                    <h3>Certified Full-Stack Developer Curriculum</h3>
+                    <p>End-to-end product development across frontend, backend, databases, and deployment.</p>
+                  </div>
+                  <span class="fcc-completed-badge"
+                    style="color:#b45309;background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4)"><span
+                      aria-hidden="true">&#9203;</span> In Progress</span>
+                </div>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects reveal">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Project</h2>
+          <div class="title-underline"></div>
+          <p class="section-description">High-performance full-stack web application &amp; production engineering</p>
+        </div>
+
+        <div class="project-showcase">
+          <div class="project-copy">
+            <span class="project-eyebrow"><span class="status-dot" aria-hidden="true"></span>Live Deployment</span>
+            <h3 class="project-heading"><span class="accent">Clothing Store.</span> A full-stack <span
+                class="nowrap">e-commerce</span> platform.</h3>
+            <p class="project-desc">Built with Next.js and TypeScript, featuring Stripe checkout, user accounts, and an
+              admin panel, backed by Postgres and Prisma.</p>
+            <ul class="project-points">
+              <li>Secure auth with Auth.js (JWT) and bcrypt hashing</li>
+              <li>Stripe checkout with webhook-confirmed orders</li>
+              <li>Role-based admin panel for products and orders</li>
+              <li>Redis caching, SendGrid emails, deployed on Vercel</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://clothing-store-eight-puce.vercel.app/" class="btn-pill" target="_blank"
+                rel="noopener noreferrer">Live Demo <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span></a>
+              <a href="https://github.com/hezohaib/clothing-store" class="btn-pill btn-pill-ghost" target="_blank"
+                rel="noopener noreferrer">View Source Code</a>
             </div>
-            <div class="project-browser-mockup" aria-label="Clothing Store project preview">
+          </div>
+
+          <div class="project-visual">
+            <div class="showcase-card showcase-main">
               <div class="browser-toolbar">
                 <span></span><span></span><span></span>
                 <div class="browser-address">clothing-store-eight-puce.vercel.app</div>
               </div>
               <div class="browser-screen">
-                <img src="images/clothing-store-preview.png" alt="Clothing Store E-Commerce Platform Preview" loading="lazy">
+                <img src="images/clothing-store-preview.png" alt="Clothing Store E-Commerce Platform Preview"
+                  loading="lazy">
               </div>
             </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- CTA / Contact Section -->
-  <section id="contact" class="section cta-section reveal">
-    <div class="container">
-      <div class="cta-wrapper">
-        <!-- Heading & Description -->
-        <h2 class="cta-heading">Have a project in mind or need a custom web solution?<br><span
-            class="cta-heading-highlight">Let's build it.</span></h2>
-        <p class="cta-subtext">
-          Available for freelance projects, technical consulting, and full-stack web development opportunities.
-          Let's create scalable, high-performance applications together.
-        </p>
 
-        <!-- Availability Badges -->
-        <div class="cta-info-badges" aria-label="Availability information">
-          <div class="cta-info-badge">
-            <span class="cta-status-dot" aria-hidden="true"></span>
-            <span>Usually responds in &lt; 2 hours</span>
-          </div>
-          <div class="cta-info-badge">
-            <svg class="cta-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-              aria-hidden="true">
-              <circle cx="12" cy="12" r="9"></circle>
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <path d="M12 3a14 14 0 0 1 0 18"></path>
-              <path d="M12 3a14 14 0 0 0 0 18"></path>
-            </svg>
-            <span>Remote / Available Worldwide</span>
+            <div class="showcase-card showcase-stack">
+              <p class="showcase-label">Frontend</p>
+              <div class="showcase-chips">
+                <span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>Tailwind CSS
+                  v4</span><span>Zustand</span><span>Framer Motion</span>
+              </div>
+              <p class="showcase-label">Backend &amp; Database</p>
+              <div class="showcase-chips">
+                <span>Neon Postgres</span><span>Prisma
+                  7</span><span>Auth.js</span><span>bcryptjs</span><span>Redis</span><span>SendGrid</span>
+              </div>
+            </div>
+
+            <div class="showcase-card showcase-status">
+              <span class="status-check" aria-hidden="true">&#10003;</span>
+              <div>
+                <strong>Order confirmed</strong>
+                <small>Verified by Stripe webhook</small>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- Send Message CTA -->
-        <button type="button" class="btn btn-primary open-contact-modal cta-message-btn">
-          <span>Send a Direct Message</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
       </div>
-    </div>
-  </section>
+    </section>
+    <!-- CTA / Contact Section -->
+    <section id="contact" class="section cta-section reveal">
+      <div class="container">
+        <div class="cta-wrapper">
+          <!-- Heading & Description -->
+          <h2 class="cta-heading">Have a project in mind or need a custom web solution?<br><span
+              class="cta-heading-highlight">Let's build it.</span></h2>
+          <p class="cta-subtext">
+            Available for freelance projects, technical consulting, and full-stack web development opportunities.
+            Let's create scalable, high-performance applications together.
+          </p>
+
+          <!-- Availability Badges -->
+          <div class="cta-info-badges" aria-label="Availability information">
+            <div class="cta-info-badge">
+              <span class="cta-status-dot" aria-hidden="true"></span>
+              <span>Usually responds in &lt; 2 hours</span>
+            </div>
+            <div class="cta-info-badge">
+              <svg class="cta-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <path d="M12 3a14 14 0 0 1 0 18"></path>
+                <path d="M12 3a14 14 0 0 0 0 18"></path>
+              </svg>
+              <span>Remote / Available Worldwide</span>
+            </div>
+          </div>
+
+          <!-- Send Message CTA -->
+          <button type="button" class="btn-pill open-contact-modal">
+            Send a Direct Message <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -517,7 +514,8 @@
         <input type="hidden" name="subject" value="New message from Zohaib's portfolio" />
         <input type="hidden" name="from_name" value="Zohaib Portfolio" />
         <input type="hidden" name="replyto" id="replyTo" value="" />
-        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none"
+          aria-hidden="true" />
         <div class="form-group">
           <label for="userName">Your Name</label>
           <input type="text" id="userName" name="name" placeholder="Your Name" autocomplete="name" maxlength="100"
@@ -533,13 +531,9 @@
           <textarea id="userMessage" name="message" rows="5" placeholder="How can I help you?" maxlength="2000"
             required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">
+        <button type="submit" class="btn-pill btn-pill-block">
           <span class="submit-label">Send Message</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
+          <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
         </button>
         <div id="formSuccessMessage" class="form-status form-success" role="status" aria-live="polite" hidden>
           Thanks for reaching out! Your message has been sent.
@@ -555,8 +549,8 @@
           </svg>
           <span class="quick-connect-label">Copy Email to Clipboard</span>
         </button>
-        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank"
-          rel="noopener noreferrer" aria-label="Visit GitHub profile">
+        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
+          aria-label="Visit GitHub profile">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
               d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -589,7 +583,8 @@
   </footer>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=5"></script>
+
 </body>
 
 </html>
