@@ -142,6 +142,25 @@ body::after {
   margin: 0 auto;
 }
 
+.skip-link {
+  position: fixed;
+  z-index: 1100;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.65rem 1rem;
+  color: var(--bg-body);
+  background: var(--text-main);
+  border-radius: var(--radius-sm);
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid var(--primary-hover);
+  outline-offset: 3px;
+}
+
 /* --------------------------------------------------------------------------
    3. Glassmorphic Header & Navigation
    -------------------------------------------------------------------------- */
@@ -1388,7 +1407,8 @@ body::after {
 
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: none;
+  outline: 2px solid var(--primary-hover);
+  outline-offset: 2px;
   border-color: #6b7280;
 }
 
@@ -1643,17 +1663,17 @@ body::after {
 
 /* Respect "reduce motion" system setting */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
   .reveal {
     opacity: 1;
     transform: none;
-    transition: none;
-  }
-
-  .cta-status-dot {
-    animation: none;
   }
 }

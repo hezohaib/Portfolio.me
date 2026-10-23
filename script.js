@@ -169,6 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastFocusedElement = null;
   let autoCloseTimer = null;
+  let modalFocusTimer = null;
+  const pageContent = document.querySelectorAll('body > header, body > .skip-link, body > aside, body > main, body > footer');
 
   const getFocusable = () =>
     Array.from(contactModal.querySelectorAll(FOCUSABLE))
@@ -189,9 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
     lastFocusedElement = document.activeElement;
     contactModal.classList.add('active');
     contactModal.setAttribute('aria-hidden', 'false');
+    pageContent.forEach(element => { element.inert = true; });
     document.body.style.overflow = 'hidden';
 
-    setTimeout(() => {
+    clearTimeout(modalFocusTimer);
+    modalFocusTimer = setTimeout(() => {
       const firstInput = contactModal.querySelector('input:not([type="hidden"]):not([tabindex="-1"]), textarea, select');
       if (firstInput) firstInput.focus();
     }, 150);
@@ -201,8 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!contactModal) return;
 
     clearTimeout(autoCloseTimer);
+    clearTimeout(modalFocusTimer);
     contactModal.classList.remove('active');
     contactModal.setAttribute('aria-hidden', 'true');
+    pageContent.forEach(element => { element.inert = false; });
     document.body.style.overflow = '';
 
     // Return focus to the control that opened the modal
