@@ -1677,3 +1677,49 @@ body::after {
     transform: none;
   }
 }
+
+.btn-pill {
+  /* hover colors (dark mode default) */
+  --btn-hover-bg: var(--text-main);
+  --btn-hover-fg: var(--bg-body);
+}
+
+/* Light mode hover colors */
+:root:not([data-theme="dark"]) .btn-pill {
+  --btn-hover-bg: #0b0c10;
+  --btn-hover-fg: #ffffff;
+}
+
+/* Base look: same for every button (ghost included) */
+.btn-pill,
+.btn-pill.btn-pill-ghost {
+  padding: 0.8rem 1.5rem;
+  color: var(--text-main);
+  background: transparent;
+  border: 1.5px solid var(--text-main);
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, transform 0.25s ease;
+}
+
+/* Arrows removed everywhere */
+.btn-pill .arrows {
+  display: none;
+}
+
+/* Hover only on real-mouse devices, and never on disabled buttons */
+@media (hover: hover) {
+  .btn-pill:not(:disabled):hover {
+    color: var(--btn-hover-fg);
+    background: var(--btn-hover-bg);
+    border-color: var(--btn-hover-bg);
+    transform: translateY(-1px);
+  }
+}
+
+/* Disabled state (while the form is sending) */
+.btn-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
