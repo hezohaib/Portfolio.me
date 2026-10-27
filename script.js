@@ -1,67 +1,39 @@
 /**
  * Zohaib Portfolio - Core Interactive Features
- * - Dark / Light Theme Toggle with safe LocalStorage persistence
  * - Fade-in on Scroll using IntersectionObserver
  * - Accessible Glassmorphism Contact Modal (focus trap + focus return)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* ==========================================================================
-     0. Helpers
-     ========================================================================== */
-
-  // localStorage can throw (private mode, in-app browsers, blocked cookies).
-  // These helpers make sure a storage failure never stops the rest of the script.
-  const safeStorage = {
-    get(key) {
-      try { return localStorage.getItem(key); } catch (e) { return null; }
-    },
-    set(key, value) {
-      try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
-    }
-  };
-
-  // Older Safari (<14) only supports addListener on MediaQueryList.
-  const onMediaChange = (mql, handler) => {
-    if (typeof mql.addEventListener === 'function') {
-      mql.addEventListener('change', handler);
-    } else if (typeof mql.addListener === 'function') {
-      mql.addListener(handler);
-    }
-  };
-
-  /* ==========================================================================
-     1. Dark / Light Mode Toggle
-     ========================================================================== */
+  /* Theme toggle: dark is the default, the choice is saved in localStorage */
   const themeToggleBtn = document.getElementById('themeToggle');
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
-  // Determine initial theme: saved preference -> system preference -> light
-  const savedTheme = safeStorage.get('theme');
-  const initialTheme = savedTheme ? savedTheme : (prefersDarkScheme.matches ? 'dark' : 'light');
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
+    }
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute(
+        'aria-label',
+        theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'
+      );
+    }
+  };
 
-  document.documentElement.setAttribute('data-theme', initialTheme);
+  // The script in <head> already set data-theme; sync the meta tag and label with it
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      safeStorage.set('theme', newTheme);
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) { /* storage blocked: still works for this visit */ }
     });
   }
-
-  // Follow system theme changes only if the user has no manual override
-  onMediaChange(prefersDarkScheme, (e) => {
-    if (!safeStorage.get('theme')) {
-      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-    }
-  });
-
-
   /* ==========================================================================
-     2. Fade-In on Scroll Animations (IntersectionObserver)
+     1. Fade-In on Scroll Animations (IntersectionObserver)
      ========================================================================== */
   const revealElements = document.querySelectorAll('.reveal');
 
@@ -84,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('active'));
   }
 
-    /* ==========================================================================
-     3. Project Preview Image Fallback
-     ========================================================================== */
+  /* ==========================================================================
+   2. Project Preview Image Fallback
+   ========================================================================== */
   const projectPreview = document.querySelector('.browser-screen img');
 
   if (projectPreview) {
@@ -100,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   /* ==========================================================================
-     4. Copy Email Button (with fallback for browsers without Clipboard API)
+     3. Copy Email Button (with fallback for browsers without Clipboard API)
      ========================================================================== */
   const copyTextFallback = (text) => {
     const area = document.createElement('textarea');
@@ -148,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. Accessible Popup Contact Modal
+     4. Accessible Popup Contact Modal
      ========================================================================== */
   const contactModal = document.getElementById('contactModal');
   const openModalButtons = document.querySelectorAll('.open-contact-modal, #openContactModal');
@@ -264,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     6. Contact Form Submission
+     5. Contact Form Submission
      ========================================================================== */
   const GENERIC_ERROR = 'Something went wrong while sending your message. Please try again.';
 
@@ -345,5 +317,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
 });

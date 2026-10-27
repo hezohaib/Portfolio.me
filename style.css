@@ -1,69 +1,48 @@
 /* ==========================================================================
    CSS Stylesheet for Zohaib's Portfolio
-   Featuring: Glassmorphism UI, Dark/Light Themes, Scroll Fade-In Animations,
+   Featuring: Glassmorphism UI, Dark Theme, Scroll Fade-In Animations,
    Smooth Popup Modal, and Floating Social Links
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Theme Variables (Light & Dark Modes)
+   1. Theme Variables (Dark only)
    -------------------------------------------------------------------------- */
 :root {
+  /* Site is dark-only: tells the browser to draw scrollbars and form controls dark too */
+  color-scheme: dark;
+
   /* Brand Accents */
-  --primary: #7c3aed;
-  --primary-hover: #a855f7;
-  --primary-light: rgba(124, 58, 237, 0.12);
-  --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --primary: #ffffff;
+  --primary-hover: #ffffff;
+  --primary-light: rgba(255, 255, 255, 0.1);
+  --primary-gradient: linear-gradient(#ffffff, #ffffff);
 
   /* Typography & Core */
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --bg-body: #ffffff;
-  --surface: #ffffff;
-
-  /* Glassmorphism Elements */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(203, 213, 225, 0.7);
-  --header-bg: rgba(255, 255, 255, 0.8);
-  --tag-bg: rgba(241, 245, 249, 0.85);
-
-  /* Modal & Inputs */
-  --modal-bg: rgba(255, 255, 255, 0.88);
-  --modal-overlay: rgba(15, 23, 42, 0.45);
-  --input-bg: rgba(255, 255, 255, 0.9);
-  --input-border: rgba(203, 213, 225, 0.8);
-
-  /* Utilities */
-  --border: rgba(226, 232, 240, 0.8);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Dark theme only overrides what is different from light */
-[data-theme="dark"] {
-  --primary-light: rgba(124, 58, 237, 0.15);
-
   --text-main: #ffffff;
   --text-muted: #9ca3af;
   --bg-body: #0b0c10;
   --surface: #1a1f28;
 
+  /* Glassmorphism Elements */
   --glass-bg: rgba(22, 27, 34, 0.75);
   --glass-border: rgba(255, 255, 255, 0.08);
   --header-bg: rgba(13, 17, 23, 0.85);
   --tag-bg: rgba(255, 255, 255, 0.05);
 
+  /* Modal & Inputs */
   --modal-bg: rgba(22, 27, 34, 0.95);
   --modal-overlay: rgba(0, 0, 0, 0.75);
   --input-bg: rgba(13, 17, 23, 0.9);
   --input-border: rgba(255, 255, 255, 0.14);
 
+  /* Utilities */
   --border: rgba(255, 255, 255, 0.08);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* --------------------------------------------------------------------------
@@ -99,39 +78,7 @@ main {
   overflow-x: clip;
 }
 
-/* Ambient glowing orbs behind the glass elements */
-body::before,
 body::after {
-  content: '';
-  position: fixed;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: -1;
-  transition: opacity 0.5s ease;
-}
-
-body::before {
-  top: -120px;
-  left: -120px;
-  background: radial-gradient(circle, #7c3aed 0%, rgba(124, 58, 237, 0) 70%);
-}
-
-body::after {
-  bottom: 5%;
-  right: -100px;
-  background: radial-gradient(circle, #a855f7 0%, rgba(168, 85, 247, 0) 70%);
-}
-
-[data-theme="dark"] body::before {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.09) 0%, rgba(124, 58, 237, 0) 70%);
-  opacity: 0.2;
-}
-
-[data-theme="dark"] body::after {
   background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0) 70%);
   opacity: 0.16;
 }
@@ -221,75 +168,13 @@ body::after {
   color: var(--primary);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
 /* Keyboard focus outlines for header controls */
 .logo:focus-visible,
 .nav-links a:focus-visible,
-.theme-toggle-btn:focus-visible,
 .modal-close:focus-visible {
   outline: 2px solid var(--primary-hover);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
-}
-
-/* Dark / Light Theme Toggle Button */
-.theme-toggle-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.theme-toggle-btn:hover {
-  transform: scale(1.08);
-  border-color: var(--primary);
-  color: var(--primary);
-  box-shadow: 0 4px 12px var(--primary-light);
-}
-
-.theme-toggle-btn .sun-icon,
-.theme-toggle-btn .moon-icon {
-  position: absolute;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-}
-
-/* Light mode icon states (shows the moon) */
-.theme-toggle-btn .sun-icon {
-  opacity: 0;
-  transform: translateY(20px) rotate(90deg);
-}
-
-.theme-toggle-btn .moon-icon {
-  opacity: 1;
-  transform: translateY(0) rotate(0deg);
-}
-
-/* Dark mode icon states (shows the sun) */
-[data-theme="dark"] .theme-toggle-btn .sun-icon {
-  opacity: 1;
-  transform: translateY(0) rotate(0deg);
-}
-
-[data-theme="dark"] .theme-toggle-btn .moon-icon {
-  opacity: 0;
-  transform: translateY(-20px) rotate(-90deg);
 }
 
 /* --------------------------------------------------------------------------
@@ -314,36 +199,12 @@ body::after {
 .hero {
   position: relative;
   isolation: isolate;
-  padding: 5.5rem 0 4.5rem;
+  padding: 8rem 0 6.5rem;
   text-align: center;
 }
 
-.hero::before,
-.hero::after {
-  position: absolute;
-  z-index: -1;
-  width: 24rem;
-  height: 24rem;
-  border-radius: 50%;
-  content: "";
-  pointer-events: none;
-  filter: blur(8px);
-}
-
-.hero::before {
-  top: -7rem;
-  left: -12rem;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.16) 0%, rgba(124, 58, 237, 0) 70%);
-}
-
-.hero::after {
-  top: 3rem;
-  right: -12rem;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.13) 0%, rgba(168, 85, 247, 0) 70%);
-}
-
 .hero-content {
-  max-width: 750px;
+  max-width: 960px;
 }
 
 .hero-eyebrow {
@@ -359,9 +220,9 @@ body::after {
 }
 
 .hero-title {
-  font-size: 3.25rem;
+  font-size: clamp(3rem, 9vw, 6.5rem);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.05;
   margin-bottom: 1.2rem;
   letter-spacing: -1px;
 }
@@ -375,7 +236,7 @@ body::after {
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   color: var(--text-muted);
   margin-bottom: 2.25rem;
   line-height: 1.7;
@@ -447,18 +308,19 @@ body::after {
    6. Sections Common Structure
    -------------------------------------------------------------------------- */
 .section {
-  padding: 5rem 0;
+  padding: 7rem 0;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 3.25rem;
+  margin-bottom: 4rem;
 }
 
 .section-title {
-  font-size: 2.1rem;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: -0.5px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .title-underline {
@@ -471,7 +333,7 @@ body::after {
 
 .section-description {
   color: var(--text-muted);
-  font-size: 1.02rem;
+  font-size: 1.2rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -593,7 +455,7 @@ body::after {
   letter-spacing: 0.3px;
 }
 
-[data-theme="dark"] .fcc-badge {
+.fcc-badge {
   color: var(--primary-hover);
 }
 
@@ -656,7 +518,8 @@ body::after {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  font-size: 0; /* hides the check glyph in the HTML; the number is drawn by ::after */
+  font-size: 0;
+  /* hides the check glyph in the HTML; the number is drawn by ::after */
   font-weight: 800;
   color: var(--text-main);
   background: var(--surface);
@@ -703,7 +566,7 @@ body::after {
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-[data-theme="dark"] .fcc-step-content {
+.fcc-step-content {
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: none;
 }
@@ -783,7 +646,7 @@ body::after {
   border-color: rgba(22, 163, 74, 0.35);
 }
 
-[data-theme="dark"] .fcc-roadmap-step.is-done .fcc-completed-badge {
+.fcc-roadmap-step.is-done .fcc-completed-badge {
   color: #4ade80;
   background: rgba(34, 197, 94, 0.12);
   border-color: rgba(74, 222, 128, 0.35);
@@ -820,7 +683,7 @@ body::after {
   text-transform: uppercase;
 }
 
-[data-theme="dark"] .project-eyebrow {
+.project-eyebrow {
   color: #4ade80;
   background: rgba(34, 197, 94, 0.12);
   border-color: rgba(74, 222, 128, 0.35);
@@ -966,7 +829,7 @@ body::after {
   box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.18);
 }
 
-[data-theme="dark"] .showcase-card {
+.showcase-card {
   box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6);
 }
 
@@ -983,7 +846,7 @@ body::after {
   border-bottom: 1px solid var(--border);
 }
 
-.browser-toolbar > span {
+.browser-toolbar>span {
   width: 0.45rem;
   height: 0.45rem;
   background: var(--text-muted);
@@ -1008,8 +871,8 @@ body::after {
   background: #f1f5f9;
 }
 
-[data-theme="dark"] .browser-screen {
-  background: #0f1319;
+.browser-screen {
+  background: #0a0a0a;
 }
 
 .browser-screen img {
@@ -1145,7 +1008,7 @@ body::after {
 }
 
 .cta-heading {
-  font-size: 2.4rem;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.8px;
@@ -1437,7 +1300,7 @@ body::after {
   border: 1px solid #a7f3d0;
 }
 
-[data-theme="dark"] .form-success {
+.form-success {
   background: var(--primary-light);
   color: var(--primary-hover);
   border-color: var(--primary);
@@ -1449,7 +1312,7 @@ body::after {
   border: 1px solid #fecaca;
 }
 
-[data-theme="dark"] .form-error {
+.form-error {
   background: rgba(239, 68, 68, 0.15);
   color: #fca5a5;
   border-color: rgba(239, 68, 68, 0.35);
@@ -1569,17 +1432,18 @@ body::after {
 }
 
 @media (max-width: 768px) {
+
   /* The nav wraps to two rows here, so the sticky header is taller */
   html {
     scroll-padding-top: 130px;
   }
 
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2.9rem;
   }
 
   .cta-heading {
-    font-size: 1.75rem;
+    font-size: 2.1rem;
   }
 
   .cta-info-badges {
@@ -1639,7 +1503,7 @@ body::after {
   }
 
   .section {
-    padding: 3.5rem 0;
+    padding: 4.5rem 0;
   }
 
   .modal-card {
@@ -1663,6 +1527,7 @@ body::after {
 
 /* Respect "reduce motion" system setting */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -1679,15 +1544,9 @@ body::after {
 }
 
 .btn-pill {
-  /* hover colors (dark mode default) */
+  /* hover colors: white fill, dark text */
   --btn-hover-bg: var(--text-main);
   --btn-hover-fg: var(--bg-body);
-}
-
-/* Light mode hover colors */
-:root:not([data-theme="dark"]) .btn-pill {
-  --btn-hover-bg: #0b0c10;
-  --btn-hover-fg: #ffffff;
 }
 
 /* Base look: same for every button (ghost included) */
@@ -1722,4 +1581,433 @@ body::after {
 .btn-pill:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* ===== Pure black override (keep this at the very end of the file) ===== */
+:root {
+  --bg-body: #000000;
+  --surface: #000000;
+  --glass-bg: rgba(0, 0, 0, 0.6);
+  --header-bg: rgba(0, 0, 0, 0.85);
+  --tag-bg: rgba(255, 255, 255, 0.04);
+  --modal-bg: #000000;
+  --input-bg: #000000;
+  --border: rgba(255, 255, 255, 0.12);
+  --text-muted: #ffffff;
+}
+
+/* kill every colored glow */
+body::before,
+body::after,
+.hero::before,
+.hero::after {
+  display: none;
+}
+
+.browser-screen {
+  background: #000000;
+}
+
+.browser-screen.image-fallback {
+  background: #0a0a0a;
+}
+
+/* ===== Puppertino-style typography & buttons (keep at the very end) ===== */
+
+/* System font, like puppertino.com */
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Segoe UI Variable Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Simple, medium-weight headings */
+.hero-title,
+.section-title,
+.cta-heading,
+.project-heading,
+.modal-title {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+/* Eyebrow: plain muted text, no pill border */
+.hero-eyebrow {
+  padding: 0;
+  border: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Narrower subtitle so it doesn't leave a lonely last word */
+.hero-subtitle {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Primary buttons: filled purple */
+.btn-pill,
+.btn-pill.btn-pill-ghost {
+  color: #ffffff;
+  background: #0071e3;
+  border-color: #0071e3;
+}
+
+@media (hover: hover) {
+  .btn-pill:not(:disabled):hover {
+    color: #ffffff;
+    background: #2b8cff;
+    border-color: #2b8cff;
+  }
+}
+
+/* Secondary buttons (Contact Me, View Source Code): purple text link with a › */
+.btn-pill.btn-pill-ghost {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: var(--primary-hover);
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-pill.btn-pill-ghost::after {
+  content: "\203A";
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+@media (hover: hover) {
+  .btn-pill.btn-pill-ghost:not(:disabled):hover {
+    color: #ffffff;
+    background: transparent;
+    border-color: transparent;
+    transform: none;
+  }
+}
+
+/* ===== Neutral name & logo (no purple) ===== */
+
+/* "Zohaib" in the hero heading */
+.hero-title .highlight {
+  color: #ffffff;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* Navbar logo "Zohaib Ali" */
+.logo {
+  color: #ffffff;
+}
+
+/* Navbar links: grey, white on hover (instead of purple) */
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* ===== Project section: Puppertino-style cards, no ticks, smaller text ===== */
+
+/* All three cards (browser preview, tech stack, "Order confirmed") */
+.showcase-card {
+  background: #161618;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Slightly clearer line under the fake browser bar */
+.browser-toolbar {
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Remove the tick marks */
+.project-points li {
+  padding-left: 0;
+}
+
+.project-points li::before {
+  content: none;
+}
+
+/* Smaller description text */
+.project-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.project-points {
+  font-size: 0.95rem;
+}
+
+/* ===== Project section: no purple ===== */
+
+/* "Clothing Store." in the heading */
+.project-heading .accent {
+  color: #a1a1a6;
+}
+
+/* "FRONTEND" and "BACKEND & DATABASE" labels in the stack card */
+.showcase-label {
+  color: #a1a1a6;
+}
+
+/* Small underline below "Featured Project" (only in this section) */
+#projects .title-underline {
+  background: #a1a1a6;
+}
+
+/* ===== Glass navbar (Puppertino-style) ===== */
+.header {
+  background: rgba(30, 30, 32, 0.45);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+/* Old browsers without backdrop-filter: fall back to a solid dark bar */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header {
+    background: rgba(10, 10, 10, 0.95);
+  }
+}
+
+/* ===== Navbar: Puppertino-style layout ===== */
+.header .nav {
+  width: 100%;
+  max-width: none;
+  padding-left: clamp(1rem, 4vw, 3.5rem);
+  padding-right: clamp(1rem, 4vw, 3.5rem);
+}
+
+.logo {
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+/* ===== Theme toggle button ===== */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  color: var(--text-main);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--tag-bg);
+  border-color: var(--text-muted);
+}
+
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--primary-hover);
+  outline-offset: 3px;
+}
+
+/* Dark shows the sun (click = go light); light shows the moon */
+.theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle-btn .sun-icon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+
+/* ===== Light theme (everything that dark mode hard-coded gets re-done here) ===== */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --primary: #1d1d1f;
+  --primary-hover: #1d1d1f;
+  --primary-light: rgba(0, 0, 0, 0.06);
+  --primary-gradient: linear-gradient(#1d1d1f, #1d1d1f);
+
+  --text-main: #1d1d1f;
+  --text-muted: #6e6e73;
+  --bg-body: #ffffff;
+  --surface: #f5f5f7;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --header-bg: rgba(255, 255, 255, 0.72);
+  --tag-bg: rgba(0, 0, 0, 0.04);
+
+  --modal-bg: #ffffff;
+  --modal-overlay: rgba(0, 0, 0, 0.4);
+  --input-bg: #ffffff;
+  --input-border: rgba(0, 0, 0, 0.15);
+
+  --border: rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar */
+[data-theme="light"] .header {
+  background: rgba(255, 255, 255, 0.6);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme="light"] .header {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+[data-theme="light"] .logo,
+[data-theme="light"] .nav-links a:hover {
+  color: var(--text-main);
+}
+
+/* "Zohaib" in the hero heading */
+[data-theme="light"] .hero-title .highlight {
+  color: var(--text-main);
+  -webkit-text-fill-color: var(--text-main);
+}
+
+/* Secondary link buttons (Contact Me, View Source Code) */
+[data-theme="light"] .btn-pill.btn-pill-ghost {
+  color: #0071e3;
+}
+
+@media (hover: hover) {
+  [data-theme="light"] .btn-pill.btn-pill-ghost:not(:disabled):hover {
+    color: var(--text-main);
+  }
+}
+
+/* Project cards */
+[data-theme="light"] .showcase-card {
+  background: #f5f5f7;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="light"] .browser-toolbar {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .browser-screen {
+  background: #f1f5f9;
+}
+
+[data-theme="light"] .browser-screen.image-fallback {
+  background: #e5e5ea;
+}
+
+/* Journey cards */
+[data-theme="light"] .fcc-step-content {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px -10px rgba(15, 23, 42, 0.18);
+}
+
+/* Green status badges: darker green so they stay readable on white */
+[data-theme="light"] .project-eyebrow,
+[data-theme="light"] .fcc-roadmap-step.is-done .fcc-completed-badge {
+  color: #15803d;
+  background: rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+/* Form messages */
+[data-theme="light"] .form-success {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+[data-theme="light"] .form-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+/* Contact modal quick-connect hover */
+[data-theme="light"] .contact-modal-card .quick-connect-action:hover,
+[data-theme="light"] .contact-modal-card .quick-connect-action:focus-visible {
+  color: #ffffff;
+  background: #1d1d1f;
+  border-color: #1d1d1f;
+}
+
+/* ===== Link buttons: always blue, same color on hover ===== */
+.btn-pill.btn-pill-ghost,
+.btn-pill.btn-pill-ghost:not(:disabled):hover {
+  color: #2997ff;
+}
+
+[data-theme="light"] .btn-pill.btn-pill-ghost,
+[data-theme="light"] .btn-pill.btn-pill-ghost:not(:disabled):hover {
+  color: #0071e3;
+}
+
+
+/* ===== Contact form: glass card (dark + light) ===== */
+/* The overlay only dims the page; blur comes from the card itself */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal-card {
+  /* these 3 values only apply inside the card (inputs, icon buttons, borders) */
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-border: rgba(255, 255, 255, 0.16);
+  --border: rgba(255, 255, 255, 0.14);
+
+  background: rgba(28, 28, 30, 0.55);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* Softer focus ring instead of the thick white outline */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.35);
+}
+
+/* Placeholders were as bright as real text */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  opacity: 0.6;
+}
+
+[data-theme="light"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="light"] .modal-card {
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --input-border: rgba(0, 0, 0, 0.14);
+  --border: rgba(0, 0, 0, 0.1);
+
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.35);
+}
+
+/* Old browsers without backdrop-filter: solid card */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .modal-card {
+    background: rgba(28, 28, 30, 0.96);
+  }
+
+  [data-theme="light"] .modal-card {
+    background: rgba(255, 255, 255, 0.97);
+  }
 }
