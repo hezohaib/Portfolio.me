@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    path { fill: #111111; }
+    @media (prefers-color-scheme: dark) { path { fill: #ffffff; } }
+  </style>
+  <!-- upar wali patti -->
+  <path d="M5 6H27V11H5Z"/>
+  <!-- beech ka diagonal hissa (patti se alag, isliye cut nazar aata hai) -->
+  <path d="M14 12.5H27L18 19.5H5Z"/>
+  <!-- neeche wali patti, left neeche ka kona gol -->
+  <path d="M5 21H27V26H9Q5 26 5 22Z"/>
+</svg>
