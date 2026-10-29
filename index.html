@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://iamzohaib.me/" />
 
-  <link rel="stylesheet" href="style.css?v=41" />
+  <link rel="stylesheet" href="style.css?v=48" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -23,8 +23,7 @@
     rel="stylesheet">
 
 
-  <link rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%26%23x1F310%3B%3C/text%3E%3C/svg%3E">
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <script>
     (function () {
       var theme = 'dark';
@@ -41,6 +40,7 @@
       .reveal {
         opacity: 1 !important;
         transform: none !important;
+        .preloader { display: none !important; }
       }
     </style>
   </noscript>
@@ -62,17 +62,23 @@
 </head>
 
 <body>
+  <div id="preloader" class="preloader" aria-hidden="true">
+  <svg class="pl-z" viewBox="0 0 32 32">
+    <path pathLength="100" d="M9 10 H23 L9 22 H23" />
+    <rect class="pl-dot" x="24.5" y="20.5" width="3.5" height="3.5" />
+  </svg>
+</div>
   <!-- Header / Navbar with Glassmorphic Styling -->
   <header class="header">
     <nav class="nav container">
-      <a href="#" class="logo">Zohaib Ali</a>
+      <a href="#" class="logo">Zohaib</a>
       <div class="nav-menu">
         <ul class="nav-links">
           <li><a href="#problem">Problem</a></li>
           <li><a href="#Expertise">Expertise</a></li>
           <li><a href="#journey">Journey</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#reach">Reach out</a></li>
         </ul>
         <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="Switch to light theme"
           title="Switch theme">
@@ -142,6 +148,7 @@
     <section id="problem" class="section problem reveal">
       <div class="container">
         <header class="pb-head">
+          <p class="section-eyebrow">page.problem</p>
           <h2 class="pb-title">The Problem</h2>
           <p class="pb-lead">Most frontend problems don't start as big mistakes. They start as small decisions nobody
             questions.</p>
@@ -186,6 +193,7 @@
     <section id="Expertise" class="section Expertise reveal">
       <div class="container">
         <div class="section-header">
+          <p class="section-eyebrow">page.expertise</p>
           <h2 class="section-title">Expertise</h2>
           <div class="title-underline"></div>
           <p class="section-description">Frontend development technologies and tools</p>
@@ -272,6 +280,7 @@
     <section id="journey" class="section journey reveal">
       <div class="container">
         <div class="section-header">
+          <p class="section-eyebrow">page.journey</p>
           <h2 class="section-title">My freeCodeCamp Journey</h2>
           <div class="title-underline"></div>
           <p class="section-description">
@@ -378,6 +387,7 @@
     <section id="projects" class="section projects reveal">
       <div class="container">
         <div class="section-header">
+          <p class="section-eyebrow">page.work</p>
           <h2 class="section-title">Featured Project</h2>
           <div class="title-underline"></div>
           <p class="section-description">A production e-commerce build, from interface to deployment</p>
@@ -455,7 +465,30 @@
         </div>
       </div>
     </section>
+<!-- Reach out page (sirf nav click par dikhti hai) -->
+<section id="reach" class="section reach-page reveal">
+  <div class="container">
+    <p class="reach-eyebrow">page.contact</p>
+    <h2 class="section-title">Contact</h2>
+    <p class="reach-lead">I read every message. I usually respond in under 2 hours.</p>
 
+    <div class="reach-badge">
+      <span class="cta-status-dot" aria-hidden="true"></span>
+      Available for freelance projects &middot; Remote / worldwide
+    </div>
+
+    <div class="reach-terminal">
+      <p class="reach-line">&gt; establishing connection...</p>
+      <p class="reach-line">&gt; handshake complete</p>
+      <p class="reach-line reach-line-last">&gt; channel open<span class="reach-caret" aria-hidden="true">_</span></p>
+    </div>
+
+    <div class="reach-actions">
+      <button type="button" class="btn-pill open-contact-modal">Send a Direct Message</button>
+      <a class="btn-pill btn-pill-ghost" href="mailto:zohaibatkh4x@gmail.com">Email me</a>
+    </div>
+  </div>
+</section>
   </main>
 
   <!-- Glassmorphism Smooth Contact Modal -->
@@ -537,7 +570,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Main JavaScript File -->
    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
-  <script src="script.js?v=32"></script>
+  <script src="script.js?v=39"></script>
 
 </body>
 
