@@ -5,6 +5,20 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* Preloader: site load hone par Z fade out */
+const preloader = document.getElementById('preloader');
+if (preloader) {
+  const MIN_SHOW = 1400;   // kam az kam itni der (ms) dikhe, taake Z poora draw ho
+  const hidePreloader = () => {
+    const wait = Math.max(0, MIN_SHOW - performance.now());
+    setTimeout(() => {
+      preloader.classList.add('is-done');
+      setTimeout(() => preloader.remove(), 600);
+    }, wait);
+  };
+  if (document.readyState === 'complete') hidePreloader();
+  else window.addEventListener('load', hidePreloader, { once: true });
+}
   /* Smooth scroll (Lenis) */
 let lenis = null;
 if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -739,6 +753,20 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let savedScroll = 0;
   let typeTimer = null;
+  const homeTitle = document.title;   // index.html wala <title> yahan save ho jata hai
+
+const titles = {
+  problem: 'Problem',
+  Expertise: 'Expertise',
+  journey: 'Journey',
+  projects: 'Work',
+  contact: 'Contact',
+  reach: 'Reach out'
+};
+
+const setTitle = (id) => {
+  document.title = id && titles[id] ? titles[id] + ' | Zohaib' : homeTitle;
+};
 
   const jumpTo = (y) => {
     if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y, { immediate: true });
@@ -749,7 +777,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
 
   // Heading ko wapas poora text dena (typing beech mein ruk jaye to bhi)
   const resetHeadings = () => {
-    clearInterval(typeTimer);
+    cancelAnimationFrame(typeTimer);
     sections.forEach((s) => {
       const h = getHeading(s);
       if (h && h.dataset.full) {
@@ -759,77 +787,119 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
     });
   };
 
-  const typeHeading = (section) => {
-    const h = getHeading(section);
-    if (!h) return;                      // Contact mein ye heading nahi hoti
-    const full = h.dataset.full || (h.dataset.full = h.textContent.trim());
-    h.setAttribute('aria-label', full);  // screen reader ko poora text mile
+ const GLYPHS = '!<>-_\\/[]{}=+*^?#01';
+const randGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
 
-    clearInterval(typeTimer);
-    if (reduceMotion) { h.textContent = full; return; }
+const typeHeading = (section) => {
+  const h = getHeading(section);
+  if (!h) return;                      // Contact mein ye heading nahi hoti
+  const full = h.dataset.full || (h.dataset.full = h.textContent.trim());
+  h.setAttribute('aria-label', full);  // screen reader ko poora text mile
 
+  cancelAnimationFrame(typeTimer);
+  if (reduceMotion) { h.textContent = full; return; }
+
+  h.classList.add('is-typing');
+
+  // Har letter ka apna start/end time, left se right ek ek karke
+  const chars = Array.from(full).map((ch, i) => {
+    const start = 300 + i * 130 + Math.random() * 150;
+    return { ch, start, end: start + 900 + Math.random() * 600, glyph: '', next: 0 };
+  });
+// Har letter ki asli width pehle napo, taake symbol aane par kuch na hile
+const widths = chars.map((c) => {
+  const m = document.createElement('span');
+  m.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;';
+  m.textContent = c.ch;
+  h.append(m);
+  const w = m.getBoundingClientRect().width;
+  m.remove();
+  return w;
+});
+  const t0 = performance.now();
+
+  const frame = (now) => {
+    const t = now - t0;
+    let done = true;
     h.textContent = '';
-    h.classList.add('is-typing');
-    let i = 0;
-    typeTimer = setInterval(() => {
-      i++;
-      h.textContent = full.slice(0, i);
-      if (i >= full.length) {
-        clearInterval(typeTimer);
-        setTimeout(() => h.classList.remove('is-typing'), 1500);
+
+    chars.forEach((c, idx) => {
+      if (c.ch === ' ' || t >= c.end) {
+        h.append(c.ch);                              // letter apni asli shakal mein
+        return;
       }
-    }, 55);
+      done = false;
+      const span = document.createElement('span');
+      if (t >= c.start) {
+        if (t >= c.next) { c.glyph = randGlyph(); c.next = t + 140; }
+        span.className = 'scr-glyph';                // symbol dikhao
+        span.style.width = widths[idx] + 'px'; 
+        span.textContent = c.glyph;
+      } else {
+        span.className = 'scr-hide';                 // abhi chhupa hai, par jagah ghera hua
+        span.textContent = c.ch;
+      }
+      h.append(span);
+    });
+
+    if (done) h.classList.remove('is-typing');
+    else typeTimer = requestAnimationFrame(frame);
   };
 
-  const showSection = (id, push) => {
-    const target = document.getElementById(id);
-    if (!target || !sections.includes(target)) return;
+  typeTimer = requestAnimationFrame(frame);
+};
+const showSection = (id, push) => {
+  const target = document.getElementById(id);
+  if (!target || !sections.includes(target)) return;
 
-    if (!document.body.classList.contains('view-mode')) savedScroll = window.scrollY;
-    resetHeadings();
-    document.body.classList.add('view-mode');
-    sections.forEach((s) => s.classList.toggle('is-current', s === target));
-    target.classList.add('active');      // fade-in wali class
-    jumpTo(0);
-    window.dispatchEvent(new Event('resize')); // Expertise filter ka thumb dobara set
-    typeHeading(target);
-    if (push) history.pushState({ view: id }, '', '#' + id);
-  };
+  if (!document.body.classList.contains('view-mode')) savedScroll = window.scrollY;
+  resetHeadings();
+  document.body.classList.add('view-mode');
+  sections.forEach((s) => s.classList.toggle('is-current', s === target));
+  document.querySelectorAll('.nav-links a').forEach((a) => {
+  a.classList.toggle('is-current', a.getAttribute('href') === '#' + id);
+});
+  target.classList.add('active');
+  jumpTo(0);
+  window.dispatchEvent(new Event('resize'));
+  typeHeading(target);
+  setTitle(id);   
+  if (push) history.pushState({ view: id }, '', '#' + id);
+};
 
-  const showHome = (push) => {
-    if (!document.body.classList.contains('view-mode')) return;
-    resetHeadings();
-    document.body.classList.remove('view-mode');
-    sections.forEach((s) => s.classList.remove('is-current'));
-    jumpTo(savedScroll);
-    if (push) history.pushState(null, '', location.pathname);
-  };
+const showHome = (push) => {
+  if (!document.body.classList.contains('view-mode')) return;
+  resetHeadings();
+  document.body.classList.remove('view-mode');
+  document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('is-current'));
+  jumpTo(savedScroll);
+  setTitle();
+  if (push) history.pushState(null, '', location.pathname);
+};
 
-  // Har link jo kisi section ki taraf jata ho (nav + hero button), aur logo
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    const href = link.getAttribute('href');
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  const href = link.getAttribute('href');
 
-    if (href === '#') {                  // logo = home
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        showHome(true);
-      });
-      return;
-    }
-
-    const id = href.slice(1);
-    if (!sections.some((s) => s.id === id)) return;
+  if (href === '#') {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      showSection(id, true);
+      showHome(true);
     });
-  });
+    return;
+  }
 
-  // Browser ka back / forward button
-  window.addEventListener('popstate', () => {
-    const id = location.hash.slice(1);
-    if (sections.some((s) => s.id === id)) showSection(id, false);
-    else showHome(false);
+  const id = href.slice(1);
+  if (!sections.some((s) => s.id === id)) return;
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection(id, true);
   });
+});
+
+window.addEventListener('popstate', () => {
+  const id = location.hash.slice(1);
+  if (sections.some((s) => s.id === id)) showSection(id, false);
+  else showHome(false);
+});
 })();
 });
