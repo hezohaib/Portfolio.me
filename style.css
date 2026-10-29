@@ -155,15 +155,20 @@ body::after {
   list-style: none;
   gap: 1.75rem;
 }
-
-.nav-links a {
+.header .nav-links a {
+  position: relative;
+  padding: 0.3rem 0;
+  font-size: 0.7rem;
+  white-space: nowrap;
   text-decoration: none;
   color: var(--text-muted);
   font-weight: 500;
-  font-size: 0.95rem;
   transition: var(--transition);
 }
 
+.header .nav-links {
+  gap: 1.1rem;
+}
 .nav-links a:hover {
   color: var(--primary);
 }
@@ -3183,14 +3188,257 @@ body.view-mode main > section:not(.is-current) {
   min-height: 1.2em;
 }
 
-.section-title.is-typing::after,
-.pb-title.is-typing::after {
-  content: "_";
-  margin-left: 0.05em;
-  color: #2997ff;
-  animation: name-caret 1s steps(2) infinite;
+/* Heading decode effect */
+ .scr-glyph {
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  opacity: 0.99;
+  display: inline-block;     /* nayi */
+  text-align: center;        /* nayi */
+  white-space: nowrap;
+  vertical-align: bottom;    /* nayi */
 }
-[data-theme="light"] .section-title.is-typing::after,
-[data-theme="light"] .pb-title.is-typing::after {
-  color: #0071e3;
+.scr-hide { visibility: hidden; }
+/* ===== Nav links: chhote, hover par orange line, press par blue line ===== */
+.nav-links {
+  gap: 1.4rem;
 }
+
+.nav-links a {
+  position: relative;
+  padding: 0.3rem 0;
+  font-size: 0.78rem;          /* pehle 0.85rem */
+  white-space: nowrap;
+}
+
+/* line pehle chhupi hoti hai (scaleX(0)), hover par left se phailti hai */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: #ff6b35;         /* orange */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* press karte waqt aur current section par: blue line */
+.nav-links a:active::after,
+.nav-links a.is-current::after {
+  background: #2997ff;
+  transform: scaleX(1);
+}
+[data-theme="light"] .nav-links a:active::after,
+[data-theme="light"] .nav-links a.is-current::after {
+  background: #0071e3;
+}
+
+.nav-links a.is-current {
+  color: var(--text-main);
+}
+
+@media (max-width: 480px) {
+  .nav-links { gap: 0.9rem; }
+}
+/* ===== Reach out page ===== */
+
+/* normal scroll mein chhupi rahe, sirf nav click par dikhe */
+.reach-page {
+  display: none;
+}
+body.view-mode .reach-page.is-current {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4.5rem;
+}
+
+.reach-eyebrow {
+  margin-bottom: 0.9rem;
+  color: #a1a1a6;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.reach-eyebrow::before {
+  content: "// ";
+  opacity: 0.6;
+}
+[data-theme="light"] .reach-eyebrow { color: #6e6e73; }
+
+.reach-lead {
+  max-width: 40rem;
+  margin: 1.2rem 0 1.5rem;
+  color: #a1a1a6;
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  font-weight: 300;
+}
+[data-theme="light"] .reach-lead { color: #6e6e73; }
+
+.reach-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 1rem;
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+[data-theme="light"] .reach-badge {
+  color: #15803d;
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+.reach-terminal {
+  max-width: 760px;
+  margin-bottom: 1.75rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid #2997ff;
+}
+[data-theme="light"] .reach-terminal { border-left-color: #0071e3; }
+
+.reach-line {
+  margin: 0.45rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  opacity: 0;
+  animation: reach-line 0.5s ease both;
+}
+.reach-line:nth-child(1) { animation-delay: 1.2s; }
+.reach-line:nth-child(2) { animation-delay: 2.0s; }
+.reach-line:nth-child(3) { animation-delay: 2.8s; }
+
+@keyframes reach-line {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reach-caret { animation: name-caret 1s steps(2) infinite; }
+
+.reach-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+/* ===== Page labels: // page.work ... (sirf click wale page par) ===== */
+.section-eyebrow {
+  display: none;
+  margin-bottom: 0.9rem;
+  color: #a1a1a6;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+[data-theme="light"] .section-eyebrow { color: #6e6e73; }
+
+.section-eyebrow::before {
+  content: "// ";
+  opacity: 0.6;
+}
+
+body.view-mode .section-eyebrow {
+  display: block;
+}
+
+/* Click wale page par bara faded number (01, 02...) nahi dikhana */
+body.view-mode .section::after {
+  display: none;
+}
+/* ===== Light theme: soft gray + dot grid (reference jaisa) ===== */
+[data-theme="light"] {
+  --bg-body: #f4f4f3;          /* pehle pure white #ffffff */
+  --surface: #ececeb;
+  --text-main: #1a1a1a;
+  --primary: #1a1a1a;
+  --primary-hover: #1a1a1a;
+  --text-muted: #5f5f63;
+  --tag-bg: rgba(0, 0, 0, 0.04);
+  --border: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --header-bg: rgba(244, 244, 243, 0.8);
+  --modal-bg: #f4f4f3;
+}
+
+/* Navbar */
+[data-theme="light"] .header {
+  background: rgba(244, 244, 243, 0.75);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Cards: halka gray, patli border (white card ki jagah) */
+[data-theme="light"] .sk-card,
+[data-theme="light"] .jr-card,
+[data-theme="light"] .pj-card {
+  background: rgba(0, 0, 0, 0.025);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
+[data-theme="light"] .jr-card {
+  --jr-bg: rgba(0, 0, 0, 0.025);
+}
+[data-theme="light"] .sk-tile {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.09);
+}
+[data-theme="light"] .pb-item {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+/* Contact modal */
+[data-theme="light"] .modal-card {
+  background: rgba(244, 244, 243, 0.85);
+}
+/* ===== Preloader: Z draw hota hai ===== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  background: var(--bg-body);
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  /* failsafe: kisi wajah se JS na chale to 8 second baad khud hat jaye */
+  animation: pl-failsafe 0s 8s forwards;
+}
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.pl-z {
+  width: 88px;
+  height: 88px;
+  color: var(--text-main);   /* dark mein white, light mein dark */
+  overflow: visible;
+}
+.pl-z path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: pl-draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s forwards;
+}
+.pl-dot {
+  fill: #2997ff;
+  opacity: 0;
+  animation: pl-pop 0.3s ease 1.15s forwards;
+}
+
+@keyframes pl-draw { to { stroke-dashoffset: 0; } }
+@keyframes pl-pop { to { opacity: 1; } }
+@keyframes pl-failsafe { to { opacity: 0; visibility: hidden; } }
