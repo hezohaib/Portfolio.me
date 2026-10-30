@@ -23,7 +23,7 @@
     rel="stylesheet">
 
 
- <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <script>
     (function () {
       var theme = 'dark';
@@ -40,7 +40,10 @@
       .reveal {
         opacity: 1 !important;
         transform: none !important;
-        .preloader { display: none !important; }
+
+        .preloader {
+          display: none !important;
+        }
       }
     </style>
   </noscript>
@@ -63,19 +66,20 @@
 
 <body>
   <div id="preloader" class="preloader" aria-hidden="true">
-  <svg class="pl-z" viewBox="0 0 32 32">
-    <path pathLength="100" d="M9 10 H23 L9 22 H23" />
-    <rect class="pl-dot" x="24.5" y="20.5" width="3.5" height="3.5" />
-  </svg>
-</div>
+    <svg class="pl-z" viewBox="0 0 32 32">
+      <path pathLength="100" d="M9 10 H23 L9 22 H23" />
+      <rect class="pl-dot" x="24.5" y="20.5" width="3.5" height="3.5" />
+    </svg>
+  </div>
   <!-- Header / Navbar with Glassmorphic Styling -->
   <header class="header">
     <nav class="nav container">
-      <a href="#" class="logo">Zohaib</a>
+      <a href="/" class="logo">Zohaib</a>
       <div class="nav-menu">
         <ul class="nav-links">
           <li><a href="#problem">Problem</a></li>
           <li><a href="#Expertise">Expertise</a></li>
+           <li><a href="#about">About</a></li>
           <li><a href="#journey">Journey</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#reach">Reach out</a></li>
@@ -276,6 +280,46 @@
         </div> <!-- sk-card -->
       </div> <!-- container -->
     </section>
+    <!-- About Section -->
+    <section id="about" class="section about reveal">
+      <div class="container">
+        <div class="ab-box">
+          <div class="ab-copy">
+            <p class="section-eyebrow">page.about</p>
+            <h2 class="ab-title">About</h2>
+            <p class="ab-text">
+              I'm a frontend developer who cares about the details users notice. I build fast, accessible
+              interfaces and ship them to production, from the first sketch to the deployed site. I'm still
+              learning every day, and I like it that way.
+            </p>
+            <a href="#contact" class="ab-btn">Let's talk <span aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <div class="ab-stats">
+            <div class="ab-stat">
+              <strong class="ab-value"><span data-count="1">1</span><i>+</i></strong>
+              <span class="ab-label">live project</span>
+              <small>Next.js e-commerce on Vercel</small>
+            </div>
+            <div class="ab-stat">
+              <strong class="ab-value"><span data-count="7">7</span></strong>
+              <span class="ab-label">tracks in progress</span>
+              <small>freeCodeCamp full-stack path</small>
+            </div>
+            <div class="ab-stat">
+              <strong class="ab-value"><span data-count="18">18</span><i>+</i></strong>
+              <span class="ab-label">technologies</span>
+              <small>frontend to deployment</small>
+            </div>
+            <div class="ab-stat">
+              <strong class="ab-value"><span data-count="2">2</span><i>h</i></strong>
+              <span class="ab-label">reply time</span>
+              <small>usually under 2 hours</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- freeCodeCamp Journey Section -->
     <section id="journey" class="section journey reveal">
       <div class="container">
@@ -394,38 +438,41 @@
         </div>
 
         <article class="pj-card">
-  <div class="pj-image">
-    <img src="images/clothing-store-preview.png" alt="Clothing Store E-Commerce Platform Preview" loading="lazy">
-  </div>
+          <div class="pj-image">
+            <img src="images/clothing-store-preview.png" alt="Clothing Store E-Commerce Platform Preview"
+              loading="lazy">
+          </div>
 
-  <div class="pj-body">
-    <div class="pj-meta">
-      <span class="pj-year">2026</span>
-      <span class="pj-role">Full-Stack Project</span>
-    </div>
+          <div class="pj-body">
+            <div class="pj-meta">
+              <span class="pj-year">2026</span>
+              <span class="pj-role">Full-Stack Project</span>
+            </div>
 
-    <h3 class="pj-title">Clothing Store</h3>
+            <h3 class="pj-title">Clothing Store</h3>
 
-    <p class="pj-desc">
-      A fast, responsive e-commerce platform built with Next.js and TypeScript, featuring Stripe checkout,
-      user accounts, and an admin panel, backed by Postgres and Prisma.
-    </p>
+            <p class="pj-desc">
+              A fast, responsive e-commerce platform built with Next.js and TypeScript, featuring Stripe checkout,
+              user accounts, and an admin panel, backed by Postgres and Prisma.
+            </p>
 
-    <ul class="pj-tags">
-      <li>Next.js</li>
-      <li>TypeScript</li>
-      <li>Tailwind CSS</li>
-      <li>Prisma</li>
-      <li>Stripe</li>
-    </ul>
+            <ul class="pj-tags">
+              <li>Next.js</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS</li>
+              <li>Prisma</li>
+              <li>Stripe</li>
+            </ul>
 
-    <div class="pj-links">
-      <a href="https://clothing-store-eight-puce.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo →</a>
-      <a href="https://github.com/hezohaib/clothing-store" target="_blank" rel="noopener noreferrer">View source →</a>
-    </div>
-  </div>
-</article>
-        </div>
+            <div class="pj-links">
+              <a href="https://clothing-store-eight-puce.vercel.app/" target="_blank" rel="noopener noreferrer">Live
+                demo →</a>
+              <a href="https://github.com/hezohaib/clothing-store" target="_blank" rel="noopener noreferrer">View source
+                →</a>
+            </div>
+          </div>
+        </article>
+      </div>
       </div>
     </section>
     <!-- CTA / Contact Section -->
@@ -465,30 +512,31 @@
         </div>
       </div>
     </section>
-<!-- Reach out page (sirf nav click par dikhti hai) -->
-<section id="reach" class="section reach-page reveal">
-  <div class="container">
-    <p class="reach-eyebrow">page.contact</p>
-    <h2 class="section-title">Contact</h2>
-    <p class="reach-lead">I read every message. I usually respond in under 2 hours.</p>
+    <!-- Reach out page (sirf nav click par dikhti hai) -->
+    <section id="reach" class="section reach-page reveal">
+      <div class="container">
+        <p class="reach-eyebrow">page.contact</p>
+        <h2 class="section-title">Contact</h2>
+        <p class="reach-lead">I read every message. I usually respond in under 2 hours.</p>
 
-    <div class="reach-badge">
-      <span class="cta-status-dot" aria-hidden="true"></span>
-      Available for freelance projects &middot; Remote / worldwide
-    </div>
+        <div class="reach-badge">
+          <span class="cta-status-dot" aria-hidden="true"></span>
+          Available for freelance projects &middot; Remote / worldwide
+        </div>
 
-    <div class="reach-terminal">
-      <p class="reach-line">&gt; establishing connection...</p>
-      <p class="reach-line">&gt; handshake complete</p>
-      <p class="reach-line reach-line-last">&gt; channel open<span class="reach-caret" aria-hidden="true">_</span></p>
-    </div>
+        <div class="reach-terminal">
+          <p class="reach-line">&gt; establishing connection...</p>
+          <p class="reach-line">&gt; handshake complete</p>
+          <p class="reach-line reach-line-last">&gt; channel open<span class="reach-caret" aria-hidden="true">_</span>
+          </p>
+        </div>
 
-    <div class="reach-actions">
-      <button type="button" class="btn-pill open-contact-modal">Send a Direct Message</button>
-      <a class="btn-pill btn-pill-ghost" href="mailto:zohaibatkh4x@gmail.com">Email me</a>
-    </div>
-  </div>
-</section>
+        <div class="reach-actions">
+          <button type="button" class="btn-pill open-contact-modal">Send a Direct Message</button>
+          <a class="btn-pill btn-pill-ghost" href="mailto:zohaibatkh4x@gmail.com">Email me</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Glassmorphism Smooth Contact Modal -->
@@ -569,7 +617,7 @@
   </footer>
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Main JavaScript File -->
-   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
   <script src="script.js?v=39"></script>
 
 </body>
