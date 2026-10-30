@@ -2975,9 +2975,10 @@ html {
 
 /* Problem par number nahi, isliye uski line hata di */
 #Expertise::after { content: "01"; }
-#journey::after   { content: "02"; }
-#projects::after  { content: "03"; }
-#contact::after   { content: "04"; }
+#about::after     { content: "02"; }
+#journey::after   { content: "03"; }
+#projects::after  { content: "04"; }
+#contact::after   { content: "05"; }
 
 @media (max-width: 768px) {
   .section::after { display: none; }
@@ -3442,3 +3443,543 @@ body.view-mode .section::after {
 @keyframes pl-draw { to { stroke-dashoffset: 0; } }
 @keyframes pl-pop { to { opacity: 1; } }
 @keyframes pl-failsafe { to { opacity: 0; visibility: hidden; } }
+:root { --text-soft: #a1a1a6; }
+[data-theme="light"] { --text-soft: #6e6e73; }
+
+.hero-subtitle,
+.pb-lead,
+.pb-item p,
+.section-description,
+.projects .section-description,
+.jr-summary-sub,
+.jr-text small,
+.sk-info small,
+.pj-desc,
+.cta-subtext,
+.reach-lead,
+.modal-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: var(--text-soft);
+}
+
+/* Outfit mono se bara dikhta hai, isliye chhota size thora barha do */
+.jr-text small,
+.jr-summary-sub {
+  font-size: 0.85rem;
+}
+.pb-item h3 {
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+/* Sab headings aur bold text: ek hi weight, ek hi spacing */
+.pb-item h3,
+.pb-real h3,
+.jr-text strong,
+.sk-info strong,
+.pj-title,
+.footer-note {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+/* ===== Problem cards: orange numbers, orange left line, orange heading on hover ===== */
+.problem {
+  --pb-orange: #ff6b35;
+}
+[data-theme="light"] .problem {
+  --pb-orange: #e8590c;   /* slightly darker so it stays readable on light background */
+}
+
+/* [01] [02] numbers */
+.pb-num {
+  color: var(--pb-orange);
+}
+
+/* line on the left side of each box */
+.pb-item {
+  border-left-color: var(--pb-orange);
+}
+
+/* heading turns orange when you hover the box */
+.pb-item h3 {
+  transition: color 0.25s ease;
+}
+@media (hover: hover) {
+  .pb-item:hover h3 {
+    color: var(--pb-orange);
+  }
+}
+/* ===== Expertise: smaller, compact card ===== */
+.sk-card,
+[data-theme="light"] .sk-card {
+  max-width: 720px;        /* was 940px */
+  padding: 1rem;
+  border-radius: 18px;
+}
+
+.sk-toolbar { margin-bottom: 0.75rem; }
+
+.sk-group + .sk-group { margin-top: 0.75rem; }
+
+.sk-group-title {
+  margin-bottom: 0.4rem;
+  font-size: 0.72rem;
+}
+
+/* more tiles per row, smaller tiles */
+.sk-grid {
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 0.4rem;
+}
+
+.sk-tile {
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+}
+
+.sk-info strong { font-size: 0.82rem; }
+
+/* filter buttons a bit smaller */
+.sk-seg-btn {
+  padding: 0.32rem 0.8rem;
+  font-size: 0.78rem;
+}
+/* ===== Expertise: spotlight + tilt ===== */
+
+/* light that follows the mouse, in the colour of each technology */
+.sk-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--tint, #2997ff) 35%, transparent),
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.sk-tile.is-hot::before { opacity: 1; }
+
+/* keep the text above the light */
+.sk-info,
+.sk-icon {
+  position: relative;
+  z-index: 1;
+}
+
+/* tilt: mouse devices only */
+@media (hover: hover) and (pointer: fine) {
+  .sk-tile {
+    transform: perspective(600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.15s ease-out, background-color 0.25s ease, border-color 0.25s ease;
+  }
+  .sk-tile:hover {
+    transform: perspective(600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-2px);
+  }
+}
+/* ===== About section ===== */
+.about {
+  --ab-accent: #2997ff;
+  --ab-muted: #a1a1a6;
+}
+[data-theme="light"] .about {
+  --ab-accent: #0071e3;
+  --ab-muted: #6e6e73;
+}
+
+.about .container {
+  width: 100%;
+  max-width: 1600px;
+  padding-left: clamp(1rem, 4vw, 3.5rem);
+  padding-right: clamp(1rem, 4vw, 3.5rem);
+}
+
+.ab-box {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* big faded number */
+.ab-num {
+  position: absolute;
+  top: 0.5rem;
+  left: 1.25rem;
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+[data-theme="light"] .ab-num { color: rgba(0, 0, 0, 0.06); }
+
+.ab-copy,
+.ab-stats { position: relative; z-index: 1; }
+
+.ab-eyebrow {
+  margin-bottom: 0.6rem;
+  color: var(--ab-muted);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.ab-eyebrow::before { content: "// "; opacity: 0.6; }
+
+.ab-title {
+  margin-bottom: 1.75rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.ab-text {
+  max-width: 34rem;
+  margin-bottom: 2rem;
+  color: var(--ab-muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.ab-btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  color: var(--text-main);
+  border: 1px solid var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+@media (hover: hover) {
+  .ab-btn:hover {
+    color: var(--bg-body);
+    background: var(--text-main);
+  }
+}
+.ab-btn:focus-visible {
+  outline: 2px solid var(--ab-accent);
+  outline-offset: 3px;
+}
+
+/* stats box */
+.ab-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem 1.5rem;
+  padding: 2.5rem 1.5rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.ab-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ab-value {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.ab-value i {
+  color: var(--ab-accent);
+  font-size: 0.55em;
+  font-style: normal;
+}
+
+.ab-label {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.ab-stat small {
+  color: var(--ab-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 900px) {
+  .ab-box {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.25rem;
+  }
+  .ab-copy { padding-top: 2.5rem; }
+}
+/* ===== Slimmer navbar ===== */
+.header .nav {
+  padding-top: 0.5rem;      /* was 1.1rem */
+  padding-bottom: 0.5rem;
+}
+
+.logo {
+  font-size: 1.1rem;        /* was 1.35rem */
+}
+
+.nav-links a {
+  font-size: 0.75rem;
+}
+
+/* smaller theme button */
+.theme-toggle-btn {
+  width: 30px;
+  height: 30px;
+}
+.theme-toggle-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* the hero height is calculated from this, so keep it in sync with the new navbar */
+:root { --header-h: 58px; }
+
+@media (max-width: 768px) {
+  .header .nav {
+    gap: 0.5rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+  :root { --header-h: 100px; }   /* navbar wraps to two rows on phones */
+}
+/* ===== Buttons: blue, blue fill slides out on hover ===== */
+.btn-pill:not(.btn-pill-ghost),
+.ab-btn {
+  --btn-blue: #0071e3;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  color: #ffffff;
+  background: #ffffff;                 /* the colour you see after the blue slides away */
+  border: 1px solid var(--btn-blue);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  translate: var(--bx, 0px) var(--by, 0px);   /* follows the mouse (set by script.js) */
+  transition: color 0.3s ease, translate 0.15s ease-out;
+}
+
+/* the blue layer */
+.btn-pill:not(.btn-pill-ghost)::before,
+.ab-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-blue);
+  transform: scaleX(1);
+  transform-origin: right center;      /* when the mouse leaves, blue comes back from the right */
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .btn-pill:not(.btn-pill-ghost):not(:disabled):hover,
+  .ab-btn:hover {
+    color: var(--btn-blue);
+    background: #ffffff;
+    border-color: var(--btn-blue);
+    transform: none;
+  }
+
+  /* blue slides out to the left */
+  .btn-pill:not(.btn-pill-ghost):not(:disabled):hover::before,
+  .ab-btn:hover::before {
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+}
+
+/* while the form is sending, the button stays blue */
+.btn-pill:not(.btn-pill-ghost):disabled:hover {
+  color: #ffffff;
+  background: #ffffff;
+}
+
+.btn-pill:not(.btn-pill-ghost):focus-visible,
+.ab-btn:focus-visible {
+  outline: 2px solid var(--btn-blue);
+  outline-offset: 3px;
+}
+/* ===== Light theme: soft glow behind / under the button on hover ===== */
+@media (hover: hover) {
+  [data-theme="light"] .btn-pill:not(.btn-pill-ghost):not(:disabled):hover,
+  [data-theme="light"] .ab-btn:hover {
+    box-shadow: 0 10px 22px -8px rgba(0, 113, 227, 0.45);
+  }
+}
+/* ===== Hero "Contact Me": plain box, light orange slides in on hover ===== */
+.hero-buttons .btn-pill.btn-pill-ghost {
+ --btn-orange: #2997ff;
+--btn-orange-soft: rgba(41, 151, 255, 0.07);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  color: var(--text-main);               /* black in light theme (white in dark, so it stays visible) */
+  background: transparent;
+  border: 1px solid var(--text-main);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  translate: var(--bx, 0px) var(--by, 0px);
+  transition: color 0.3s ease, border-color 0.3s ease, translate 0.15s ease-out;
+}
+[data-theme="light"] .hero-buttons .btn-pill.btn-pill-ghost {
+  --btn-orange: #e8590c;
+  --btn-orange-soft: rgba(232, 89, 12, 0.12);
+}
+
+/* remove the old "›" arrow */
+.hero-buttons .btn-pill.btn-pill-ghost::after {
+  content: none;
+}
+
+/* the light orange layer (hidden by default) */
+.hero-buttons .btn-pill.btn-pill-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-orange-soft);
+  transform: scaleX(0);
+  transform-origin: right center;        /* on mouse leave it goes away toward the right */
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .hero-buttons .btn-pill.btn-pill-ghost:not(:disabled):hover {
+    color: var(--btn-orange);
+    background: transparent;
+    border-color: var(--btn-orange);
+    transform: none;
+  }
+  /* orange slides in from the left */
+  .hero-buttons .btn-pill.btn-pill-ghost:not(:disabled):hover::before {
+    transform-origin: left center;
+    transform: scaleX(1);
+  }
+}
+
+.hero-buttons .btn-pill.btn-pill-ghost:focus-visible {
+  outline: 2px solid var(--btn-orange);
+  outline-offset: 3px;
+  
+}
+/* ===== Hero "Contact Me": plain box, very light blue slides in on hover ===== */
+html .hero-buttons .btn-pill.btn-pill-ghost {
+  --cm: #2997ff;
+  --cm-soft: rgba(41, 151, 255, 0.07);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  color: var(--text-main);
+  background: transparent;
+  border: 1px solid var(--text-main);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  translate: var(--bx, 0px) var(--by, 0px);
+  transition: color 0.3s ease, border-color 0.3s ease, translate 0.15s ease-out;
+}
+html[data-theme="light"] .hero-buttons .btn-pill.btn-pill-ghost {
+  --cm: #0071e3;
+  --cm-soft: rgba(0, 113, 227, 0.06);
+}
+
+html .hero-buttons .btn-pill.btn-pill-ghost::after { content: none; }
+
+html .hero-buttons .btn-pill.btn-pill-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--cm-soft);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  html .hero-buttons .btn-pill.btn-pill-ghost:not(:disabled):hover {
+    color: var(--cm);
+    background: transparent;
+    border-color: var(--cm);
+    transform: none;
+  }
+  html .hero-buttons .btn-pill.btn-pill-ghost:not(:disabled):hover::before {
+    transform-origin: left center;
+    transform: scaleX(1);
+  }
+}
+/* ===== Problem: Minesweeper background ===== */
+.problem {
+  isolation: isolate;   /* keeps the canvas behind the cards, not behind the page */
+  overflow: hidden;
+}
+
+.problem-mines {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* fades out softly at the top and bottom */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+/* Minesweeper: fainter, so the text stays readable */
+.problem-mines {
+  opacity: 0.5;
+}
+
+/* cards get a soft solid background so their text sits on a calm surface */
+.pb-item {
+  background: rgba(0, 0, 0, 0.55);
+}
+[data-theme="light"] .pb-item {
+  background: rgba(244, 244, 243, 0.85);
+}
+/* Projects: Minesweeper background stays behind the card */
+.projects {
+  isolation: isolate;
+  overflow: hidden;
+}
+/* Journey card: sharp corners */
+.jr-card {
+  border-radius: 0;
+}
+
+.jr-row:focus-visible,
+.jr-fcc-link:focus-visible {
+  border-radius: 0;
+}
