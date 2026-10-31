@@ -6,33 +6,33 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   /* Preloader: site load hone par Z fade out */
-const preloader = document.getElementById('preloader');
-if (preloader) {
-  const MIN_SHOW = 1400;   // kam az kam itni der (ms) dikhe, taake Z poora draw ho
-  const hidePreloader = () => {
-    const wait = Math.max(0, MIN_SHOW - performance.now());
-    setTimeout(() => {
-      preloader.classList.add('is-done');
-      window.dispatchEvent(new Event('preloader-done'));   // the hero name animates in now
-      setTimeout(() => preloader.remove(), 600);
-    }, wait);
-  };
-  if (document.readyState === 'complete') hidePreloader();
-  else window.addEventListener('load', hidePreloader, { once: true });
-}
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    const MIN_SHOW = 1400;   // kam az kam itni der (ms) dikhe, taake Z poora draw ho
+    const hidePreloader = () => {
+      const wait = Math.max(0, MIN_SHOW - performance.now());
+      setTimeout(() => {
+        preloader.classList.add('is-done');
+        window.dispatchEvent(new Event('preloader-done'));   // the hero name animates in now
+        setTimeout(() => preloader.remove(), 600);
+      }, wait);
+    };
+    if (document.readyState === 'complete') hidePreloader();
+    else window.addEventListener('load', hidePreloader, { once: true });
+  }
   /* Smooth scroll (Lenis) */
-let lenis = null;
-if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  lenis = new Lenis({
-    lerp: 0.09,                    //smooth/slow glide
-  });
-  const raf = (time) => {
-    lenis.raf(time);
+  let lenis = null;
+  if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    lenis = new Lenis({
+      lerp: 0.09,                    //smooth/slow glide
+    });
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
     requestAnimationFrame(raf);
-  };
-  requestAnimationFrame(raf);
-}
-  
+  }
+
   /* Theme toggle: dark is the default, the choice is saved in localStorage */
   const themeToggleBtn = document.getElementById('themeToggle');
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
@@ -58,7 +58,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
       const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       applyTheme(next);
       try { localStorage.setItem('theme', next); } catch (e) { /* storage blocked: still works for this visit */ }
-      
+
     });
   }
   /* ==========================================================================
@@ -184,7 +184,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
 
   const openModal = () => {
     if (!contactModal) return;
-     if (lenis) lenis.stop();
+    if (lenis) lenis.stop();
 
     // Cancel a pending auto-close from a previous successful send
     clearTimeout(autoCloseTimer);
@@ -205,7 +205,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
 
   const closeModal = () => {
     if (!contactModal) return;
-    if (lenis) lenis.start(); 
+    if (lenis) lenis.start();
 
     clearTimeout(autoCloseTimer);
     clearTimeout(modalFocusTimer);
@@ -348,7 +348,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
       }
     });
   }
-   /* Skills: segmented control filter */
+  /* Skills: segmented control filter */
   const skCard = document.querySelector('.sk-card');
 
   if (skCard) {
@@ -418,7 +418,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
       document.fonts.ready.then(() => moveThumb(getActive()));
     }
   }
-     /* Hero name: scramble into "Frontend Developer" on hover and every 10 seconds */
+  /* Hero name: scramble into "Frontend Developer" on hover and every 10 seconds */
   const nameSwap = document.querySelector('.name-swap');
 
   if (nameSwap) {
@@ -752,7 +752,7 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
     new MutationObserver(() => { readTheme(); if (reduceMotion) draw(0); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-        let resizeTimer;
+    let resizeTimer;
     let lastW = window.innerWidth;
     window.addEventListener('resize', () => {
       if (window.innerWidth === lastW) return;   // ignore mobile address-bar height changes
@@ -761,165 +761,165 @@ if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').match
       resizeTimer = setTimeout(resize, 150);
     });
   }
-)();
-/* ==========================================================================
-   Section "view mode": nav link click = sirf wahi section dikhao
-   ========================================================================== */
-(() => {
-  const sections = Array.from(document.querySelectorAll('main > section.section'));
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let savedScroll = 0;
-  let typeTimer = null;
-  const homeTitle = document.title;   // index.html wala <title> yahan save ho jata hai
+  )();
+  /* ==========================================================================
+     Section "view mode": nav link click = sirf wahi section dikhao
+     ========================================================================== */
+  (() => {
+    const sections = Array.from(document.querySelectorAll('main > section.section'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let savedScroll = 0;
+    let typeTimer = null;
+    const homeTitle = document.title;   // index.html wala <title> yahan save ho jata hai
 
-const titles = {
-  about: 'About',
-  problem: 'Problem',
-  Expertise: 'Expertise',
-  journey: 'Journey',
-  projects: 'Work',
-  contact: 'Contact',
-  reach: 'Reach out'
-};
+    const titles = {
+      about: 'About',
+      problem: 'Problem',
+      Expertise: 'Expertise',
+      journey: 'Journey',
+      projects: 'Work',
+      contact: 'Contact',
+      reach: 'Reach out'
+    };
 
-const setTitle = (id) => {
-  document.title = id && titles[id] ? titles[id] + ' | Zohaib' : homeTitle;
-};
+    const setTitle = (id) => {
+      document.title = id && titles[id] ? titles[id] + ' | Zohaib' : homeTitle;
+    };
 
-  const jumpTo = (y) => {
-    if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y, { immediate: true });
-    else window.scrollTo({ top: y, behavior: 'instant' });
-  };
+    const jumpTo = (y) => {
+      if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y, { immediate: true });
+      else window.scrollTo({ top: y, behavior: 'instant' });
+    };
 
-  const getHeading = (section) => section.querySelector('.section-title, .pb-title, .ab-title');
+    const getHeading = (section) => section.querySelector('.section-title, .pb-title, .ab-title');
 
-  // Heading ko wapas poora text dena (typing beech mein ruk jaye to bhi)
-  const resetHeadings = () => {
-    cancelAnimationFrame(typeTimer);
-    sections.forEach((s) => {
-      const h = getHeading(s);
-      if (h && h.dataset.full) {
-        h.textContent = h.dataset.full;
-        h.classList.remove('is-typing');
-      }
-    });
-  };
+    // Heading ko wapas poora text dena (typing beech mein ruk jaye to bhi)
+    const resetHeadings = () => {
+      cancelAnimationFrame(typeTimer);
+      sections.forEach((s) => {
+        const h = getHeading(s);
+        if (h && h.dataset.full) {
+          h.textContent = h.dataset.full;
+          h.classList.remove('is-typing');
+        }
+      });
+    };
 
- const GLYPHS = '!<>-_\\/[]{}=+*^?#01';
-const randGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+    const GLYPHS = '!<>-_\\/[]{}=+*^?#01';
+    const randGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
 
-const typeHeading = (section) => {
-  const h = getHeading(section);
-  if (!h) return;                      // Contact mein ye heading nahi hoti
-  const full = h.dataset.full || (h.dataset.full = h.textContent.trim());
-  h.setAttribute('aria-label', full);  // screen reader ko poora text mile
+    const typeHeading = (section) => {
+      const h = getHeading(section);
+      if (!h) return;                      // Contact mein ye heading nahi hoti
+      const full = h.dataset.full || (h.dataset.full = h.textContent.trim());
+      h.setAttribute('aria-label', full);  // screen reader ko poora text mile
 
-  cancelAnimationFrame(typeTimer);
-  if (reduceMotion) { h.textContent = full; return; }
+      cancelAnimationFrame(typeTimer);
+      if (reduceMotion) { h.textContent = full; return; }
 
-  h.classList.add('is-typing');
+      h.classList.add('is-typing');
 
-  // Har letter ka apna start/end time, left se right ek ek karke
-  const chars = Array.from(full).map((ch, i) => {
-    const start = 300 + i * 130 + Math.random() * 150;
-    return { ch, start, end: start + 900 + Math.random() * 600, glyph: '', next: 0 };
-  });
-// Har letter ki asli width pehle napo, taake symbol aane par kuch na hile
-const widths = chars.map((c) => {
-  const m = document.createElement('span');
-  m.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;';
-  m.textContent = c.ch;
-  h.append(m);
-  const w = m.getBoundingClientRect().width;
-  m.remove();
-  return w;
-});
-  const t0 = performance.now();
+      // Har letter ka apna start/end time, left se right ek ek karke
+      const chars = Array.from(full).map((ch, i) => {
+        const start = 300 + i * 130 + Math.random() * 150;
+        return { ch, start, end: start + 900 + Math.random() * 600, glyph: '', next: 0 };
+      });
+      // Har letter ki asli width pehle napo, taake symbol aane par kuch na hile
+      const widths = chars.map((c) => {
+        const m = document.createElement('span');
+        m.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;';
+        m.textContent = c.ch;
+        h.append(m);
+        const w = m.getBoundingClientRect().width;
+        m.remove();
+        return w;
+      });
+      const t0 = performance.now();
 
-  const frame = (now) => {
-    const t = now - t0;
-    let done = true;
-    h.textContent = '';
+      const frame = (now) => {
+        const t = now - t0;
+        let done = true;
+        h.textContent = '';
 
-    chars.forEach((c, idx) => {
-      if (c.ch === ' ' || t >= c.end) {
-        h.append(c.ch);                              // letter apni asli shakal mein
+        chars.forEach((c, idx) => {
+          if (c.ch === ' ' || t >= c.end) {
+            h.append(c.ch);                              // letter apni asli shakal mein
+            return;
+          }
+          done = false;
+          const span = document.createElement('span');
+          if (t >= c.start) {
+            if (t >= c.next) { c.glyph = randGlyph(); c.next = t + 140; }
+            span.className = 'scr-glyph';                // symbol dikhao
+            span.style.width = widths[idx] + 'px';
+            span.textContent = c.glyph;
+          } else {
+            span.className = 'scr-hide';                 // abhi chhupa hai, par jagah ghera hua
+            span.textContent = c.ch;
+          }
+          h.append(span);
+        });
+
+        if (done) h.classList.remove('is-typing');
+        else typeTimer = requestAnimationFrame(frame);
+      };
+
+      typeTimer = requestAnimationFrame(frame);
+    };
+    const showSection = (id, push) => {
+      const target = document.getElementById(id);
+      if (!target || !sections.includes(target)) return;
+
+      if (!document.body.classList.contains('view-mode')) savedScroll = window.scrollY;
+      resetHeadings();
+      document.body.classList.add('view-mode');
+      sections.forEach((s) => s.classList.toggle('is-current', s === target));
+      document.querySelectorAll('.nav-links a').forEach((a) => {
+        a.classList.toggle('is-current', a.getAttribute('href') === '#' + id);
+      });
+      target.classList.add('active');
+      jumpTo(0);
+      window.dispatchEvent(new Event('resize'));
+      typeHeading(target);
+      setTitle(id);
+      if (push) history.pushState({ view: id }, '', '#' + id);
+    };
+
+    const showHome = (push) => {
+      if (!document.body.classList.contains('view-mode')) return;
+      resetHeadings();
+      document.body.classList.remove('view-mode');
+      document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('is-current'));
+      jumpTo(savedScroll);
+      setTitle();
+      if (push) history.pushState(null, '', location.pathname);
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      const href = link.getAttribute('href');
+
+      if (href === '#') {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          showHome(true);
+        });
         return;
       }
-      done = false;
-      const span = document.createElement('span');
-      if (t >= c.start) {
-        if (t >= c.next) { c.glyph = randGlyph(); c.next = t + 140; }
-        span.className = 'scr-glyph';                // symbol dikhao
-        span.style.width = widths[idx] + 'px'; 
-        span.textContent = c.glyph;
-      } else {
-        span.className = 'scr-hide';                 // abhi chhupa hai, par jagah ghera hua
-        span.textContent = c.ch;
-      }
-      h.append(span);
+
+      const id = href.slice(1);
+      if (!sections.some((s) => s.id === id)) return;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection(id, true);
+      });
     });
 
-    if (done) h.classList.remove('is-typing');
-    else typeTimer = requestAnimationFrame(frame);
-  };
-
-  typeTimer = requestAnimationFrame(frame);
-};
-const showSection = (id, push) => {
-  const target = document.getElementById(id);
-  if (!target || !sections.includes(target)) return;
-
-  if (!document.body.classList.contains('view-mode')) savedScroll = window.scrollY;
-  resetHeadings();
-  document.body.classList.add('view-mode');
-  sections.forEach((s) => s.classList.toggle('is-current', s === target));
-  document.querySelectorAll('.nav-links a').forEach((a) => {
-  a.classList.toggle('is-current', a.getAttribute('href') === '#' + id);
-});
-  target.classList.add('active');
-  jumpTo(0);
-  window.dispatchEvent(new Event('resize'));
-  typeHeading(target);
-  setTitle(id);   
-  if (push) history.pushState({ view: id }, '', '#' + id);
-};
-
-const showHome = (push) => {
-  if (!document.body.classList.contains('view-mode')) return;
-  resetHeadings();
-  document.body.classList.remove('view-mode');
-  document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('is-current'));
-  jumpTo(savedScroll);
-  setTitle();
-  if (push) history.pushState(null, '', location.pathname);
-};
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  const href = link.getAttribute('href');
-
-  if (href === '#') {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      showHome(true);
+    window.addEventListener('popstate', () => {
+      const id = location.hash.slice(1);
+      if (sections.some((s) => s.id === id)) showSection(id, false);
+      else showHome(false);
     });
-    return;
-  }
-
-  const id = href.slice(1);
-  if (!sections.some((s) => s.id === id)) return;
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection(id, true);
-  });
-});
-
-window.addEventListener('popstate', () => {
-  const id = location.hash.slice(1);
-  if (sections.some((s) => s.id === id)) showSection(id, false);
-  else showHome(false);
-});
-})();
+  })();
   /* Expertise: spotlight + tilt on tiles, count-up on first view */
   (() => {
     const card = document.querySelector('.sk-card');
@@ -958,28 +958,6 @@ window.addEventListener('popstate', () => {
         active = null;
       });
     }
-
-    // count-up: runs once, when the card first scrolls into view
-    const countEl = document.getElementById('skCount');
-    if (countEl && !reduce && 'IntersectionObserver' in window) {
-      const io = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-
-        const target = parseInt(countEl.textContent, 10) || 0;
-        const start = performance.now();
-        const DURATION = 900;
-
-        const step = (now) => {
-          const p = Math.min((now - start) / DURATION, 1);
-          countEl.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      }, { threshold: 0.4 });
-
-      io.observe(card);
-    }
   })();
   /* About: stats count up once when they scroll into view */
   (() => {
@@ -1005,7 +983,7 @@ window.addEventListener('popstate', () => {
 
     io.observe(stats);
   })();
-    /* Buttons: nudge slightly toward the mouse while it is over the button */
+  /* Buttons: nudge slightly toward the mouse while it is over the button */
   (() => {
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1031,7 +1009,7 @@ window.addEventListener('popstate', () => {
       });
     });
   })();
-    /* Problem: Minesweeper that plays itself, hits a mine, explodes, clears and restarts */
+  /* Problem: Minesweeper that plays itself, hits a mine, explodes, clears and restarts */
   const initMines = (sectionId, cfg) => {
     const section = document.getElementById(sectionId);
     if (!section) return;
@@ -1253,7 +1231,7 @@ window.addEventListener('popstate', () => {
           const A = cons[a], B = cons[b];
           if (A.u.length >= B.u.length) continue;
           if (Math.abs((A.i % cols) - (B.i % cols)) > 2 ||
-              Math.abs(((A.i / cols) | 0) - ((B.i / cols) | 0)) > 2) continue;
+            Math.abs(((A.i / cols) | 0) - ((B.i / cols) | 0)) > 2) continue;
           const setB = new Set(B.u);
           if (!A.u.every((j) => setB.has(j))) continue;
           const setA = new Set(A.u);
@@ -1396,8 +1374,8 @@ window.addEventListener('popstate', () => {
         mctx.clearRect(0, 0, cols, rows);
         for (let i = 0; i < grid.length; i++) {
           const g = grid[i];
-          if (!g.open || g.mine) continue;
-          const p = Math.min(1, (now - g.openAt) / 450);
+          if (g.mine ? !g.exploded : !g.open) continue;
+          const p = Math.min(1, (now - (g.mine ? g.expAt : g.openAt)) / 450);
           mctx.fillStyle = 'rgba(' + rgb + ',' + (CLOUD * p * master).toFixed(3) + ')';
           mctx.fillRect(i % cols, (i / cols) | 0, 1, 1);
         }
@@ -1413,8 +1391,13 @@ window.addEventListener('popstate', () => {
         const g = grid[i];
         const x = (i % cols) * cell, y = ((i / cols) | 0) * cell;
 
-        if (g.mine && g.exploded) {                       // blown-up mine: only the star
+        if (g.mine && g.exploded) {                       // blown-up mine: tile + star
           const a = Math.min(1, (now - g.expAt) / 250) * master;
+
+          // NEW: same soft square as the opened cells, so the star sits on a tile
+          ctx.fillStyle = 'rgba(' + rgb + ',' + (TILE * a).toFixed(3) + ')';
+          ctx.fillRect(x + 1, y + 1, cell - 2, cell - 2);
+
           ctx.font = mineFont;
           ctx.fillStyle = 'rgba(' + orange + ',' + ((g.hit ? 0.95 : 0.8) * a).toFixed(3) + ')';
           ctx.fillText('*', x + cell / 2, y + cell / 2 + cell * 0.18);
@@ -1591,8 +1574,8 @@ window.addEventListener('popstate', () => {
 
   // Minesweeper background. To use it on another section, add one more initMines('section-id', { ... }) line
   initMines('problem', { numGap: 1, numSize: 0.34, numAlpha: 0.22, tile: 0.07, flags: true, cloud: 0.12 });
-    /* Dot grid background: shows on every page opened from the navbar (not on Problem).
-     Dots stay in the background, drift slowly when you scroll, and hide wherever there is content. */
+  /* Dot grid background: shows on every page opened from the navbar (not on Problem).
+   Dots stay in the background, drift slowly when you scroll, and hide wherever there is content. */
   (() => {
     const canvas = document.createElement('canvas');
     canvas.setAttribute('aria-hidden', 'true');
@@ -1605,14 +1588,14 @@ window.addEventListener('popstate', () => {
 
     /* ---- tune here ---- */
     const SPACING = 30;    // distance between dots (px)
-    const RADIUS = 1.2;    // dot size
+    const RADIUS = 0.8;    // dot size
     const FACTOR = 0.3;    // how much the dots follow the scroll (0 = they never move)
     const EASE = 0.12;     // smoothness (smaller = slower, softer)
     const PAD = 14;        // empty space kept around text and cards (px)
     const FEATHER = 18;    // dots next to that space are half faded (px)
 
     // boxes: the whole box hides the dots. text: only the lines of text hide the dots.
-    const BOXES = '.sk-card, .jr-card, .pj-card, .ab-box, .reach-terminal, .reach-badge, ' +
+    const BOXES = '.pj-card, .ab-box, .reach-terminal, .reach-badge, ' +
       '.cta-info-badge, .btn-pill, .ab-btn';
     const TEXTS = 'h1, h2, h3, p';
 
@@ -1679,10 +1662,7 @@ window.addEventListener('popstate', () => {
           let level = 2;                                        // 2 = full dot, 1 = half, 0 = hidden
           for (let k = 0; k < n; k += 4) {
             const l = rects[k], t = rects[k + 1], rr = rects[k + 2], b = rects[k + 3];
-            if (x > l - far && x < rr + far && y > t - far && y < b + far) {
-              if (x > l - PAD && x < rr + PAD && y > t - PAD && y < b + PAD) { level = 0; break; }
-              level = 1;
-            }
+            if (x > l && x < rr && y > t && y < b) { level = 1; break; }   // inside a card: faded dots
           }
           if (level === 2) { full.moveTo(x + RADIUS, y); full.arc(x, y, RADIUS, 0, Math.PI * 2); }
           else if (level === 1) { half.moveTo(x + RADIUS, y); half.arc(x, y, RADIUS, 0, Math.PI * 2); }
@@ -1723,7 +1703,7 @@ window.addEventListener('popstate', () => {
 
       // a new page is open: remember what is on it
       boxEls = Array.from(now.querySelectorAll(BOXES));
-      textEls = Array.from(now.querySelectorAll(TEXTS)).filter((el) => !el.closest(BOXES));
+
       fixedEls = Array.from(document.querySelectorAll('.header, .glass-footer'));
 
       if (!active) {
@@ -1758,5 +1738,84 @@ window.addEventListener('popstate', () => {
       .observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
 
     update();
+  })();  /* Expertise (home page): dots drift slowly when you scroll, same feel as the other pages */
+  (() => {
+    const el = document.getElementById('Expertise');
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const FACTOR = 0.3;   // same as the dot grid on the other pages (0 = dots never move)
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      if (document.body.classList.contains('view-mode')) return;
+      const top = el.getBoundingClientRect().top;
+      // dots move slower than the page, so they look like they sit behind it
+      el.style.setProperty('--dots-y', (-window.scrollY * FACTOR - top) + 'px');
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+  /* Expertise: "18 technologies" counts up from 0 every time the card comes into view
+   (home page scroll and navbar click both work) */
+  (() => {
+    const card = document.querySelector('.sk-card');
+    const countEl = document.getElementById('skCount');
+    if (!card || !countEl) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    const DURATION = 1000;   // count-up time (ms)
+    let raf = 0;
+
+    // how many tiles are visible right now (changes with the filter)
+    const visibleCount = () => card.querySelectorAll('.sk-group:not([hidden]) .sk-tile').length;
+
+    const run = () => {
+      cancelAnimationFrame(raf);
+      const start = performance.now();
+      countEl.textContent = 0;
+      const step = (now) => {
+        const p = Math.min((now - start) / DURATION, 1);
+        countEl.textContent = Math.round(visibleCount() * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        run();
+      } else {
+        cancelAnimationFrame(raf);
+        countEl.textContent = 0;   // ready for the next time
+      }
+    }, { threshold: 0.4 }).observe(card);
+  })();
+  /* Section separator line: on while the section is in the middle of the screen, off when you leave */
+  (() => {
+    if (!('IntersectionObserver' in window)) return;
+    const targets = document.querySelectorAll('#Expertise, #about, #journey, #projects, #contact');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('in-view', entry.isIntersecting);
+      });
+    }, {
+      // only the middle 20% band of the screen counts as "you are on this section"
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0
+    });
+
+    targets.forEach((el) => io.observe(el));
   })();
 });
