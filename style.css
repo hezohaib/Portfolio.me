@@ -3983,3 +3983,256 @@ html .hero-buttons .btn-pill.btn-pill-ghost::before {
 .jr-fcc-link:focus-visible {
   border-radius: 0;
 }
+/* ===== Contact CTA: match the rest of the site ===== */
+
+/* 1. remove the big "05" on this section */
+#contact::after {
+  display: none;
+}
+
+/* 2. small mono label above the heading, like the other pages */
+.cta-wrapper::before {
+  content: "// contact";
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* 3. heading: a bit smaller, narrower, so it reads as 2 clean lines */
+.cta-heading {
+  max-width: 22ch;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1.2;
+}
+
+/* 4. badges: one row, square, mono, blue left line (same as Problem cards) */
+.cta-info-badges {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  gap: 0.75rem;
+}
+
+.cta-info-badge {
+  justify-content: flex-start;
+  min-height: 0;
+  padding: 0.6rem 1rem;
+  color: var(--text-main);
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid #2997ff;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+[data-theme="light"] .cta-info-badge {
+  border-left-color: #0071e3;
+}
+/* ===== Big section numbers: 02 to 06, Contact has none ===== */
+
+/* numbers (Problem now has one, the rest move up by one) */
+#problem::after   { content: "02"; }
+#Expertise::after { content: "03"; }
+#about::after     { content: "04"; }
+#journey::after   { content: "05"; }
+#projects::after  { content: "06"; }
+#contact::after   { content: none; }   /* last section: no number */
+
+/* right side: Problem and Journey */
+#problem::after,
+#journey::after {
+  left: auto;
+  right: clamp(1rem, 4vw, 3.5rem);
+}
+.pj-image.image-fallback { background: #0a0a0a; }
+.pj-image.image-fallback img { display: none; }
+/* ===== Expertise: sharp corners like the other cards ===== */
+.sk-card,
+[data-theme="light"] .sk-card {
+  border-radius: 0;
+}
+
+/* optional: andar ke tiles bhi sharp (agar nahi chahiye to ye hissa hata do) */
+.sk-tile {
+  border-radius: 0;
+}
+/* ===== Expertise: dotted background on the home page ===== */
+#Expertise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.8px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: 15px var(--dots-y, 15px);
+}
+[data-theme="light"] #Expertise {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2) 0.8px, transparent 1px);
+}
+
+/* Nav click wale page par canvas wale dots hain, isliye yahan band */
+body.view-mode #Expertise {
+  background-image: none;
+}
+/* ===== Expertise card: dots andar kam dikhein ===== */
+.sk-card {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025)),
+    rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .sk-card {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.025)),
+    rgba(244, 244, 243, 0.75);
+}
+/* ===== Expertise: filter buttons blue, active one orange, count orange ===== */
+.sk-seg-btn {
+  color: #2997ff;
+}
+.sk-seg-btn.is-active {
+  color: #ff6b35;
+}
+.sk-count {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .sk-seg-btn {
+  color: #0071e3;
+}
+[data-theme="light"] .sk-seg-btn.is-active {
+  color: #e8590c;
+}
+[data-theme="light"] .sk-count {
+  color: #e8590c;
+}
+/* ===== Expertise: filter buttons normal weight ===== */
+.sk-seg-btn {
+  font-weight: 400;
+}
+/* ===== Blue separator line: centre se phailti hai, dono side fade, section chhorne par gayab ===== */
+#about::before,
+#journey::before,
+#projects::before,
+#contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1rem, 4vw, 3.5rem);
+  right: clamp(1rem, 4vw, 3.5rem);
+  height: 1px;
+  background: linear-gradient(to right,
+      rgba(41, 151, 255, 0),
+      #2997ff 50%,
+      rgba(41, 151, 255, 0));
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s ease;
+  pointer-events: none;
+}
+
+/* JS ye class tab lagata hai jab tum us section par ho, aur hata deta hai jab chhor do */
+#about.in-view::before,
+#journey.in-view::before,
+#projects.in-view::before,
+#contact.in-view::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+[data-theme="light"] #about::before,
+[data-theme="light"] #journey::before,
+[data-theme="light"] #projects::before,
+[data-theme="light"] #contact::before {
+  background: linear-gradient(to right,
+      rgba(0, 113, 227, 0),
+      #0071e3 50%,
+      rgba(0, 113, 227, 0));
+}
+
+/* nav click wale page par line nahi chahiye */
+body.view-mode .section::before {
+  display: none;
+}
+/* ===== Separator line: zyada gehri ===== */
+#about::before,
+#journey::before,
+#projects::before,
+#contact::before {
+  height: 2px;
+  background: linear-gradient(to right,
+      rgba(41, 151, 255, 0) 0%,
+      rgba(41, 151, 255, 0.85) 25%,
+      #2997ff 50%,
+      rgba(41, 151, 255, 0.85) 75%,
+      rgba(41, 151, 255, 0) 100%);
+}
+
+[data-theme="light"] #about::before,
+[data-theme="light"] #journey::before,
+[data-theme="light"] #projects::before,
+[data-theme="light"] #contact::before {
+  background: linear-gradient(to right,
+      rgba(0, 113, 227, 0) 0%,
+      rgba(0, 113, 227, 0.85) 25%,
+      #0071e3 50%,
+      rgba(0, 113, 227, 0.85) 75%,
+      rgba(0, 113, 227, 0) 100%);
+}
+/* ===== Separator line: Expertise (Problem aur Expertise ke beech) ===== */
+#Expertise::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1rem, 4vw, 3.5rem);
+  right: clamp(1rem, 4vw, 3.5rem);
+  height: 2px;
+  background: linear-gradient(to right,
+      rgba(41, 151, 255, 0) 0%,
+      rgba(41, 151, 255, 0.85) 25%,
+      #2997ff 50%,
+      rgba(41, 151, 255, 0.85) 75%,
+      rgba(41, 151, 255, 0) 100%);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s ease;
+  pointer-events: none;
+}
+
+#Expertise.in-view::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+[data-theme="light"] #Expertise::before {
+  background: linear-gradient(to right,
+      rgba(0, 113, 227, 0) 0%,
+      rgba(0, 113, 227, 0.85) 25%,
+      #0071e3 50%,
+      rgba(0, 113, 227, 0.85) 75%,
+      rgba(0, 113, 227, 0) 100%);
+}
+/* purani "display: none" ko override karo, taake Expertise ki line dikhe */
+#Expertise::before {
+  display: block;
+}
+/* Expertise line: purani width/z-index hatao taake line poori width mein centre se phaile */
+#Expertise::before {
+  width: auto;
+  z-index: auto;
+}
+/* nav click wale Expertise page par line nahi chahiye */
+body.view-mode #Expertise::before {
+  display: none;
+}
+/* Expertise aur Journey card: andar dots nazar aayein */
+.sk-card,
+.jr-card,
+[data-theme="light"] .sk-card,
+[data-theme="light"] .jr-card {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
