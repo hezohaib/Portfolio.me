@@ -2264,15 +2264,15 @@ html {
 .pb-num {
   color: var(--pb-accent);
 }
-/* ===== Expertise: glass card + clean chips ===== */
-.Expertise {
+/* ===== Tec Stack: glass card + clean chips ===== */
+.tec-Stack {
   position: relative;
   --ex-accent: #2997ff;
 }
-[data-theme="light"] .Expertise { --ex-accent: #0071e3; }
+[data-theme="light"] .tec-stack { --ex-accent: #0071e3; }
 
 /* soft light behind the card so the blur has something to show */
-.Expertise::before {
+.tec-stack::before {
   content: "";
   position: absolute;
   top: 28%;
@@ -2284,7 +2284,7 @@ html {
   background: radial-gradient(closest-side, rgba(120, 150, 200, 0.18), transparent);
   pointer-events: none;
 }
-[data-theme="light"] .Expertise::before {
+[data-theme="light"] .tec-stack::before {
   background: radial-gradient(closest-side, rgba(0, 113, 227, 0.12), transparent);
 }
 
@@ -2362,13 +2362,13 @@ html {
 /* Filter pill */
 .sk-seg-thumb { background: rgba(255, 255, 255, 0.2); }
 [data-theme="light"] .sk-seg-thumb { background: #ffffff; }
-/* Expertise: bigger group titles, no blue glow */
+/* Tec Stack: bigger group titles, no blue glow */
 .sk-group-title {
   font-size: 0.95rem;
   letter-spacing: 0.06em;
 }
 
-.Expertise::before {
+.tec-stack::before {
   display: none;
 }
 /* ===== Featured Project: left-aligned, calmer, no overlap ===== */
@@ -2448,7 +2448,7 @@ html {
   }
 }
 
-/* Small mono labels, same style as Expertise group titles */
+/* Small mono labels, same style as Tec Stack group titles */
 .showcase-label {
   color: var(--pr-accent);
   font-family: ui-monospace, "SF Mono", Consolas, monospace;
@@ -2743,7 +2743,7 @@ h1, h2, h3,
   margin: 0;
 }
 
-/* Section headings (Expertise, Journey, Projects) */
+/* Section headings (Tec Stack, Journey, Projects) */
 .section-header {
   text-align: left;
 }
@@ -2974,7 +2974,7 @@ html {
 }
 
 /* Problem par number nahi, isliye uski line hata di */
-#Expertise::after { content: "01"; }
+#Tec Stack::after { content: "01"; }
 #about::after     { content: "02"; }
 #journey::after   { content: "03"; }
 #projects::after  { content: "04"; }
@@ -2983,23 +2983,23 @@ html {
 @media (max-width: 768px) {
   .section::after { display: none; }
 }
-/* ===== Expertise: fits one screen ===== */
+/* ===== Tec Stack: fits one screen ===== */
 
 /* top-aligned, so the heading stays still when you switch filters */
-#Expertise {
+#Tec Stack {
   align-items: flex-start;
   padding: 3.5rem 0 3rem;
 }
 
-#Expertise .section-header {
+#Tec Stack .section-header {
   margin-bottom: 1.75rem;
 }
 
-#Expertise .section-description {
+#Tec Stack .section-description {
   margin-top: 0.6rem;
   color: #a1a1a6;
 }
-[data-theme="light"] #Expertise .section-description {
+[data-theme="light"] #Tec Stack .section-description {
   color: #6e6e73;
 }
 
@@ -3038,12 +3038,12 @@ html {
 .sk-info small {
   font-size: 0.76rem;
 }
-/* ===== Expertise: tighter so it always fits one screen ===== */
-#Expertise {
+/* ===== Tec Stack: tighter so it always fits one screen ===== */
+#Tec Stack {
   padding: 2.5rem 0 2rem;
 }
 
-#Expertise .section-header {
+#Tec Stack .section-header {
   margin-bottom: 1.4rem;
 }
 
@@ -3511,7 +3511,7 @@ body.view-mode .section::after {
     color: var(--pb-orange);
   }
 }
-/* ===== Expertise: smaller, compact card ===== */
+/* ===== Tec Stack: smaller, compact card ===== */
 .sk-card,
 [data-theme="light"] .sk-card {
   max-width: 720px;        /* was 940px */
@@ -3546,7 +3546,7 @@ body.view-mode .section::after {
   padding: 0.32rem 0.8rem;
   font-size: 0.78rem;
 }
-/* ===== Expertise: spotlight + tilt ===== */
+/* ===== Tec Stack: spotlight + tilt ===== */
 
 /* light that follows the mouse, in the colour of each technology */
 .sk-tile::before {
@@ -4034,7 +4034,7 @@ html .hero-buttons .btn-pill.btn-pill-ghost::before {
 
 /* numbers (Problem now has one, the rest move up by one) */
 #problem::after   { content: "02"; }
-#Expertise::after { content: "03"; }
+#tec-stack::after { content: "03"; }
 #about::after     { content: "04"; }
 #journey::after   { content: "05"; }
 #projects::after  { content: "06"; }
@@ -4048,7 +4048,7 @@ html .hero-buttons .btn-pill.btn-pill-ghost::before {
 }
 .pj-image.image-fallback { background: #0a0a0a; }
 .pj-image.image-fallback img { display: none; }
-/* ===== Expertise: sharp corners like the other cards ===== */
+/* ===== Tec Stack: sharp corners like the other cards ===== */
 .sk-card,
 [data-theme="light"] .sk-card {
   border-radius: 0;
@@ -4058,21 +4058,21 @@ html .hero-buttons .btn-pill.btn-pill-ghost::before {
 .sk-tile {
   border-radius: 0;
 }
-/* ===== Expertise: dotted background on the home page ===== */
-#Expertise {
+/* ===== Tec Stack: dotted background on the home page ===== */
+#Tec Stack {
   background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.8px, transparent 1px);
   background-size: 30px 30px;
   background-position: 15px var(--dots-y, 15px);
 }
-[data-theme="light"] #Expertise {
+[data-theme="light"] #Tec Stack {
   background-image: radial-gradient(rgba(0, 0, 0, 0.2) 0.8px, transparent 1px);
 }
 
 /* Nav click wale page par canvas wale dots hain, isliye yahan band */
-body.view-mode #Expertise {
+body.view-mode #Tec Stack {
   background-image: none;
 }
-/* ===== Expertise card: dots andar kam dikhein ===== */
+/* ===== Tec Stack card: dots andar kam dikhein ===== */
 .sk-card {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025)),
@@ -4084,7 +4084,7 @@ body.view-mode #Expertise {
     linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.025)),
     rgba(244, 244, 243, 0.75);
 }
-/* ===== Expertise: filter buttons blue, active one orange, count orange ===== */
+/* ===== Tec Stack: filter buttons blue, active one orange, count orange ===== */
 .sk-seg-btn {
   color: #2997ff;
 }
@@ -4104,7 +4104,7 @@ body.view-mode #Expertise {
 [data-theme="light"] .sk-count {
   color: #e8590c;
 }
-/* ===== Expertise: filter buttons normal weight ===== */
+/* ===== Tec Stack: filter buttons normal weight ===== */
 .sk-seg-btn {
   font-weight: 400;
 }
@@ -4179,8 +4179,8 @@ body.view-mode .section::before {
       rgba(0, 113, 227, 0.85) 75%,
       rgba(0, 113, 227, 0) 100%);
 }
-/* ===== Separator line: Expertise (Problem aur Expertise ke beech) ===== */
-#Expertise::before {
+/* ===== Separator line: Tec Stack (Problem aur Tec Stack ke beech) ===== */
+#Tec Stack::before {
   content: "";
   position: absolute;
   top: 0;
@@ -4201,12 +4201,12 @@ body.view-mode .section::before {
   pointer-events: none;
 }
 
-#Expertise.in-view::before {
+#Tec Stack.in-view::before {
   opacity: 1;
   transform: scaleX(1);
 }
 
-[data-theme="light"] #Expertise::before {
+[data-theme="light"] #Tec Stack::before {
   background: linear-gradient(to right,
       rgba(0, 113, 227, 0) 0%,
       rgba(0, 113, 227, 0.85) 25%,
@@ -4214,20 +4214,20 @@ body.view-mode .section::before {
       rgba(0, 113, 227, 0.85) 75%,
       rgba(0, 113, 227, 0) 100%);
 }
-/* purani "display: none" ko override karo, taake Expertise ki line dikhe */
-#Expertise::before {
+/* purani "display: none" ko override karo, taake Tec Stack ki line dikhe */
+#Tec Stack::before {
   display: block;
 }
-/* Expertise line: purani width/z-index hatao taake line poori width mein centre se phaile */
-#Expertise::before {
+/* Tec Stack line: purani width/z-index hatao taake line poori width mein centre se phaile */
+#Tec Stack::before {
   width: auto;
   z-index: auto;
 }
-/* nav click wale Expertise page par line nahi chahiye */
-body.view-mode #Expertise::before {
+/* nav click wale Tec Stack page par line nahi chahiye */
+body.view-mode #Tec Stack::before {
   display: none;
 }
-/* Expertise aur Journey card: andar dots nazar aayein */
+/* Tec Stack aur Journey card: andar dots nazar aayein */
 .sk-card,
 .jr-card,
 [data-theme="light"] .sk-card,
@@ -4235,4 +4235,422 @@ body.view-mode #Expertise::before {
   background: transparent !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+/* Projects: do cards side by side, same width and height */
+.pj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;      /* dono cards ki height barabar */
+  max-width: 1100px;
+}
+
+.pj-grid .pj-card {
+  max-width: none;           /* purani 520px limit hata di, ab width grid decide karega */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Description choti/lambi ho to links hamesha card ke neeche rahein */
+.pj-grid .pj-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pj-grid .pj-links {
+  margin-top: auto;
+}
+
+/* Phone par ek ke neeche ek */
+@media (max-width: 768px) {
+  .pj-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Projects: do cards side by side, same width and height */
+.pj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+  max-width: 1100px;
+}
+
+.pj-grid .pj-card {
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.pj-grid .pj-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pj-grid .pj-links {
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .pj-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Project image: gray frame ke andar, padding + rounded corners + shadow */
+.pj-image {
+  aspect-ratio: auto;              /* purani 16/10 height frame se hata di */
+  padding: 1.1rem;                 /* image ke charon taraf gray jagah */
+  background: var(--tag-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.pj-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;           /* dono cards ki image height barabar rahegi */
+  object-fit: cover;
+  object-position: top;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] .pj-image img {
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.3);
+}
+/* Project card hover: border aur title blue */
+.pj-card {
+  transition: border-color 0.25s ease;
+}
+
+.pj-title {
+  transition: color 0.25s ease;
+}
+
+@media (hover: hover) {
+  .pj-card:hover {
+    border-color: var(--pj-accent);   /* dark: #2997ff, light: #0071e3 */
+  }
+
+  .pj-card:hover .pj-title {
+    color: var(--pj-accent);
+  }
+}
+/* Project image hover: halka zoom + neeche soft white shade */
+.pj-image {
+  position: relative;
+  overflow: hidden;              /* zoom frame se bahar na nikle */
+}
+
+.pj-image img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* neeche wala soft shade (pehle chhupa hua) */
+.pj-image::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to top,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .pj-card:hover .pj-image img {
+    transform: scale(1.04);
+  }
+
+  .pj-card:hover .pj-image::after {
+    opacity: 1;
+  }
+}
+
+/* light theme mein white shade dikhai nahi deta, isliye halka gray */
+[data-theme="light"] .pj-image::after {
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.08),
+      rgba(0, 0, 0, 0));
+}
+/* Project cards: chhote */
+.pj-grid {
+  max-width: 800px;      /* har card lagbhag 388px chauda */
+  gap: 1.25rem;
+}
+
+.pj-image {
+  padding: 0.8rem;       /* image ke charon taraf gray jagah kam */
+}
+
+.pj-body {
+  padding: 1rem;
+}
+/* Projects: 3 columns grid, 3rd card aaye to khud fit ho jaye */
+.projects .pj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  max-width: none;          /* purani 800px limit hata di, ab poori container width */
+  align-items: stretch;     /* sab cards ki height barabar */
+}
+
+.pj-grid .pj-card {
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.pj-grid .pj-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* links hamesha card ke neeche, ek hi line par */
+.pj-grid .pj-links {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+/* Laptop/tablet: 2 columns */
+@media (max-width: 1100px) {
+  .projects .pj-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Phone: 1 column */
+@media (max-width: 700px) {
+  .projects .pj-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* About: bara text */
+.ab-text {
+  max-width: 44rem;                           
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);   
+  font-weight: 400;                           
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+/* About: Sam jaisa halka text aur chota card */
+.ab-box {
+  padding: 2rem 2.5rem;      /* pehle 3rem */
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.ab-title {
+  margin-bottom: 1rem;       /* pehle 1.75rem */
+}
+
+.ab-text {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;     /* pehle 2rem */
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);   /* chota kiya */
+  font-weight: 300;          /* patla */
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--text-main);   /* grey ki jagah dark (dark theme mein white) */
+}
+
+.ab-stats {
+  padding: 1.75rem 1.5rem;   /* pehle 2.5rem */
+  gap: 1.5rem 1.5rem;        /* pehle 2.25rem */
+}
+
+.ab-copy {
+  padding-top: 0;
+}
+.logo-grid {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.logo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.logo-tile:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.logo-tile img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.logo-tile span {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* black logos ko dark theme mein white karo */
+[data-theme="dark"] .logo-tile img.mono {
+  filter: invert(1);
+}
+
+[data-theme="light"] .logo-tile {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+}
+/* ===== Logo tiles: compact override (file ke end mein rakho) ===== */
+.logo-grid {
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.logo-tile {
+  aspect-ratio: auto;
+  padding: 14px 8px;
+  gap: 8px;
+  border-radius: 14px;
+}
+
+.logo-tile img {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-tile span {
+  font-size: 0.8rem;
+}
+/* ===== Logo tiles: infinite marquee ===== */
+.logo-marquee {
+  overflow: hidden;
+  margin-top: 40px;
+  /* dono kinaron par tiles halka sa fade hon */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.logo-grid {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: logo-scroll 40s linear infinite;
+}
+
+.logo-tile {
+  flex: 0 0 auto;
+  width: 110px;
+  margin-right: 12px;   /* gap ki jagah margin, taake loop bilkul seamless rahe */
+  aspect-ratio: auto;
+  padding: 14px 8px;
+  gap: 8px;
+  border-radius: 14px;
+}
+
+.logo-tile img { width: 36px; height: 36px; }
+.logo-tile span { font-size: 0.8rem; }
+
+@keyframes logo-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* mouse upar aaye to ruk jaye */
+.logo-marquee:hover .logo-grid {
+  animation-play-state: paused;
+}
+
+/* jinhon ne "reduce motion" on kiya hai unke liye animation band */
+@media (prefers-reduced-motion: reduce) {
+  .logo-grid { animation: none; width: auto; flex-wrap: wrap; }
+  .logo-tile[aria-hidden="true"] { display: none; }
+}
+.sk-story {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* technology names pop out */
+.sk-story b {
+  color: var(--text-main);
+  font-weight: 500;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #2997ff;
+}
+[data-theme="light"] .sk-story b { border-bottom-color: #0071e3; }
+/* Tec Stack: paragraph left, card right */
+.sk-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.sk-layout .sk-detail {
+  flex: 0 0 340px;
+  max-width: 340px;
+  position: sticky;
+  top: calc(var(--header-h) + 1rem);
+  padding: 1.25rem 1.5rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid #2997ff;
+}
+[data-theme="light"] .sk-layout .sk-detail { border-left-color: #0071e3; }
+
+.sk-layout .sk-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 720px;
+}
+
+.sk-detail-label {
+  margin-bottom: 0.75rem;
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.sk-story {
+  color: var(--text-soft);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.sk-story b {
+  color: var(--text-main);
+  font-weight: 500;
+  border-bottom: 1px solid #2997ff;
+}
+[data-theme="light"] .sk-story b { border-bottom-color: #0071e3; }
+
+/* tablet / phone: paragraph card ke upar aa jaye */
+@media (max-width: 1100px) {
+  .sk-layout { flex-direction: column; }
+  .sk-layout .sk-detail {
+    position: static;
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
 }

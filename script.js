@@ -775,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const titles = {
       about: 'About',
       problem: 'Problem',
-      Expertise: 'Expertise',
+      'tec-stack': 'Tec Stack',
       journey: 'Journey',
       projects: 'Work',
       contact: 'Contact',
@@ -920,7 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
       else showHome(false);
     });
   })();
-  /* Expertise: spotlight + tilt on tiles, count-up on first view */
+  /* Tec Stack: spotlight + tilt on tiles, count-up on first view */
   (() => {
     const card = document.querySelector('.sk-card');
     if (!card) return;
@@ -1738,9 +1738,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
 
     update();
-  })();  /* Expertise (home page): dots drift slowly when you scroll, same feel as the other pages */
+  })();  /* Tec Stack (home page): dots drift slowly when you scroll, same feel as the other pages */
   (() => {
-    const el = document.getElementById('Expertise');
+    const el = document.getElementById('tec-stack');
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -1765,7 +1765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', onScroll);
     update();
   })();
-  /* Expertise: "18 technologies" counts up from 0 every time the card comes into view
+  /* Tec Stack: "18 technologies" counts up from 0 every time the card comes into view
    (home page scroll and navbar click both work) */
   (() => {
     const card = document.querySelector('.sk-card');
@@ -1804,7 +1804,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Section separator line: on while the section is in the middle of the screen, off when you leave */
   (() => {
     if (!('IntersectionObserver' in window)) return;
-    const targets = document.querySelectorAll('#Expertise, #about, #journey, #projects, #contact');
+    const targets = document.querySelectorAll('#tec-stack, #about, #journey, #projects, #contact');
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1818,4 +1818,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     targets.forEach((el) => io.observe(el));
   })();
+  /* Logo marquee: tiles ki copy banao taake loop beech mein khali na ho */
+(() => {
+  const track = document.querySelector('.logo-grid');
+  if (!track) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  Array.from(track.children).forEach((tile) => {
+    const copy = tile.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');   // screen reader ko dobara na parhe
+    track.appendChild(copy);
+  });
+})();
 });
