@@ -1970,8 +1970,8 @@ html {
     font-size: 1.15rem;
   }
 }
-#skills .section-description { color: #a1a1a6; }
-[data-theme="light"] #skills .section-description { color: #6e6e73; }
+#tec-stack .section-description { color: #a1a1a6; }
+[data-theme="light"] #tec-stack .section-description { color: #6e6e73; }
 
 .sk-card {
   --sk-bg: rgba(28, 28, 30, 0.55);
@@ -2265,7 +2265,7 @@ html {
   color: var(--pb-accent);
 }
 /* ===== Tec Stack: glass card + clean chips ===== */
-.tec-Stack {
+.tec-stack {
   position: relative;
   --ex-accent: #2997ff;
 }
@@ -2974,7 +2974,7 @@ html {
 }
 
 /* Problem par number nahi, isliye uski line hata di */
-#Tec Stack::after { content: "01"; }
+#tec-stack::after { content: "01"; }
 #about::after     { content: "02"; }
 #journey::after   { content: "03"; }
 #projects::after  { content: "04"; }
@@ -2986,20 +2986,20 @@ html {
 /* ===== Tec Stack: fits one screen ===== */
 
 /* top-aligned, so the heading stays still when you switch filters */
-#Tec Stack {
+#tec-stack {
   align-items: flex-start;
   padding: 3.5rem 0 3rem;
 }
 
-#Tec Stack .section-header {
+#tec-stack .section-header {
   margin-bottom: 1.75rem;
 }
 
-#Tec Stack .section-description {
+#tec-stack .section-description {
   margin-top: 0.6rem;
   color: #a1a1a6;
 }
-[data-theme="light"] #Tec Stack .section-description {
+[data-theme="light"] #tec-stack .section-description {
   color: #6e6e73;
 }
 
@@ -3039,11 +3039,11 @@ html {
   font-size: 0.76rem;
 }
 /* ===== Tec Stack: tighter so it always fits one screen ===== */
-#Tec Stack {
+#tec-stack {
   padding: 2.5rem 0 2rem;
 }
 
-#Tec Stack .section-header {
+#tec-stack .section-header {
   margin-bottom: 1.4rem;
 }
 
@@ -4059,17 +4059,17 @@ html .hero-buttons .btn-pill.btn-pill-ghost::before {
   border-radius: 0;
 }
 /* ===== Tec Stack: dotted background on the home page ===== */
-#Tec Stack {
+#tec-stack {
   background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.8px, transparent 1px);
   background-size: 30px 30px;
   background-position: 15px var(--dots-y, 15px);
 }
-[data-theme="light"] #Tec Stack {
+[data-theme="light"] #tec-stack {
   background-image: radial-gradient(rgba(0, 0, 0, 0.2) 0.8px, transparent 1px);
 }
 
 /* Nav click wale page par canvas wale dots hain, isliye yahan band */
-body.view-mode #Tec Stack {
+body.view-mode #tec-stack {
   background-image: none;
 }
 /* ===== Tec Stack card: dots andar kam dikhein ===== */
@@ -4180,7 +4180,7 @@ body.view-mode .section::before {
       rgba(0, 113, 227, 0) 100%);
 }
 /* ===== Separator line: Tec Stack (Problem aur Tec Stack ke beech) ===== */
-#Tec Stack::before {
+#tec-stack::before {
   content: "";
   position: absolute;
   top: 0;
@@ -4201,12 +4201,12 @@ body.view-mode .section::before {
   pointer-events: none;
 }
 
-#Tec Stack.in-view::before {
+#tec-stack.in-view::before {
   opacity: 1;
   transform: scaleX(1);
 }
 
-[data-theme="light"] #Tec Stack::before {
+[data-theme="light"] #tec-stack::before {
   background: linear-gradient(to right,
       rgba(0, 113, 227, 0) 0%,
       rgba(0, 113, 227, 0.85) 25%,
@@ -4215,16 +4215,16 @@ body.view-mode .section::before {
       rgba(0, 113, 227, 0) 100%);
 }
 /* purani "display: none" ko override karo, taake Tec Stack ki line dikhe */
-#Tec Stack::before {
+#tec-stack::before {
   display: block;
 }
 /* Tec Stack line: purani width/z-index hatao taake line poori width mein centre se phaile */
-#Tec Stack::before {
+#tec-stack::before {
   width: auto;
   z-index: auto;
 }
 /* nav click wale Tec Stack page par line nahi chahiye */
-body.view-mode #Tec Stack::before {
+body.view-mode #tec-stack::before {
   display: none;
 }
 /* Tec Stack aur Journey card: andar dots nazar aayein */
@@ -4653,4 +4653,183 @@ body.view-mode #Tec Stack::before {
     max-width: none;
     width: 100%;
   }
+}
+/* ===== Logo marquee: chhota size ===== */
+.logo-tile {
+  width: 84px;          /* pehle 110px */
+  margin-right: 10px;   /* pehle 12px */
+  padding: 10px 6px;    /* pehle 14px 8px */
+  gap: 6px;             /* pehle 8px */
+  border-radius: 12px;
+}
+
+.logo-tile img {
+  width: 26px;          /* pehle 36px */
+  height: 26px;
+}
+
+.logo-tile span {
+  font-size: 0.7rem;    /* pehle 0.8rem */
+}
+/* ===== Tec Stack: card left, story text right (bina card ke) ===== */
+.sk-layout .sk-card {
+  order: 1;              /* technologies card left par */
+}
+
+.sk-layout .sk-detail {
+  order: 2;              /* story right par */
+  padding: 0;            /* card ka andar ka gap khatam */
+  background: none;      /* card ka background khatam */
+  border: 0;             /* border aur blue left line khatam */
+}
+
+/* tablet / phone: pehle ki tarah story upar, card neeche */
+@media (max-width: 1100px) {
+  .sk-layout .sk-detail { order: 0; }
+  .sk-layout .sk-card   { order: 1; }
+}
+/* Story text: scroll par apni jagah rahe */
+.sk-layout .sk-detail {
+  position: static;
+}
+/* ===== Footer: big wordmark + link columns ===== */
+.glass-footer {
+  padding: 4rem 0 2.5rem;
+  background-color: var(--bg-body);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 0.8px, transparent 1px);
+  background-size: 30px 30px;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+[data-theme="light"] .glass-footer {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.16) 0.8px, transparent 1px);
+}
+
+.ft {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+}
+
+.ft-word {
+  font-size: clamp(3rem, 14vw, 10rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+}
+
+.ft-tag {
+  margin: 1.5rem 0 3rem;
+  color: var(--text-soft);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  letter-spacing: 0.08em;
+}
+
+.ft-cols {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+  gap: 2rem clamp(2rem, 7vw, 6rem);
+  text-align: left;
+}
+
+.ft-col { list-style: none; }
+.ft-col li + li { margin-top: 0.9rem; }
+
+.ft-big a,
+.ft-head {
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.ft-head { margin-bottom: 1rem; }
+
+.ft-small { list-style: none; }
+.ft-small a {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.ft a {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.ft a:hover { color: #2997ff; }
+[data-theme="light"] .ft a:hover { color: #0071e3; }
+.ft a:focus-visible {
+  outline: 2px solid #2997ff;
+  outline-offset: 3px;
+}
+
+.ft-note {
+  margin-top: 3.5rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+}
+.ft-made {
+  margin-top: 0.6rem;
+  color: var(--text-main);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .ft-cols { grid-template-columns: repeat(2, auto); }
+}
+/* ===== Footer game ===== */
+.glass-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ft-game {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;          /* text readable rahe, kam/zyada karna ho to yahan badlo */
+  cursor: crosshair;
+}
+
+/* footer ka text click ko canvas tak jane de, lekin links kaam karte rahein */
+.ft { pointer-events: none; }
+.ft a { pointer-events: auto; }
+/* ===== Footer builders ===== */
+.ft {
+  position: relative;
+}
+
+.ft-builders {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* builders ke liye naam ke upar jagah (warna footer ke top se kat jayenge) */
+.glass-footer {
+  padding-top: 8rem;
+}
+/* ===== Footer: hidden gems counter ===== */
+.ft-gems {
+  margin-top: 1rem;
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.ft-gems #gemCount { color: #2997ff; }
+[data-theme="light"] .ft-gems #gemCount { color: #0071e3; }
+
+.ft-gems-done { display: none; color: #4ade80; }
+[data-theme="light"] .ft-gems-done { color: #15803d; }
+.ft-gems.is-done .ft-gems-done { display: inline; }
+
+.ft-gems.bump { animation: gem-bump 0.4s ease; }
+@keyframes gem-bump {
+  40% { transform: scale(1.12); color: var(--text-main); }
 }
