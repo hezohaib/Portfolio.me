@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const preloader = document.getElementById('preloader');
   if (preloader) {
     const MIN_SHOW = 1400;   // kam az kam itni der (ms) dikhe, taake Z poora draw ho
+    let preloaderHidden = false;
     const hidePreloader = () => {
+      if (preloaderHidden) return;
+      preloaderHidden = true;
       const wait = Math.max(0, MIN_SHOW - performance.now());
       setTimeout(() => {
         preloader.classList.add('is-done');
@@ -18,7 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }, wait);
     };
     if (document.readyState === 'complete') hidePreloader();
-    else window.addEventListener('load', hidePreloader, { once: true });
+    else {
+      window.addEventListener('load', hidePreloader, { once: true });
+      setTimeout(hidePreloader, 6000);   // safety: a slow font/image must never keep the site hidden
+    }
   }
   /* Smooth scroll (Lenis) */
   let lenis = null;
@@ -289,7 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       if (replyToInput) {
-        replyToInput.value = contactForm.elements.email.value.trim();
+        const emailField = contactForm.elements.email;
+        replyToInput.value = emailField ? emailField.value.trim() : '';
       }
 
       if (submitBtn) {
@@ -648,6 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const resize = () => {
+      if (!hero.clientWidth) return;   // hero is hidden (view mode): measuring now would give 0 and blank the canvas
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       // the canvas starts at the top of the navbar and runs to the bottom of the hero
       const header = document.querySelector('.header');
@@ -744,7 +752,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     new IntersectionObserver(([entry]) => {
       onScreen = entry.isIntersecting;
-      onScreen ? start() : stop();
+      if (onScreen) {
+        if (hero.clientWidth !== w) resize();   // window size changed while the hero was hidden
+        start();
+      } else stop();
     }).observe(hero);
 
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
@@ -1819,15 +1830,800 @@ document.addEventListener('DOMContentLoaded', () => {
     targets.forEach((el) => io.observe(el));
   })();
   /* Logo marquee: tiles ki copy banao taake loop beech mein khali na ho */
-(() => {
-  const track = document.querySelector('.logo-grid');
-  if (!track) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  (() => {
+    const track = document.querySelector('.logo-grid');
+    if (!track) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  Array.from(track.children).forEach((tile) => {
-    const copy = tile.cloneNode(true);
-    copy.setAttribute('aria-hidden', 'true');   // screen reader ko dobara na parhe
-    track.appendChild(copy);
-  });
-})();
+    Array.from(track.children).forEach((tile) => {
+      const copy = tile.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');   // screen reader ko dobara na parhe
+      track.appendChild(copy);
+    });
+  })();
+  /* Footer game: 2D block builder (click = place/break, right click = break, keys 1-4 = block type) */
+  (() => {
+    const footer = document.querySelector('.glass-footer');
+    if (!footer) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'ft-game';
+    canvas.setAttribute('aria-hidden', 'true');
+    footer.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+
+    const CELL = 28;
+    const COLORS = { 1: '#5aa447', 2: '#8b5a2b', 3: '#7d7d7d', 4: '#c9a35b', 5: '#ebbe32', 6: '#307f30' }; // grass, dirt, stone, wood, gold, leaves
+    let selected = 2;
+    let cols = 0, rows = 0, w = 0, h = 0, lastW = 0, lastH = 0;
+    let grid = [];
+    let hover = null;
+
+    const idx = (c, r) => r * cols + c;
+    // har block type ke 4 alag pixel-art variants (taake sab blocks ek jaise na lagen)
+    const PX = 8;
+    const BASE = { 1: [90, 164, 71], 2: [139, 90, 43], 3: [125, 125, 125], 4: [201, 163, 91], 5: [235, 190, 50], 6: [48, 130, 48] };
+    const DIRT = BASE[2];
+
+    const makeTile = (type) => {
+      const t = document.createElement('canvas');
+      t.width = t.height = PX;
+      const x = t.getContext('2d');
+      for (let py = 0; py < PX; py++) {
+        for (let px = 0; px < PX; px++) {
+          // grass block: upar 2 row green, neeche dirt
+          const base = type === 1 && py >= 2 ? DIRT : BASE[type];
+          const n = (Math.random() - 0.5) * 36;
+          x.fillStyle = `rgb(${base[0] + n},${base[1] + n},${base[2] + n})`;
+          x.fillRect(px, py, 1, 1);
+        }
+      }
+      return t;
+    };
+
+    const tiles = {};
+    Object.keys(BASE).forEach((k) => {
+      tiles[k] = Array.from({ length: 4 }, () => makeTile(Number(k)));
+    });
+
+    const buildTerrain = () => {
+      grid = new Array(cols * rows).fill(0);
+      const heights = [];
+      for (let c = 0; c < cols; c++) {
+        const height = 2 + Math.round(Math.sin(c * 0.35) + Math.random() * 0.6);
+        heights.push(height);
+        for (let k = 0; k < height; k++) {
+          const r = rows - 1 - k;
+          if (r < 0) break;
+          grid[idx(c, r)] = k === height - 1 ? 1 : k >= height - 3 ? 2 : 3;
+        }
+      }
+
+      // trees: kam kam, ek dusre se door
+      let lastTree = -10;
+      for (let c = 2; c < cols - 2; c++) {
+        if (c - lastTree < 6 || Math.random() > 0.12) continue;
+        const top = rows - heights[c];          // zameen ki upar wali row
+        if (top - 4 < 0) continue;
+        for (let k = 1; k <= 2; k++) grid[idx(c, top - k)] = 4;           // tana (2 block)
+        for (let r = top - 4; r <= top - 3; r++) {                        // patte (2 row x 3 col)
+          for (let cc = c - 1; cc <= c + 1; cc++) {
+            if (!grid[idx(cc, r)]) grid[idx(cc, r)] = 6;
+          }
+        }
+        lastTree = c;
+      }
+      placeGems();
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const t = grid[idx(c, r)];
+          if (!t) continue;
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(tiles[t][(c * 7 + r * 13) % 4], c * CELL, r * CELL, CELL, CELL);
+        }
+      }
+      tintTerrain();
+      drawPlayer();
+      drawParts();
+      drawGems();
+      if (hover) {
+        ctx.strokeStyle = '#2997ff';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(hover.c * CELL + 1, hover.r * CELL + 1, CELL - 2, CELL - 2);
+        ctx.lineWidth = 1;
+      }
+      drawSky();
+    };
+
+    const resize = () => {
+      w = footer.clientWidth;
+      h = footer.clientHeight;
+      if (!w || !h) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const nc = Math.ceil(w / CELL), nr = Math.ceil(h / CELL);
+      if (nc !== cols || nr !== rows) {   // size badli to nayi zameen
+        cols = nc;
+        rows = nr;
+        buildTerrain();
+      }
+      if (w !== lastW || h !== lastH) {   // new stars only when the size really changed (no flicker on scroll)
+        lastW = w;
+        lastH = h;
+        makeStars();
+      }
+      draw();
+    };
+
+    const cellAt = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      // canvas ki andar ki size aur screen par dikhne wali size ka farq theek karo
+      const x = (e.clientX - rect.left) * (w / rect.width);
+      const y = (e.clientY - rect.top) * (h / rect.height);
+      const c = Math.floor(x / CELL);
+      const r = Math.floor(y / CELL);
+      return c >= 0 && c < cols && r >= 0 && r < rows ? { c, r } : null;
+    };
+
+    canvas.addEventListener('pointermove', (e) => {
+      const next = cellAt(e);
+      if (next && hover && next.c === hover.c && next.r === hover.r) return;   // same cell: nothing to redraw
+      hover = next;
+      if (!raf) draw();   // while the animation loop runs it redraws by itself
+    });
+    canvas.addEventListener('pointerleave', () => { hover = null; if (!raf) draw(); });
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    const useBlock = (e) => {
+      const cell = cellAt(e);
+      if (!cell) return;
+      const i = idx(cell.c, cell.r);
+
+      if (e.button === 2 || grid[i]) {
+        // break
+        if (grid[i]) {
+          burst(cell.c, cell.r, grid[i]);
+          collectGem(i, cell.c, cell.r);
+          grid[i] = 0;
+        }
+      } else {
+        // place (khali cell par left click)
+        grid[i] = selected;
+      }
+      draw();
+    };
+    // Mouse: acts on press. Touch: acts on release, so swiping to scroll the page never edits blocks
+    // (when a swipe turns into a scroll the browser sends pointercancel and pointerup never arrives).
+    canvas.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'touch') useBlock(e); });
+    canvas.addEventListener('pointerup', (e) => { if (e.pointerType === 'touch') useBlock(e); });
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;   // browser shortcuts like Ctrl+1 (switch tab) must not change the block
+      if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable) return;   // contact form mein type karte waqt na chale
+      if (COLORS[e.key]) selected = Number(e.key);
+    });
+    /* ---------- Player (Steve) ---------- */
+    const U = CELL / 16;             // 1 "pixel unit"
+    const PW = 8 * U, PH = 32 * U;   // player ki width / height
+    const SPEED = 130, JUMP = 420, GRAVITY = 1200;
+    const keys = { left: false, right: false, jump: false };
+    let p = null, idle = 99, footerOnScreen = false;
+
+    const solid = (c, r) => {
+      if (c < 0 || c >= cols || r >= rows) return true;   // dono side deewar, neeche zameen
+      if (r < 0) return false;                            // aasman khula hai
+      const t = grid[idx(c, r)];
+      return t > 0 && t !== 6;                            // patte (6) solid nahi
+    };
+
+    const hits = (x, y) => {
+      const c0 = Math.floor((x - PW / 2) / CELL), c1 = Math.floor((x + PW / 2 - 0.01) / CELL);
+      const r0 = Math.floor((y - PH) / CELL), r1 = Math.floor((y - 0.01) / CELL);
+      for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (solid(c, r)) return true;
+      return false;
+    };
+    /* ---------- Mining particles ---------- */
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let parts = [];
+
+    const burst = (c, r, type) => {
+      const b = BASE[type];
+      if (!b || reduceMotion) return;          // reduce-motion walon ke liye koi animation nahi
+      for (let k = 0; k < 10; k++) {
+        const n = (Math.random() - 0.5) * 40;
+        parts.push({
+          x: c * CELL + CELL / 2 + (Math.random() - 0.5) * CELL * 0.6,
+          y: r * CELL + CELL / 2,
+          vx: (Math.random() - 0.5) * 160,
+          vy: -60 - Math.random() * 140,
+          life: 1,
+          s: 3 + Math.random() * 3,
+          color: `rgb(${(b[0] + n) | 0},${(b[1] + n) | 0},${(b[2] + n) | 0})`
+        });
+      }
+      if (parts.length > 150) parts.splice(0, parts.length - 150);
+    };
+
+    const updateParts = (dt) => {
+      parts.forEach((q) => {
+        q.vy += 900 * dt;
+        q.x += q.vx * dt;
+        q.y += q.vy * dt;
+        q.life -= dt * 1.2;
+      });
+      parts = parts.filter((q) => q.life > 0);
+    };
+
+    const drawParts = () => {
+      parts.forEach((q) => {
+        ctx.globalAlpha = Math.max(0, q.life);
+        ctx.fillStyle = q.color;
+        ctx.fillRect(q.x, q.y, q.s, q.s);
+      });
+      ctx.globalAlpha = 1;
+    };
+    const updatePlayer = (dt) => {
+      if (!p || p.y > h + 100) {
+        p = { x: Math.floor(cols / 2) * CELL + CELL / 2, y: 0, vy: 0, dir: 1, ground: false, blocked: false, wander: 1, t: 0 };
+      }
+      let guard = 0;
+      while (hits(p.x, p.y) && guard++ < 10) p.y -= CELL;   // block ke andar phans jaye to upar nikalo
+
+      const manual = keys.left || keys.right;
+      if (manual || keys.jump) idle = 0; else idle += dt;
+
+      let move = 0;
+      if (manual) {
+        move = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+      } else if (idle > 3) {                                 // auto mode
+        p.t -= dt;
+        if (p.t <= 0) { p.t = 1.5 + Math.random() * 2.5; p.wander = [-1, 0, 1][(Math.random() * 3) | 0]; }
+        move = p.wander * 0.6;
+      }
+      if (move) p.dir = move > 0 ? 1 : -1;
+
+      if (p.ground && (keys.jump || (!manual && move && p.blocked))) { p.vy = -JUMP; p.ground = false; }
+      p.vy = Math.min(p.vy + GRAVITY * dt, 700);
+
+      p.blocked = false;
+      const nx = p.x + move * SPEED * dt;
+      if (!hits(nx, p.y)) p.x = nx; else if (move) p.blocked = true;
+
+      const ny = p.y + p.vy * dt;
+      if (!hits(p.x, ny)) {
+        p.y = ny;
+        p.ground = false;
+      } else {
+        if (p.vy > 0) { p.y = Math.floor((ny - 0.01) / CELL) * CELL; p.ground = true; }
+        p.vy = 0;
+      }
+      p.moving = move !== 0;
+    };
+
+    const drawPlayer = () => {
+      if (!p) return;
+      const swing = p.moving && p.ground ? Math.sin(performance.now() / 90) : 0;
+      const R = (x, y, rw, rh, color) => { ctx.fillStyle = color; ctx.fillRect(x * U, y * U, rw * U, rh * U); };
+
+      ctx.save();
+      ctx.translate(Math.round(p.x), Math.round(p.y));
+      ctx.scale(p.dir, 1);
+      R(-4, -12, 4, 12 - (swing > 0 ? 2 : 0), '#3b3b9c');   // taang 1
+      R(0, -12, 4, 12 - (swing <= 0 ? 2 : 0), '#3b3b9c');   // taang 2
+      R(-4, -24, 8, 12, '#00a8a8');                          // jism
+      R(-1.5 + swing, -24, 3, 11, '#c68a5e');                // bazu
+      R(-4, -32, 8, 8, '#c68a5e');                           // sar
+      R(-4, -32, 8, 3, '#3b2a1a');                           // baal
+      R(1, -29, 2, 1.5, '#ffffff');                          // aankh
+      R(2, -29, 1, 1.5, '#3b2a8a');
+      ctx.restore();
+    };
+
+    /* animation loop: sirf tab chale jab footer screen par ho */
+    let raf = 0, lastT = 0;
+    const frame = (now) => {
+      raf = requestAnimationFrame(frame);
+      if (now - lastT < 33) return;                          // ~30fps
+      const dt = Math.min((now - lastT) / 1000, 0.05);
+      lastT = now;
+      updatePlayer(dt);
+      updateParts(dt);
+      updateGems(dt);
+      stepNight(dt);
+      draw();
+    };
+    const startLoop = () => { if (raf || !footerOnScreen || document.hidden) return; lastT = performance.now(); raf = requestAnimationFrame(frame); };
+    const stopLoop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          footerOnScreen = entry.isIntersecting;
+          footerOnScreen ? startLoop() : stopLoop();
+        }).observe(footer);
+      }
+      document.addEventListener('visibilitychange', () => (document.hidden ? stopLoop() : startLoop()));
+    }
+
+    const setKey = (e, down) => {
+      if (down) {   // key-up is always handled, so a key can never get "stuck"
+        if (e.ctrlKey || e.metaKey || e.altKey) return;   // Alt+Left (back), Ctrl+A, Ctrl+D... must keep working
+        if (/^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(e.target.tagName) || e.target.isContentEditable) return;
+      }
+      const k = (e.key || '').toLowerCase();
+      let hit = true;
+      if (k === 'arrowleft' || k === 'a') keys.left = down;
+      else if (k === 'arrowright' || k === 'd') keys.right = down;
+      else if (k === ' ' || k === 'arrowup' || k === 'w') keys.jump = down;
+      else hit = false;
+      if (down && hit && footerOnScreen && hover) e.preventDefault();   // page scroll sirf tab roko jab mouse game ke upar ho
+    };
+    document.addEventListener('keydown', (e) => setKey(e, true));
+    document.addEventListener('keyup', (e) => setKey(e, false));
+    window.addEventListener('blur', () => { keys.left = keys.right = keys.jump = false; });
+    /* ---------- Day / Night ---------- */
+    const isNight = () => document.documentElement.getAttribute('data-theme') !== 'light';
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let nightTarget = isNight() ? 1 : 0;
+    let nl = nightTarget;                 // 0 = din, 1 = raat (beech ki value = fade chal raha hai)
+    let stars = [];
+
+    const makeStars = () => {
+      const count = Math.round((w * h) / 14000);
+      stars = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        s: Math.random() < 0.2 ? 3 : 2,                 // kuch sitare thore bare
+        ph: Math.random() * Math.PI * 2,
+        sp: 0.6 + Math.random() * 1.4
+      }));
+    };
+
+    const stepNight = (dt) => {
+      nl += (nightTarget - nl) * Math.min(1, dt * 4);
+      if (Math.abs(nightTarget - nl) < 0.01) nl = nightTarget;
+    };
+
+    // raat mein sirf zameen/trees/player halke neele-gehre
+    const tintTerrain = () => {
+      if (nl < 0.01) return;
+      ctx.globalCompositeOperation = 'source-atop';     // sirf wahan draw hota hai jahan pehle se pixels hain
+      ctx.fillStyle = 'rgba(10, 15, 50, ' + (0.5 * nl).toFixed(3) + ')';
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const drawSky = () => {
+      const now = calm ? 0 : performance.now() / 1000;
+      ctx.globalCompositeOperation = 'destination-over'; // sab kuch ke peeche draw hota hai
+      const mx = Math.max(70, w - 150);
+
+      if (nl > 0.01) {
+        stars.forEach((s) => {
+          const tw = 0.5 + 0.5 * Math.sin(now * s.sp + s.ph);
+          ctx.globalAlpha = nl * (0.25 + 0.75 * tw);
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(Math.round(s.x), Math.round(s.y), s.s, s.s);
+        });
+        ctx.globalAlpha = nl;                            // chand (square, craters ke sath)
+        const my = 70 + (1 - nl) * 40;
+        ctx.fillStyle = '#e6eaf5';
+        ctx.fillRect(mx, my, 36, 36);
+        ctx.fillStyle = '#b9c0d4';
+        ctx.fillRect(mx + 6, my + 8, 8, 8);
+        ctx.fillRect(mx + 22, my + 18, 8, 8);
+        ctx.fillRect(mx + 10, my + 24, 6, 6);
+      }
+
+      if (nl < 0.99) {
+        ctx.globalAlpha = 1 - nl;                        // suraj (square + 4 kirnein)
+        const sy = 70 + nl * 40;
+        ctx.fillStyle = '#ffb100';
+        ctx.fillRect(mx, sy, 36, 36);
+        ctx.fillStyle = '#ffd95a';
+        ctx.fillRect(mx + 8, sy + 8, 20, 20);
+        ctx.fillStyle = '#ffb100';
+        ctx.fillRect(mx + 14, sy - 12, 8, 8);
+        ctx.fillRect(mx + 14, sy + 40, 8, 8);
+        ctx.fillRect(mx - 12, sy + 14, 8, 8);
+        ctx.fillRect(mx + 40, sy + 14, 8, 8);
+      }
+
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    // theme toggle dabe to target badlo; loop na chal raha ho to foran badal do
+    new MutationObserver(() => {
+      nightTarget = isNight() ? 1 : 0;
+      if (!raf) { nl = nightTarget; draw(); }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    /* ---------- Hidden gems (easter egg) ---------- */
+    const GEM_TOTAL = 3;     // kitne diamonds chhupe hain
+    const SOUND = true;      // false = koi awaaz nahi
+    const GLINT = 0.35;      // hint ki chamak (0 = bilkul hidden, 0.6 = saaf dikhe)
+
+    const gemCells = new Set();   // un cells ki list jinke andar diamond hai
+    let found = 0;
+    let pops = [];                // uchhalte hue diamonds
+
+    const gemBox = document.querySelector('.ft-gems');
+    const gemCountEl = document.getElementById('gemCount');
+    const gemTotalEl = document.getElementById('gemTotal');
+
+    const updateCounter = (bump) => {
+      if (!gemBox) return;
+      gemCountEl.textContent = found;
+      gemTotalEl.textContent = GEM_TOTAL;
+      gemBox.classList.toggle('is-done', found >= GEM_TOTAL);
+      if (bump) {
+        gemBox.classList.remove('bump');
+        void gemBox.offsetWidth;          // animation dobara chalane ki trick
+        gemBox.classList.add('bump');
+      }
+    };
+    updateCounter(false);
+
+    // dirt/stone blocks mein se random jagah diamond chhupao (grass, tana, patte nahi)
+    const placeGems = () => {
+      gemCells.clear();
+      const pool = [];
+      for (let i = 0; i < grid.length; i++) if (grid[i] === 2 || grid[i] === 3) pool.push(i);
+      let need = GEM_TOTAL - found;       // jo mil chuke wo dobara nahi chhupte
+      while (need > 0 && pool.length) {
+        const k = (Math.random() * pool.length) | 0;
+        gemCells.add(pool.splice(k, 1)[0]);
+        need--;
+      }
+    };
+
+    // retro coin sound: do square-wave notes
+    let audio = null;
+    const coinSound = () => {
+      if (!SOUND) return;
+      try {
+        audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+        const t = audio.currentTime;
+        [[988, 0], [1319, 0.09]].forEach(([freq, delay]) => {
+          const o = audio.createOscillator(), g = audio.createGain();
+          o.type = 'square';
+          o.frequency.value = freq;
+          g.gain.setValueAtTime(0.04, t + delay);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.25);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t + delay);
+          o.stop(t + delay + 0.26);
+        });
+      } catch (e) { /* audio block ho to bhi game chalta rahe */ }
+    };
+
+    const collectGem = (i, c, r) => {
+      if (!gemCells.has(i)) return;
+      gemCells.delete(i);
+      found++;
+      const x = c * CELL + CELL / 2, y = r * CELL + CELL / 2;
+      if (!reduceMotion) {
+        pops.push({ x, y, life: 1 });
+        for (let k = 0; k < 14; k++) {                     // neeli/safed sparkles
+          parts.push({
+            x, y,
+            vx: (Math.random() - 0.5) * 220,
+            vy: -80 - Math.random() * 160,
+            life: 1,
+            s: 2 + Math.random() * 3,
+            color: k % 3 ? '#7ff3ff' : '#ffffff'
+          });
+        }
+      }
+      coinSound();
+      updateCounter(true);
+    };
+
+    const updateGems = (dt) => {
+      pops.forEach((q) => { q.y -= 55 * dt; q.life -= dt / 1.3; });
+      pops = pops.filter((q) => q.life > 0);
+    };
+
+    const drawGems = () => {
+      const now = performance.now() / 1000;
+
+      ctx.globalAlpha = 1;
+
+      // uchhalta hua diamond + "+1"
+      pops.forEach((q) => {
+        const s = 9 * (1 + (1 - q.life) * 0.3);
+        ctx.globalAlpha = Math.max(0, q.life);
+        ctx.save();
+        ctx.translate(q.x, q.y);
+        ctx.rotate(Math.PI / 4);
+        ctx.fillStyle = '#4fe3f5';
+        ctx.fillRect(-s / 2, -s / 2, s, s);
+        ctx.fillStyle = '#c8fbff';
+        ctx.fillRect(-s / 2, -s / 2, s / 2, s / 2);
+        ctx.strokeStyle = '#0a8fa3';                       // light mode mein bhi nazar aaye
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-s / 2, -s / 2, s, s);
+        ctx.restore();
+        ctx.font = '500 13px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#2997ff';
+        ctx.fillText('+1', q.x, q.y - 16);
+      });
+      ctx.globalAlpha = 1;
+    };
+    resize();
+
+    window.addEventListener('resize', resize);
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(footer);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
+  })();
+  /* Footer builders: chhote Minecraft workers ZOHAIB ke upar chalte hain (naam ko kuch nahi hota) */
+  (() => {
+    const ft = document.querySelector('.glass-footer .ft');
+    const word = ft && ft.querySelector('.ft-word');
+    if (!word || !word.firstChild) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // zero-size marker: iska bottom text ki baseline batata hai
+    const marker = document.createElement('span');
+    marker.style.cssText = 'display:inline-block;width:0;height:0;';
+    word.appendChild(marker);
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'ft-builders';
+    canvas.setAttribute('aria-hidden', 'true');
+    ft.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    /* ---- tune here ---- */
+    const HEADROOM = 110;   // naam ke upar kitni jagah (px)
+    const SPEED = 38;       // builders ki chalne ki speed
+    const MAX_STACK = 2;    // ek jagah par max blocks
+    const BLOCK_COLORS = ['#8b5a2b', '#7d7d7d', '#c9a35b', '#5aa447', '#ebbe32'];
+    const OUTFITS = [
+      { shirt: '#2f9e44', pants: '#3b4cc0' },
+      { shirt: '#d9480f', pants: '#2b2b2b' },
+      { shirt: '#7048e8', pants: '#3b4cc0' }
+    ];
+
+    let w = 0, h = 0, u = 3, B = 15, FEET = 0;
+    let left0 = 0, right0 = 0, n = 0;
+    let stacks = [], builders = [], parts = [];
+    let raf = 0, last = 0, onScreen = false;
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const pick = (arr) => arr[(Math.random() * arr.length) | 0];
+    const cellOf = (x) => Math.max(0, Math.min(n - 1, Math.floor((x - left0) / B)));
+
+    const puff = (x, y, color, count) => {
+      for (let k = 0; k < count; k++) {
+        parts.push({
+          x, y, vx: rand(-50, 50), vy: rand(-110, -30),
+          life: 1, color, s: Math.max(2, Math.round(u * 0.8))
+        });
+      }
+    };
+
+    const hit = (b) => {
+      if (b.state === 'place') {
+        const c = cellOf(b.x + b.dir * B * 1.5);
+        if (stacks[c].length < MAX_STACK) {
+          const color = pick(BLOCK_COLORS);
+          stacks[c].push(color);
+          puff(left0 + (c + 0.5) * B, FEET - stacks[c].length * B, color, 4);
+        }
+      } else if (b.state === 'dig' && stacks[b.target] && stacks[b.target].length) {
+        const color = stacks[b.target].pop();
+        puff(left0 + (b.target + 0.5) * B, FEET - (stacks[b.target].length + 1) * B + B / 2, color, 8);
+      }
+    };
+
+    const decide = (b) => {
+      const filled = [];
+      let total = 0;
+      stacks.forEach((s, i) => { if (s.length) { filled.push(i); total += s.length; } });
+      if (filled.length && (total >= 10 || Math.random() < 0.4)) {
+        b.target = pick(filled);
+        b.state = 'goto';
+      } else {
+        b.state = 'place';
+        b.t = 0;
+        b.did = false;
+      }
+    };
+
+    const measure = () => {
+      const fr = ft.getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(word.firstChild);
+      const tr = range.getBoundingClientRect();
+      const baseline = marker.getBoundingClientRect().bottom;
+      const cs = getComputedStyle(word);
+
+      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      const ascent = ctx.measureText('Z').actualBoundingBoxAscent || parseFloat(cs.fontSize) * 0.73;
+      const capTop = baseline - ascent;               // letters ki upar wali line (viewport)
+
+      w = fr.width;
+      h = HEADROOM + 6;
+      FEET = HEADROOM - 2;                            // builders ke paon yahan hain
+      canvas.style.top = (capTop - HEADROOM - fr.top) + 'px';
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      u = w < 600 ? 2 : 3;
+      B = u * 5;
+      const textL = tr.left - fr.left, textR = tr.right - fr.left;
+      n = Math.max(4, Math.floor((textR - textL) / B));
+      left0 = textL + ((textR - textL) - n * B) / 2;
+      right0 = left0 + n * B;
+
+      // nayi size = nayi shuruaat
+      stacks = Array.from({ length: n }, () => []);
+      for (let k = 0; k < 3; k++) stacks[(Math.random() * n) | 0].push(pick(BLOCK_COLORS));
+      parts = [];
+      builders = OUTFITS.map((o, i) => ({
+        x: left0 + (right0 - left0) * (0.2 + 0.3 * i),
+        dir: i % 2 ? 1 : -1,
+        h: 0, t: 0, did: false, target: 0,
+        state: 'walk', timer: rand(1, 3),
+        shirt: o.shirt, pants: o.pants
+      }));
+    };
+
+    const update = (dt) => {
+      builders.forEach((b) => {
+        b.t += dt;
+        // paon blocks ke upar chadh jate hain
+        const ground = stacks[cellOf(b.x)].length * B;
+        b.h += (ground - b.h) * Math.min(1, dt * 12);
+
+        if (b.state === 'walk') {
+          b.x += b.dir * SPEED * dt;
+          if (b.x < left0 + B) { b.x = left0 + B; b.dir = 1; }
+          if (b.x > right0 - B) { b.x = right0 - B; b.dir = -1; }
+          b.timer -= dt;
+          if (b.timer <= 0) decide(b);
+        } else if (b.state === 'goto') {
+          if (!stacks[b.target].length) { b.state = 'walk'; b.timer = rand(1, 2); return; }
+          const d = left0 + (b.target + 0.5) * B - b.x;
+          b.dir = d > 0 ? 1 : -1;
+          if (Math.abs(d) > B * 1.6) {
+            b.x += b.dir * SPEED * dt;
+          } else {
+            b.state = 'dig';
+            b.t = 0;
+            b.did = false;
+          }
+        } else {                                        // place ya dig
+          if (!b.did && b.t > 0.55) { b.did = true; hit(b); }
+          if (b.t > 1.1) {
+            b.state = 'walk';
+            b.timer = rand(2, 5);
+            if (Math.random() < 0.5) b.dir *= -1;
+          }
+        }
+      });
+
+      parts.forEach((p) => {
+        p.vy += 420 * dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        if (p.y > FEET) { p.y = FEET; p.vx = 0; p.vy = 0; p.life -= dt * 2; }
+        else p.life -= dt * 0.6;
+      });
+      parts = parts.filter((p) => p.life > 0);
+    };
+
+    const drawBlock = (x, y, color) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, B, B);
+      ctx.fillStyle = 'rgba(255,255,255,0.22)';
+      ctx.fillRect(x, y, B, 2);
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+      ctx.strokeRect(x + 0.5, y + 0.5, B - 1, B - 1);
+    };
+
+    const drawBuilder = (b, now) => {
+      const walking = b.state === 'walk' || b.state === 'goto';
+      const step = walking ? Math.sin(now / 90 + b.x * 0.05) : 0;
+      let angle = -0.9 + step * 0.15;                   // pickaxe aage pakra hua
+      if (b.state === 'place' || b.state === 'dig') angle = -1.65 + Math.sin(b.t * 12) * 0.75;
+
+      ctx.save();
+      ctx.translate(Math.round(b.x), Math.round(FEET - b.h));
+      ctx.scale(b.dir, 1);
+
+      ctx.fillStyle = b.pants;                          // taangen
+      ctx.fillRect(-2 * u, -4 * u, 2 * u, 4 * u - (step > 0 ? u : 0));
+      ctx.fillRect(0, -4 * u, 2 * u, 4 * u - (step <= 0 ? u : 0));
+      ctx.fillStyle = b.shirt;                          // jism
+      ctx.fillRect(-2 * u, -9 * u, 4 * u, 5 * u);
+      ctx.fillStyle = '#c68a5e';                        // sar
+      ctx.fillRect(-2 * u, -13 * u, 4 * u, 4 * u);
+      ctx.fillStyle = '#4a2f1b';                        // baal
+      ctx.fillRect(-2 * u, -13 * u, 4 * u, u);
+      ctx.fillStyle = '#1b1b1b';                        // aankh
+      ctx.fillRect(u, -11 * u, u, u);
+
+      ctx.save();                                       // bazu + pickaxe
+      ctx.translate(0, -8 * u);
+      ctx.rotate(angle);
+      const aw = Math.round(u * 1.5);
+      ctx.fillStyle = '#c68a5e';
+      ctx.fillRect(-aw / 2, 0, aw, 4 * u);
+      ctx.fillStyle = b.shirt;
+      ctx.fillRect(-aw / 2, 0, aw, 2 * u);
+      ctx.fillStyle = '#6b4423';                        // dasta
+      ctx.fillRect(-1, 4 * u - 3, 2, 6 * u);
+      ctx.fillStyle = '#bfc4c9';                        // pickaxe ka sar
+      ctx.fillRect(-2 * u, 9 * u - 3, 4 * u, u);
+      ctx.restore();
+
+      ctx.restore();
+    };
+
+    const draw = (now) => {
+      ctx.clearRect(0, 0, w, h);
+      for (let c = 0; c < n; c++) {
+        stacks[c].forEach((color, level) => {
+          drawBlock(left0 + c * B, FEET - (level + 1) * B, color);
+        });
+      }
+      builders.forEach((b) => drawBuilder(b, now));
+      parts.forEach((p) => {
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.life));
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.s, p.s);
+      });
+      ctx.globalAlpha = 1;
+    };
+
+    const loop = (now) => {
+      raf = requestAnimationFrame(loop);
+      if (now - last < 33) return;                      // lagbhag 30fps
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      update(dt);
+      draw(now);
+    };
+
+    const start = () => {
+      if (reduce || raf || !onScreen || document.hidden) return;
+      last = performance.now();
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    measure();
+    draw(0);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); draw(0); });
+
+    let lastW = window.innerWidth, timer;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      clearTimeout(timer);
+      timer = setTimeout(() => { measure(); draw(0); }, 150);
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        if (onScreen) { measure(); start(); } else stop();
+      }).observe(ft);
+    }
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  })();
 });
