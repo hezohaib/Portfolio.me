@@ -92,21 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-   2. Project Preview Image Fallback
-   ========================================================================== */
-  const projectPreview = document.querySelector('.browser-screen img');
-
-  if (projectPreview) {
-    const showPreviewFallback = () => {
-      projectPreview.closest('.browser-screen').classList.add('image-fallback');
-    };
-
-    projectPreview.addEventListener('error', showPreviewFallback, { once: true });
-    if (projectPreview.complete && projectPreview.naturalWidth === 0) {
-      showPreviewFallback();
-    }
-  }
-  /* ==========================================================================
      3. Copy Email Button (with fallback for browsers without Clipboard API)
      ========================================================================== */
   const copyTextFallback = (text) => {
@@ -355,76 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  /* Skills: segmented control filter */
-  const skCard = document.querySelector('.sk-card');
 
-  if (skCard) {
-    const seg = skCard.querySelector('.sk-seg');
-    const thumb = skCard.querySelector('.sk-seg-thumb');
-    const buttons = Array.from(skCard.querySelectorAll('.sk-seg-btn'));
-    const groups = Array.from(skCard.querySelectorAll('.sk-group'));
-    const countEl = document.getElementById('skCount');
-
-    const moveThumb = (button) => {
-      if (!button || !thumb) return;
-      thumb.style.width = button.offsetWidth + 'px';
-      thumb.style.transform = 'translateX(' + button.offsetLeft + 'px)';
-    };
-
-    const getActive = () => buttons.find((b) => b.classList.contains('is-active')) || buttons[0];
-
-    const applyFilter = (filter, animate) => {
-      let visible = 0;
-      groups.forEach((group) => {
-        const show = filter === 'all' || group.dataset.cat === filter;
-        group.hidden = !show;
-        group.classList.remove('sk-pop');
-        if (show) {
-          visible += group.querySelectorAll('.sk-tile').length;
-          if (animate) {
-            void group.offsetWidth;
-            group.classList.add('sk-pop');
-            group.addEventListener('animationend', () => group.classList.remove('sk-pop'), { once: true });
-          }
-        }
-      });
-      if (countEl) countEl.textContent = visible;
-    };
-
-    const select = (button, animate) => {
-      buttons.forEach((b) => {
-        const on = b === button;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      moveThumb(button);
-      applyFilter(button.dataset.filter, animate);
-    };
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => select(button, true));
-    });
-
-    if (seg) {
-      seg.addEventListener('keydown', (e) => {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        e.preventDefault();
-        const i = buttons.indexOf(document.activeElement);
-        if (i === -1) return;
-        const next = buttons[(i + (e.key === 'ArrowRight' ? 1 : buttons.length - 1)) % buttons.length];
-        next.focus();
-        select(next, true);
-      });
-    }
-
-    skCard.classList.add('is-ready');
-    select(getActive(), false);
-
-    window.addEventListener('resize', () => moveThumb(getActive()));
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => moveThumb(getActive()));
-    }
-  }
   /* Hero name: scramble into "Frontend Developer" on hover and every 10 seconds */
   const nameSwap = document.querySelector('.name-swap');
 
@@ -569,14 +485,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
     const kanji = '日月火水木金土山空海雨花光影心力四五六七八九十';
     const extra = '0123456789$#=+<>/*{}';   // numbers and symbols mixed into every line
-    const sets = [
-      katakana + extra,
-      katakana + extra,
-      kanji + extra,
-      'ネ7ミ日ヲ3ク$ヒ水ト0ロ九サユ#ホ木ン5チヨケ光=ス8リワ力ノ+モ土ツ2エハ影テ<フ火ヌレ4ア山マ>セ十ヤ9キ空ラ/コル心オ六ナ{メ月タ6ヘ海ニカ}雨イ四金五花ウ七八' // mix
-    ];
+    const sets = [katakana, katakana, kanji, katakana + kanji];
     const sizes = [11, 13, 16, 19, 22, 26];   // thin lines to medium lines
-    const rand = (s) => s[Math.floor(Math.random() * s.length)];
+    const SYMBOL_SHARE = 0.5;   // 0.5 = half numbers/symbols, half Japanese
+    const rand = (s) => {
+      const pool = Math.random() < SYMBOL_SHARE ? extra : s;
+      return pool[Math.floor(Math.random() * pool.length)];
+    };
     const MORPH = 0.2;   // seconds for one symbol to change into the next
     const BASE = 0.18;   // how visible a line is without the wave (0 = only the wave shows)
 
@@ -672,11 +587,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       sc = w < 600 ? 0.7 : 1;            // smaller characters on phones
-      slot = w < 600 ? 52 : 72;
+      slot = w < 600 ? 60 : 85;
       nSlots = Math.floor(w / slot);
       measureZone();
       cols = [];
-      const chance = zr > 0 ? 0.8 : 0.6;
+      const chance = zr > 0 ? 0.65 : 0.5;
       for (let i = 0; i < nSlots; i++) {
         if (!allowed(i) || Math.random() > chance) continue;
         cols.push(makeCol(i, true));
@@ -750,7 +665,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     readTheme();
     resize();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
+    if (document.fonts && document.fonts.load) {
+      Promise.all(['300', '400', '500'].map((w) =>
+        document.fonts.load(w + ' 16px "Noto Sans JP"', katakana + kanji)
+      )).then(resize).catch(() => { });
+    }
 
     new IntersectionObserver(([entry]) => {
       onScreen = entry.isIntersecting;
@@ -788,8 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const titles = {
       about: 'About',
       problem: 'Problem',
-      'tec-stack': 'Tec Stack',
-      journey: 'Journey',
+      services: 'Services',
       projects: 'Work',
       contact: 'Contact',
       reach: 'Reach out'
@@ -882,6 +800,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const showSection = (id, push) => {
       const target = document.getElementById(id);
       if (!target || !sections.includes(target)) return;
+      if (document.body.classList.contains('view-mode') &&
+        target.classList.contains('is-current')) return;
 
       if (!document.body.classList.contains('view-mode')) savedScroll = window.scrollY;
       resetHeadings();
@@ -895,6 +815,8 @@ document.addEventListener('DOMContentLoaded', () => {
       window.dispatchEvent(new Event('resize'));
       typeHeading(target);
       setTitle(id);
+      // About has a sticky panel, so use normal scrolling there (smooth scroll makes it shake)
+     if (lenis && lenis.options) lenis.options.smoothWheel = true;
       if (push) history.pushState({ view: id }, '', '#' + id);
     };
 
@@ -905,6 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('is-current'));
       jumpTo(savedScroll);
       setTitle();
+      if (lenis && lenis.options) lenis.options.smoothWheel = true;
       if (push) history.pushState(null, '', location.pathname);
     };
 
@@ -932,46 +855,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sections.some((s) => s.id === id)) showSection(id, false);
       else showHome(false);
     });
+    const initial = location.hash.slice(1);
+    if (sections.some((s) => s.id === initial)) showSection(initial, false);
   })();
-  /* Tec Stack: spotlight + tilt on tiles, count-up on first view */
-  (() => {
-    const card = document.querySelector('.sk-card');
-    if (!card) return;
 
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (fine && !reduce) {
-      let active = null;
-
-      const reset = (tile) => {
-        tile.style.setProperty('--rx', '0deg');
-        tile.style.setProperty('--ry', '0deg');
-        tile.classList.remove('is-hot');
-      };
-
-      card.addEventListener('pointermove', (e) => {
-        const tile = e.target.closest('.sk-tile');
-        if (active && active !== tile) reset(active);
-        active = tile;
-        if (!tile) return;
-
-        const r = tile.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        tile.style.setProperty('--mx', x + 'px');
-        tile.style.setProperty('--my', y + 'px');
-        tile.style.setProperty('--ry', ((x / r.width - 0.5) * 10).toFixed(2) + 'deg');
-        tile.style.setProperty('--rx', ((0.5 - y / r.height) * 10).toFixed(2) + 'deg');
-        tile.classList.add('is-hot');
-      });
-
-      card.addEventListener('pointerleave', () => {
-        if (active) reset(active);
-        active = null;
-      });
-    }
-  })();
   /* About: stats count up once when they scroll into view */
   (() => {
     const stats = document.querySelector('.ab-stats');
@@ -1533,6 +1420,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loop = (now) => {
       raf = requestAnimationFrame(loop);
+        if (lenis && lenis.isScrolling) return; 
       if (now - last < 33) return;
       const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
@@ -1618,28 +1506,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ---- tune here ---- */
-    const SPACING = 30;    // distance between dots (px)
-    const RADIUS = 0.8;    // dot size
+    const SPACING = 22;    // dots ke beech ka gap kam = dots zyada
+    const RADIUS = 0.9;    // dot thora bara = zyada visible
     const FACTOR = 0.3;    // how much the dots follow the scroll (0 = they never move)
     const EASE = 0.12;     // smoothness (smaller = slower, softer)
-    const PAD = 14;        // empty space kept around text and cards (px)
-    const FEATHER = 18;    // dots next to that space are half faded (px)
+
 
     // boxes: the whole box hides the dots. text: only the lines of text hide the dots.
-    const BOXES = '.pj-card, .ab-box, .reach-terminal, .reach-badge, ' +
+    const BOXES = '.pj-card, .reach-terminal, .reach-badge, ' +
       '.cta-info-badge, .btn-pill, .ab-btn';
-    const TEXTS = 'h1, h2, h3, p';
+
 
     let w = 0, h = 0, cols = 0, rows = 0;
     let cur = 0, target = 0, raf = 0, active = false, until = 0;
-    let section = null, boxEls = [], textEls = [], fixedEls = [];
+    let section = null, boxEls = [], fixedEls = [];
+    let cutEl = null, cutY = Infinity;   // About page: no dots below the My story line
     let color = '255,255,255', alpha = 0.16;
     const rects = [];
 
     const readTheme = () => {
       const light = document.documentElement.getAttribute('data-theme') === 'light';
       color = light ? '0,0,0' : '255,255,255';
-      alpha = light ? 0.2 : 0.16;
+      alpha = light ? 0.34 : 0.3;
     };
 
     // the page that is open now (null = home, or the Problem page, where there are no dots)
@@ -1663,6 +1551,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // measure everything that should hide the dots (right now, on screen)
     const collect = () => {
       rects.length = 0;
+      cutY = cutEl ? cutEl.getBoundingClientRect().top : Infinity;
       const add = (r) => {
         if (r.width < 1 || r.height < 1) return;
         if (r.bottom < -50 || r.top > h + 50 || r.right < -50 || r.left > w + 50) return;
@@ -1670,12 +1559,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       fixedEls.forEach((el) => add(el.getBoundingClientRect()));
       boxEls.forEach((el) => add(el.getBoundingClientRect()));
-      textEls.forEach((el) => {
-        const range = document.createRange();
-        range.selectNodeContents(el);
-        const list = range.getClientRects();
-        for (let i = 0; i < list.length; i++) add(list[i]);
-      });
+
     };
 
     const draw = () => {
@@ -1684,10 +1568,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const half = new Path2D();
       const shift = ((cur % SPACING) + SPACING) % SPACING;   // the grid repeats, so we only need the remainder
       const n = rects.length;
-      const far = PAD + FEATHER;
+
 
       for (let r = 0; r < rows; r++) {
         const y = r * SPACING + SPACING / 2 - shift;
+        if (y > cutY) break;   // below the line: no dots
         for (let c = 0; c < cols; c++) {
           const x = c * SPACING + SPACING / 2;
           let level = 2;                                        // 2 = full dot, 1 = half, 0 = hidden
@@ -1734,6 +1619,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // a new page is open: remember what is on it
       boxEls = Array.from(now.querySelectorAll(BOXES));
+      cutEl = now.id === 'about' ? now.querySelector('.ab-story') : null;
 
       fixedEls = Array.from(document.querySelectorAll('.header, .glass-footer'));
 
@@ -1769,73 +1655,11 @@ document.addEventListener('DOMContentLoaded', () => {
       .observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
 
     update();
-  })();  /* Tec Stack (home page): dots drift slowly when you scroll, same feel as the other pages */
-  (() => {
-    const el = document.getElementById('tec-stack');
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const FACTOR = 0.3;   // same as the dot grid on the other pages (0 = dots never move)
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-      if (document.body.classList.contains('view-mode')) return;
-      const top = el.getBoundingClientRect().top;
-      // dots move slower than the page, so they look like they sit behind it
-      el.style.setProperty('--dots-y', (-window.scrollY * FACTOR - top) + 'px');
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
-  })();
-  /* Tec Stack: "18 technologies" counts up from 0 every time the card comes into view
-   (home page scroll and navbar click both work) */
-  (() => {
-    const card = document.querySelector('.sk-card');
-    const countEl = document.getElementById('skCount');
-    if (!card || !countEl) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (!('IntersectionObserver' in window)) return;
-
-    const DURATION = 1000;   // count-up time (ms)
-    let raf = 0;
-
-    // how many tiles are visible right now (changes with the filter)
-    const visibleCount = () => card.querySelectorAll('.sk-group:not([hidden]) .sk-tile').length;
-
-    const run = () => {
-      cancelAnimationFrame(raf);
-      const start = performance.now();
-      countEl.textContent = 0;
-      const step = (now) => {
-        const p = Math.min((now - start) / DURATION, 1);
-        countEl.textContent = Math.round(visibleCount() * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) raf = requestAnimationFrame(step);
-      };
-      raf = requestAnimationFrame(step);
-    };
-
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        run();
-      } else {
-        cancelAnimationFrame(raf);
-        countEl.textContent = 0;   // ready for the next time
-      }
-    }, { threshold: 0.4 }).observe(card);
   })();
   /* Section separator line: on while the section is in the middle of the screen, off when you leave */
   (() => {
     if (!('IntersectionObserver' in window)) return;
-    const targets = document.querySelectorAll('#tec-stack, #about, #journey, #projects, #contact');
+    const targets = document.querySelectorAll('#about, #services, #projects, #contact');
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1848,18 +1672,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     targets.forEach((el) => io.observe(el));
-  })();
-  /* Logo marquee: tiles ki copy banao taake loop beech mein khali na ho */
-  (() => {
-    const track = document.querySelector('.logo-grid');
-    if (!track) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    Array.from(track.children).forEach((tile) => {
-      const copy = tile.cloneNode(true);
-      copy.setAttribute('aria-hidden', 'true');   // screen reader ko dobara na parhe
-      track.appendChild(copy);
-    });
   })();
   /* Footer: snakes travel dot to dot, every dot they touch lights up */
   (() => {
@@ -2010,5 +1822,281 @@ document.addEventListener('DOMContentLoaded', () => {
     }).observe(footer);
 
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  })();
+  /* My story: slow, self-moving tiles (Game of Life) */
+  (() => {
+    const box = document.querySelector('.ab-life');
+    if (!box) return;
+    const canvas = box.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- tune here ---- */
+    const CELL = 10;        // tile size (px)
+    const GAP = 1;          // space between tiles
+    const STEP_MS = 520;    // time between moves (bigger = slower)
+    const SMOOTH = 5;       // how softly tiles fade in and out
+    const START = 0.22;     // share of tiles alive at the start
+    const RADIUS = 3;       // tile ke rounded corners (0 = sharp squares)
+    const BASE = 0;         // dead tile ki halki jhalak (0 = bilkul invisible, 0.02 = halka grid)
+    const PEAK = 0.2;       // zinda tile ki brightness
+
+    let w = 0, h = 0, cols = 0, rows = 0;
+    let alive = new Uint8Array(0), val = new Float32Array(0);
+    let gen = 0, nextStep = 0, last = 0, raf = 0, onScreen = false;
+    let rgb = '0,0,0';
+
+    const readTheme = () => {
+      rgb = document.documentElement.getAttribute('data-theme') === 'light' ? '0,0,0' : '255,255,255';
+    };
+
+    const seed = () => {
+      for (let i = 0; i < alive.length; i++) alive[i] = Math.random() < START ? 1 : 0;
+      gen = 0;
+    };
+
+    const step = () => {
+      const next = new Uint8Array(alive.length);
+      let count = 0;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          let n = 0;
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              if (!dr && !dc) continue;
+              n += alive[((r + dr + rows) % rows) * cols + ((c + dc + cols) % cols)];
+            }
+          }
+          const i = r * cols + c;
+          const live = alive[i] ? (n === 2 || n === 3) : n === 3;
+          next[i] = live ? 1 : 0;
+          count += next[i];
+        }
+      }
+      alive = next;
+      gen++;
+      // when the pattern dies out or gets stuck, start a fresh one
+      if (count < alive.length * 0.04 || gen > 140) seed();
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      const size = CELL - GAP;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const a = BASE + val[r * cols + c] * (PEAK - BASE);
+          if (a < 0.008) continue;                       // invisible tile skip karo
+          ctx.fillStyle = 'rgba(' + rgb + ',' + a.toFixed(3) + ')';
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(c * CELL + GAP / 2, r * CELL + GAP / 2, size, size, RADIUS);
+          else ctx.rect(c * CELL + GAP / 2, r * CELL + GAP / 2, size, size);   // purane browsers
+          ctx.fill();
+        }
+      }
+    };
+    const resize = () => {
+      const nw = box.clientWidth, nh = box.clientHeight;
+      if (!nw || !nh) return;              // panel is hidden
+      const dpr = window.devicePixelRatio || 1;
+      w = nw; h = nh;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.floor(w / CELL);
+      rows = Math.floor(h / CELL);
+      alive = new Uint8Array(cols * rows);
+      val = new Float32Array(cols * rows);
+      seed();
+      for (let i = 0; i < alive.length; i++) val[i] = alive[i];
+      draw();
+    };
+
+    const loop = (now) => {
+      raf = requestAnimationFrame(loop);
+       if (lenis && lenis.isScrolling) return; 
+      if (now - last < 33) return;
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      if (now >= nextStep) { step(); nextStep = now + STEP_MS; }
+      const k = 1 - Math.exp(-dt * SMOOTH);
+      for (let i = 0; i < val.length; i++) val[i] += (alive[i] - val[i]) * k;
+      draw();
+    };
+
+    const start = () => {
+      if (reduce || raf || !onScreen || document.hidden || !cols) return;
+      last = performance.now();
+      nextStep = last + STEP_MS;
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    readTheme();
+    resize();
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(() => { resize(); start(); }).observe(box);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        onScreen ? start() : stop();
+      }).observe(box);
+    }
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    new MutationObserver(() => { readTheme(); if (cols) draw(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+  /* My story: panel runs from the 2nd line of the 2nd paragraph to the 3rd line of the last paragraph */
+  (() => {
+    const text = document.querySelector('.ab-story-text');
+    const panel = document.querySelector('.ab-life');
+    if (!text || !panel) return;
+
+    const START_LINES = 1;   // 1 = 2nd paragraph ki 2nd line se shuru (0 = bilkul top se)
+    const END_LINES = 3;     // 3 = last paragraph ki 3rd line tak
+
+    const place = () => {
+      const paras = text.querySelectorAll('p');
+      const first = paras[1];
+      const last = paras[paras.length - 1];
+      if (!first || !last || !text.offsetHeight) return;   // page hidden hai, naapna bekaar hai
+
+      const t = text.getBoundingClientRect();
+      const lhFirst = parseFloat(getComputedStyle(first).lineHeight) || 0;
+      const lhLast = parseFloat(getComputedStyle(last).lineHeight) || 0;
+
+      const top = first.getBoundingClientRect().top - t.top + lhFirst * START_LINES;
+      const bottom = last.getBoundingClientRect().top - t.top + lhLast * END_LINES;
+
+      panel.style.marginTop = top + 'px';
+      panel.style.marginBottom = Math.max(0, t.height - bottom) + 'px';
+    };
+
+    if ('ResizeObserver' in window) new ResizeObserver(place).observe(text);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    window.addEventListener('resize', place);
+    place();
+  })();
+  /* Tech stack: 4 columns, each shows one technology. Every column changes on its own timing */
+  /* script.js me paste karo: bilkul end me, aakhri `});` se pehle */
+  (() => {
+    const stack = document.querySelector('.stack');
+    if (!stack) return;
+    // logos: har <li data-icon="..."> ke aage logo lagao
+    stack.querySelectorAll('li[data-icon]').forEach((li) => {
+      const ico = document.createElement('span');
+      ico.className = 'st-ico';
+      ico.setAttribute('aria-hidden', 'true');
+      ico.style.setProperty(
+        '--ico',
+        'url(https://cdn.jsdelivr.net/npm/simple-icons@11.14.0/icons/' + li.dataset.icon + '.svg)'
+      );
+      li.prepend(ico);
+    });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cells = Array.from(stack.querySelectorAll('.stack-cell'));
+    if (!cells.length || reduce) return;   // reduced motion: all names stay visible, no animation
+
+    /* ---- tune here ---- */
+    const GAP_MIN = 1200;   // ms: do changes ke beech kam az kam itna gap
+    const GAP_MAX = 2600;   // ms: aur zyada se zyada itna
+
+    const cols = cells.map((cell) => ({
+      items: Array.from(cell.querySelectorAll('.stack-col li')),
+      i: 0
+    }));
+
+    // first technology of every column is visible from the start
+    stack.classList.add('is-live');
+    cols.forEach((c) => { c.items[0].classList.add('is-active'); });
+
+    // column ke andar random naam dikhao (wohi dobara nahi)
+    const advance = (c) => {
+      if (c.items.length < 2) return;
+      let n;
+      do { n = Math.floor(Math.random() * c.items.length); } while (n === c.i);
+
+      const prev = c.items[c.i];
+      const cur = c.items[n];
+      c.i = n;
+      prev.classList.remove('is-active');
+      prev.classList.add('is-leaving');
+      cur.classList.remove('is-leaving');
+      cur.classList.add('is-active');
+
+      setTimeout(() => prev.classList.remove('is-leaving'), 600);
+    };
+
+    let onScreen = false;
+    let timer = 0;
+    let lastCol = -1;
+
+    // ek waqt me sirf ek column badalta hai, phir random gap ke baad agla
+    const tick = () => {
+      let k;
+      do { k = Math.floor(Math.random() * cols.length); } while (k === lastCol && cols.length > 1);
+      lastCol = k;
+      advance(cols[k]);
+      timer = setTimeout(tick, GAP_MIN + Math.random() * (GAP_MAX - GAP_MIN));
+    };
+
+    const start = () => {
+      if (!onScreen || document.hidden || timer) return;
+      timer = setTimeout(tick, GAP_MIN);
+    };
+
+    const stop = () => {
+      clearTimeout(timer);
+      timer = 0;
+    };
+
+    // runs only while the section is on screen (it is display:none on the home page)
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        onScreen ? start() : stop();
+      }).observe(stack);
+    }
+
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  })();
+    /* Mobile menu: hamburger opens / closes the links + theme toggle */
+  (() => {
+    const header = document.querySelector('.header');
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    if (!header || !toggle || !menu) return;
+
+    const setOpen = (open) => {
+      header.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(!header.classList.contains('menu-open'));
+    });
+
+    // tapping a link closes the menu
+    menu.querySelectorAll('.nav-links a').forEach((a) => {
+      a.addEventListener('click', () => setOpen(false));
+    });
+
+    // tapping anywhere outside the navbar closes it
+    document.addEventListener('click', (e) => {
+      if (header.classList.contains('menu-open') && !header.contains(e.target)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && header.classList.contains('menu-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // back to desktop size: reset
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) setOpen(false);
+    });
   })();
 });

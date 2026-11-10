@@ -14,7 +14,7 @@
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://iamzohaib.me/" />
 
-  <link rel="stylesheet" href="style.css?v=55" />
+  <link rel="stylesheet" href="style.css?v=57" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -75,12 +75,18 @@
   <header class="header">
     <nav class="nav container">
       <a href="/" class="logo">Zohaib</a>
-      <div class="nav-menu">
+      <button type="button" id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false"
+        aria-controls="navMenu">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <div class="nav-menu" id="navMenu">
         <ul class="nav-links">
-          <li><a href="#problem">Problem</a></li>
-          <li><a href="#tec-stack">Tech Stack</a></li>
+
+          <li><a href="/">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#journey">Journey</a></li>
+          <li><a href="#services">Services</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#reach">Reach out</a></li>
         </ul>
@@ -194,184 +200,6 @@
       </div>
     </section>
 
-    <section id="tec-stack" class="section tec-stack reveal">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-eyebrow">page.expertise</p>
-          <h2 class="section-title">Tech Stack</h2>
-          <div class="title-underline"></div>
-          <p class="section-description">Frontend development technologies and tools</p>
-        </div>
-
-        <div class="sk-layout">
-
-          <aside class="sk-detail">
-            <p class="sk-detail-label">// section.stack, in one breath</p>
-            <p class="sk-story">
-              Everything starts with <b>HTML</b> and <b>CSS</b>: the skeleton and the
-              skin. <b>JavaScript</b> gives it a pulse, and <b>React</b> keeps that
-              pulse organised once things get big. <b>Next.js</b> takes it live,
-              <b>Tailwind</b> keeps the styling quick, and <b>Git</b> remembers every
-              mistake I&rsquo;ve made along the way. Then I run <b>Lighthouse</b>, wince at
-              the score, and fix it, because fast is a feature.
-            </p>
-          </aside>
-
-          <div class="sk-card">
-            <div class="sk-toolbar">
-              <div class="sk-seg" role="group" aria-label="Filter Tech Stack by category">
-                <span class="sk-seg-thumb" aria-hidden="true"></span>
-                <button type="button" class="sk-seg-btn is-active" data-filter="all" aria-pressed="true">All</button>
-                <button type="button" class="sk-seg-btn" data-filter="core" aria-pressed="false">Core</button>
-                <button type="button" class="sk-seg-btn" data-filter="frameworks"
-                  aria-pressed="false">Frameworks</button>
-                <button type="button" class="sk-seg-btn" data-filter="performance"
-                  aria-pressed="false">Performance</button>
-                <button type="button" class="sk-seg-btn" data-filter="tools" aria-pressed="false">Tools</button>
-              </div>
-              <p class="sk-count" role="status" aria-live="polite"><span id="skCount">18</span> technologies</p>
-            </div>
-
-            <div class="sk-group" data-cat="core">
-              <h3 class="sk-group-title">Core</h3>
-              <ul class="sk-grid">
-                <li class="sk-tile" style="--tint:#ff6b35"><span class="sk-icon" aria-hidden="true">H5</span><span
-                    class="sk-info"><strong>HTML</strong><small>Semantic markup</small></span></li>
-                <li class="sk-tile" style="--tint:#0a84ff"><span class="sk-icon" aria-hidden="true">C3</span><span
-                    class="sk-info"><strong>CSS</strong><small>Flexbox, Grid, animations</small></span></li>
-                <li class="sk-tile" style="--tint:#ffb800"><span class="sk-icon" aria-hidden="true">JS</span><span
-                    class="sk-info"><strong>JavaScript</strong><small>Modern ES6+</small></span></li>
-                <li class="sk-tile" style="--tint:#0a84ff"><span class="sk-icon" aria-hidden="true">TS</span><span
-                    class="sk-info"><strong>TypeScript</strong><small>Typed JavaScript</small></span></li>
-                <li class="sk-tile" style="--tint:#30b350"><span class="sk-icon" aria-hidden="true">Rs</span><span
-                    class="sk-info"><strong>Responsive Design</strong><small>Mobile-first layouts</small></span></li>
-                <li class="sk-tile" style="--tint:#bf5af2"><span class="sk-icon" aria-hidden="true">A11</span><span
-                    class="sk-info"><strong>Accessibility</strong><small>Keyboard and screen readers</small></span></li>
-                <li class="sk-tile" style="--tint:#ff2d95"><span class="sk-icon" aria-hidden="true">Fm</span><span
-                    class="sk-info"><strong>Architecture</strong><small>Layouts and designs</small></span></li>
-
-              </ul>
-            </div>
-
-            <div class="sk-group" data-cat="frameworks">
-              <h3 class="sk-group-title">Frameworks &amp; Libraries</h3>
-              <ul class="sk-grid">
-
-                <li class="sk-tile" style="--tint:#32ade6"><span class="sk-icon" aria-hidden="true">Re</span><span
-                    class="sk-info"><strong>React</strong><small>Component-based UI</small></span></li>
-                <li class="sk-tile" style="--tint:#5e5ce6"><span class="sk-icon" aria-hidden="true">Nx</span><span
-                    class="sk-info"><strong>Next.js</strong><small>React framework</small></span></li>
-                <li class="sk-tile" style="--tint:#42b883"><span class="sk-icon" aria-hidden="true">Vu</span><span
-                    class="sk-info"><strong>Vue.js</strong><small>Dynamic User Interfaces</small></span></li>
-                <li class="sk-tile" style="--tint:#32ade6"><span class="sk-icon" aria-hidden="true">Tw</span><span
-                    class="sk-info"><strong>Tailwind</strong><small>Utility-first styling</small></span></li>
-                <li class="sk-tile" style="--tint:#ff453a"><span class="sk-icon" aria-hidden="true">TQ</span><span
-                    class="sk-info"><strong>TanStack</strong><small>Server state and data fetching</small></span>
-                </li>
-                <li class="sk-tile" style="--tint:#8e8e93"><span class="sk-icon" aria-hidden="true">Zu</span><span
-                    class="sk-info"><strong>Zustand</strong><small>State management</small></span></li>
-                <li class="sk-tile" style="--tint:#8e8e93"><span class="sk-icon" aria-hidden="true">Zu</span><span
-                    class="sk-info"><strong>Astro</strong><small>Web Framework</small></span></li>
-                <li class="sk-tile" style="--tint:#ff2d95"><span class="sk-icon" aria-hidden="true">Fm</span><span
-                    class="sk-info"><strong>FramerMotion</strong><small>Animations</small></span></li>
-                <li class="sk-tile" style="--tint:#ff2d95"><span class="sk-icon" aria-hidden="true">Fm</span><span
-                    class="sk-info"><strong>GSAP</strong><small>Animations library</small></span></li>
-              </ul>
-            </div>
-
-            <div class="sk-group" data-cat="performance">
-              <h3 class="sk-group-title">Performance</h3>
-              <ul class="sk-grid">
-                <li class="sk-tile" style="--tint:#ff9f0a"><span class="sk-icon" aria-hidden="true">LH</span><span
-                    class="sk-info"><strong>Lighthouse</strong><small>Auditing and fixing scores</small></span></li>
-                <li class="sk-tile" style="--tint:#30b350"><span class="sk-icon" aria-hidden="true">CW</span><span
-                    class="sk-info"><strong>Core Web Vitals</strong><small>LCP, CLS, INP</small></span></li>
-                <li class="sk-tile" style="--tint:#30b350"><span class="sk-icon" aria-hidden="true">CW</span><span
-                    class="sk-info"><strong>Chrome DevTools</strong><small>Built-in debugging tool: Network,
-                      Performance,
-                      Elements</small></span></li>
-                <li class="sk-tile" style="--tint:#32ade6"><span class="sk-icon" aria-hidden="true">SEO</span><span
-                    class="sk-info"><strong>SEO</strong><small>Meta, structured data</small></span></li>
-              </ul>
-            </div>
-
-            <div class="sk-group" data-cat="tools">
-              <h3 class="sk-group-title">Tools</h3>
-              <ul class="sk-grid">
-                <li class="sk-tile" style="--tint:#ff453a"><span class="sk-icon" aria-hidden="true">Gi</span><span
-                    class="sk-info"><strong>Git &amp; GitHub</strong><small>Version control</small></span></li>
-                <li class="sk-tile" style="--tint:#bf5af2"><span class="sk-icon" aria-hidden="true">Fg</span><span
-                    class="sk-info"><strong>Figma</strong><small>Design to code</small></span></li>
-                <li class="sk-tile" style="--tint:#ff453a"><span class="sk-icon" aria-hidden="true">Gi</span><span
-                    class="sk-info"><strong>WordPress</strong><small>CMS</small></span></li>
-                <li class="sk-tile" style="--tint:#636366"><span class="sk-icon" aria-hidden="true">Vc</span><span
-                    class="sk-info"><strong>Vercel</strong><small>Deployment</small></span></li>
-              </ul>
-            </div> <!-- tools group -->
-
-          </div> <!-- sk-card -->
-
-        </div> <!-- sk-layout -->
-        <div class="logo-marquee">
-          <ul class="logo-grid" aria-label="Technology logos">
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt=""
-                loading="lazy"><span>HTML5</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt=""
-                loading="lazy"><span>CSS3</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg"
-                alt="" loading="lazy"><span>JavaScript</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg"
-                alt="" loading="lazy"><span>TypeScript</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt=""
-                loading="lazy"><span>React</span></li>
-            <li class="logo-tile"><img class="mono" src="https://cdn.simpleicons.org/nextdotjs/000000" alt=""
-                loading="lazy"><span>Next.js</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" alt=""
-                loading="lazy"><span>Vue.js</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg"
-                alt="" loading="lazy"><span>Tailwind</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/astro/astro-original.svg" alt=""
-                loading="lazy"><span>Astro</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt=""
-                loading="lazy"><span>Git</span></li>
-            <li class="logo-tile"><img class="mono" src="https://cdn.simpleicons.org/github/000000" alt=""
-                loading="lazy"><span>GitHub</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/figma/figma-original.svg" alt=""
-                loading="lazy"><span>Figma</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/wordpress/wordpress-plain.svg" alt=""
-                loading="lazy"><span>WordPress</span></li>
-            <li class="logo-tile"><img class="mono" src="https://cdn.simpleicons.org/vercel/000000" alt=""
-                loading="lazy"><span>Vercel</span></li>
-            <li class="logo-tile"><img src="https://cdn.simpleicons.org/reactquery" alt=""
-                loading="lazy"><span>TanStack</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/zustand/zustand-original.svg" alt=""
-                loading="lazy"><span>Zustand</span></li>
-            <li class="logo-tile"><img src="https://cdn.simpleicons.org/framer" alt="" loading="lazy"><span>Framer
-                Motion</span></li>
-            <li class="logo-tile"><img src="https://cdn.simpleicons.org/greensock" alt=""
-                loading="lazy"><span>GSAP</span>
-            </li>
-            <li class="logo-tile"><img src="https://cdn.simpleicons.org/lighthouse" alt=""
-                loading="lazy"><span>Lighthouse</span></li>
-            <li class="logo-tile"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/chrome/chrome-original.svg" alt=""
-                loading="lazy"><span>DevTools</span></li>
-          </ul>
-        </div>
-      </div> <!-- container -->
-    </section>
     <!-- About Section -->
     <section id="about" class="section about reveal">
       <div class="container">
@@ -384,142 +212,157 @@
               interfaces and ship them to production, from the first sketch to the deployed site. I'm still
               learning every day, and I like it that way.
             </p>
-            <a href="#contact" class="ab-btn">Let's talk <span aria-hidden="true">&rarr;</span></a>
+            <a href="#about" class="ab-btn">More about me<span aria-hidden="true">&rarr;</span></a>
           </div>
-
+          <div class="reach-badge ab-badge">
+            <span class="cta-status-dot" aria-hidden="true"></span>
+            Available for freelance projects &middot; Remote / worldwide
+          </div>
           <div class="ab-stats">
             <div class="ab-stat">
               <strong class="ab-value"><span data-count="2">2</span><i>+</i></strong>
-              <span class="ab-label">live project</span>
-              <small>Next.js e-commerce on Vercel</small>
+              <span class="ab-label">live projects</span>
+              <small>e-commerce + analytics dashboard</small>
+
             </div>
-            <div class="ab-stat">
-              <strong class="ab-value"><span data-count="7">7</span></strong>
-              <span class="ab-label">tracks in progress</span>
-              <small>freeCodeCamp full-stack path</small>
-            </div>
-            <div class="ab-stat">
-              <strong class="ab-value"><span data-count="24">24</span><i>+</i></strong>
-              <span class="ab-label">technologies</span>
-              <small>frontend to deployment</small>
-            </div>
+
             <div class="ab-stat">
               <strong class="ab-value"><span data-count="2">2</span><i>h</i></strong>
               <span class="ab-label">reply time</span>
               <small>usually under 2 hours</small>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-    <!-- freeCodeCamp Journey Section -->
-    <section id="journey" class="section journey reveal">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-eyebrow">page.journey</p>
-          <h2 class="section-title">My freeCodeCamp Journey</h2>
-          <div class="title-underline"></div>
-          <p class="section-description">
-            Technologies I work with and am learning.
-          </p>
-        </div>
+          <!-- My story (shows only on the About page opened from the nav) -->
+          <div class="ab-story">
+            <div class="ab-story-text">
+              <h2 class="ab-story-title">My story</h2>
 
-        <div class="jr-card">
-          <div class="jr-summary">
-            <span class="jr-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <div>
-              <p class="jr-summary-title">~/learning-path</p>
-              <p class="jr-summary-sub">7 tracks &middot; currently in progress</p>
+              <p>I’m a <strong>Frontend Web Developer</strong> in the making who turns logic into clean, usable design.
+                I’m a 4th-semester computerscience student, and the way I learn is simple: I build things.</p>
+
+              <p>I wrote my first line of code at 19 on freeCodeCamp, and for a while it was just exercises and syntax.
+                Then I decided to build something for a real person. A friend’s birthday was coming up, so instead of
+                sending a text, I built him a small website. When he opened it, he went quiet for a second, then grinned
+                and said, “You made this? For me?” That moment changed how I saw code. It stopped being homework and
+                became a way to make someone’s day.</p>
+
+              <p>That project also taught me my first real lesson: reading about code and shipping it are two very
+                different skills. The page looked perfect on my laptop and fell apart on his phone. One CSS rule
+                overrode
+                another, an image broke the layout, and a button did nothing because of a typo in a JavaScript variable
+                name. I spent hours chasing each bug, and I learned more from that one afternoon than from a week of
+                tutorials.</p>
+
+              <p>Today I’m working toward becoming a full-stack developer. My mindset is <strong>logic first, design
+                  second</strong>, before I write code, I ask what problem I’m solving and how the pieces connect. I’d
+                rather understand <em>why</em> something works than copy something that happens to work. If I can’t
+                explain a piece of code in my own words, I’m not done with it yet.</p>
+
+              <p>Debugging is also where I found something I didn’t expect: I stay calm when things break. When some
+                classmates were building an Adidas shoe store website, bugs kept piling up and nobody could figure out
+                why. More than once I heard, “We can’t do this,” and they were ready to give up. I sat down with them,
+                read through their code line by line, and helped trace each problem back to its cause. Each time a bug
+                disappeared, their energy came back. I realized that debugging isn’t just a technical skill; it’s about
+                keeping people’s confidence alive while the code is broken.</p>
+
+              <p>What I care about most is <strong>clarity</strong>, clear code, clear layouts, and clear communication.
+                I’d much rather build something small that works well than something massive that falls apart.</p>
+
+              <p>I’m now looking for <strong>internships and remote opportunities</strong> for three reasons. I love
+                building new things and learning by shipping them. I enjoy solving people’s problems and giving them a
+                design that feels easy to use. And I want to grow into someone who can work independently and build a
+                career on work I’m proud of. Away from the keyboard, I’m usually out with friends, or back at my
+                computer
+                turning small ideas into code. Both keep me grounded, and I bring the same attitude to each: try it, see
+                what happens, and learn from it.</p>
+
             </div>
-            <a class="jr-fcc-link" href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer">
-              freecodecamp.org <span aria-hidden="true">&rsaquo;</span>
-            </a>
-          </div>
 
-          <ol class="jr-list">
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank"
-                rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">01</span>
-                <span class="jr-text">
-                  <strong>Responsive Web Design</strong>
-                  <small>Responsive layouts, accessibility, semantic HTML and modern CSS.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/"
-                target="_blank" rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">02</span>
-                <span class="jr-text">
-                  <strong>JavaScript Algorithms and Data Structures</strong>
-                  <small>Core JavaScript, algorithms, data structures and problem solving.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/front-end-development-libraries/"
-                target="_blank" rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">03</span>
-                <span class="jr-text">
-                  <strong>Front-End Development Libraries</strong>
-                  <small>React interfaces, component architecture and state management.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
-                target="_blank" rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">04</span>
-                <span class="jr-text">
-                  <strong>Python</strong>
-                  <small>Python fundamentals, scripting, OOP and automation.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/relational-database/" target="_blank"
-                rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">05</span>
-                <span class="jr-text">
-                  <strong>Relational Databases</strong>
-                  <small>SQL, data modeling, PostgreSQL workflows and database management.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/back-end-development-and-apis/" target="_blank"
-                rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">06</span>
-                <span class="jr-text">
-                  <strong>Back-End Development and APIs</strong>
-                  <small>Server-side apps, REST APIs, authentication and production services.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-            <li class="jr-item">
-              <a class="jr-row" href="https://www.freecodecamp.org/learn/full-stack-developer/" target="_blank"
-                rel="noopener noreferrer">
-                <span class="jr-num" aria-hidden="true">07</span>
-                <span class="jr-text">
-                  <strong>Certified Full-Stack Developer</strong>
-                  <small>End-to-end development across frontend, backend, databases and deployment.</small>
-                </span>
-                <span class="jr-status">In Progress</span> <span class="jr-arrow" aria-hidden="true">&#8599;</span>
-              </a>
-            </li>
-          </ol>
-          <p class="jr-prompt">keep --learning<span aria-hidden="true">_</span></p>
+            <aside class="ab-life" aria-hidden="true">
+              <canvas></canvas>
+            </aside>
+          </div>
+          <section class="stack" aria-labelledby="stackTitle">
+            <p class="stack-label">// system.stack</p>
+            <div class="stack-cols">
+
+              <!-- Column 1: 6 technologies -->
+              <div class="stack-cell">
+                <ul class="stack-col">
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg"
+                      alt="" loading="lazy"><span>HTML</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg"
+                      alt="" loading="lazy"><span>CSS</span></li>
+                  <li><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg"
+                      alt="" loading="lazy"><span>JavaScript</span></li>
+                  <li><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg"
+                      alt="" loading="lazy"><span>TypeScript</span></li>
+                  <li><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg"
+                      alt="" loading="lazy"><span>Tailwind</span></li>
+                  <li><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/wordpress/wordpress-plain.svg"
+                      alt="" loading="lazy"><span>WordPress</span></li>
+                </ul>
+
+              </div>
+
+              <!-- Column 2: 6 technologies -->
+              <div class="stack-cell">
+                <ul class="stack-col">
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg"
+                      alt="" loading="lazy"><span>React</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg"
+                      alt="" loading="lazy"><span>Vue.js</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/astro/astro-original.svg"
+                      alt="" loading="lazy"><span>Astro</span></li>
+                  <li><img src="https://cdn.simpleicons.org/greensock" alt="" loading="lazy"><span>GSAP</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg"
+                      alt="" loading="lazy"><span>Node.js</span></li>
+                  <li><img class="mono" src="https://cdn.simpleicons.org/nextdotjs/000000" alt=""
+                      loading="lazy"><span>Next.js</span></li>
+                </ul>
+
+              </div>
+
+              <!-- Column 3: 6 technologies -->
+              <div class="stack-cell">
+                <ul class="stack-col">
+                  <li><img class="mono" src="https://cdn.simpleicons.org/prisma/000000" alt=""
+                      loading="lazy"><span>Prisma</span></li>
+                  <li><img class="mono" src="https://cdn.simpleicons.org/vercel/000000" alt=""
+                      loading="lazy"><span>Vercel</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt=""
+                      loading="lazy"><span>Git</span></li>
+                  <li><img class="mono" src="https://cdn.simpleicons.org/github/000000" alt=""
+                      loading="lazy"><span>GitHub</span></li>
+                  <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/figma/figma-original.svg"
+                      alt="" loading="lazy"><span>Figma</span></li>
+
+                </ul>
+
+              </div>
+
+              <!-- Column 4: 5 technologies -->
+              <div class="stack-cell">
+                <ul class="stack-col">
+                  <li><span>Performance</span></li>
+                  <li><span>Accessibility</span></li>
+                  <li><span>Architecture</span></li>
+                  <li><span>Design Systems</span></li>
+                  <li><span>Problem Solving</span></li>
+                  <li><span>Responsive Design</span></li>
+                </ul>
+
+              </div>
+
+            </div>
+          </section>
         </div>
       </div>
     </section>
-    <!-- Projects Section -->
     <!-- Projects Section -->
     <section id="projects" class="section projects reveal">
       <div class="container">
@@ -534,7 +377,7 @@
           <!-- Project 1: Clothing Store -->
           <article class="pj-card">
             <div class="pj-image">
-              <img src="images/clothing-store-preview.png" alt="Clothing Store E-Commerce Platform Preview"
+              <img src="images/clothing-store-preview.webp" alt="Clothing Store E-Commerce Platform Preview"
                 loading="lazy">
             </div>
 
@@ -571,7 +414,7 @@
           <!-- Project 2: Growthly Dashboard -->
           <article class="pj-card">
             <div class="pj-image">
-              <img src="images/growthly-dashboard.png" alt="Growthly Dashboard Preview" loading="lazy">
+              <img src="images/growthly-dashboard.webp" alt="Growthly Dashboard Preview" loading="lazy">
             </div>
 
             <div class="pj-body">
@@ -585,13 +428,13 @@
               <p class="pj-desc">
                 A high-performance SaaS analytics platform designed to transform complex business data into actionable
                 growth insights. Track revenue streams, monitor active user dynamics, manage customer lifecycles, and
-                generate deep reporting through an intuitive.
+                generate deep reporting through an intuitive interface.
               </p>
 
               <ul class="pj-tags">
                 <li>Analytics</li>
-                <li>Smooth</li>
-                <li>Growth</li>
+                <li>SaaS</li>
+                <li>Charts</li>
 
               </ul>
 
@@ -604,6 +447,50 @@
           </article>
 
         </div>
+      </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="section services reveal">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">page.services</p>
+          <h2 class="section-title">How I Help</h2>
+          <p class="section-description">Three ways we can work together, depending on what you need right now.</p>
+        </div>
+
+        <ul class="sv-grid">
+          <li class="sv-card">
+            <span class="sv-num" aria-hidden="true">[01]</span>
+            <h3>Responsive Websites</h3>
+            <p>Your site looks fine on a laptop but falls apart on a phone. I build clean, fast pages that work on every
+              screen size.</p>
+            <p class="sv-proof">Proof: this portfolio</p>
+          </li>
+
+          <li class="sv-card">
+            <span class="sv-num" aria-hidden="true">[02]</span>
+            <h3>Dashboards &amp; Web Apps</h3>
+            <p>Your data is hard to read and hard to act on. I turn it into clear, easy-to-use dashboards.</p>
+            <p class="sv-proof">Proof:
+              <a href="https://growthly-tau-two.vercel.app/" target="_blank" rel="noopener noreferrer">Growthly
+                Dashboard →</a>
+            </p>
+          </li>
+
+          <li class="sv-card">
+            <span class="sv-num" aria-hidden="true">[03]</span>
+            <h3>E-commerce Storefronts</h3>
+            <p>Customers leave when browsing feels clumsy. I build smooth product pages and a simple shopping flow.</p>
+            <p class="sv-proof">Proof:
+              <a href="https://clothing-store-eight-puce.vercel.app/" target="_blank" rel="noopener noreferrer">Clothing
+                Store →</a>
+            </p>
+          </li>
+        </ul>
+
+        <button type="button" class="btn-pill sv-cta open-contact-modal">
+          Start a project <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
+        </button>
       </div>
     </section>
     <!-- CTA / Contact Section -->
@@ -649,11 +536,6 @@
         <p class="reach-eyebrow">page.contact</p>
         <h2 class="section-title">Contact</h2>
         <p class="reach-lead">I read every message. I usually respond in under 2 hours.</p>
-
-        <div class="reach-badge">
-          <span class="cta-status-dot" aria-hidden="true"></span>
-          Available for freelance projects &middot; Remote / worldwide
-        </div>
 
         <div class="reach-terminal">
           <p class="reach-line">&gt; establishing connection...</p>
@@ -764,7 +646,7 @@
 
         <ul class="ft-col ft-big">
           <li><a href="#projects">work</a></li>
-          <li><a href="#journey">journey</a></li>
+          <li><a href="#writting">writting</a></li>
         </ul>
 
         <div class="ft-col">
@@ -785,7 +667,7 @@
   </footer>
   <!-- Main JavaScript File -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
-  <script src="script.js?v=39"></script>
+  <script src="script.js?v=45"></script>
 
 </body>
 
