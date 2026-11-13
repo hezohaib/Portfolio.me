@@ -1,0 +1,254 @@
+---
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO Meta Tags -->
+  <title>Zohaib | Frontend Developer</title>
+  <meta name="description"
+    content="Frontend Developer building modern, scalable web applications from idea to deployment." />
+  <meta name="author" content="Zohaib Ali" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://iamzohaib.me/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;500;700&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script is:inline >
+    (function () {
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+      } catch (e) { /* storage blocked: stay on dark */ }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- If JavaScript is disabled, show all sections instead of leaving them invisible -->
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .preloader {
+        display: none !important;
+      }
+
+      .hero .word,
+      .hero-buttons {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    </style>
+  </noscript>
+
+  <!-- Structured data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Zohaib Ali",
+    "url": "https://iamzohaib.me/",
+    "jobTitle": "Frontend Developer",
+    "description": "Frontend Developer building modern, scalable web applications from idea to deployment.",
+    "sameAs": [
+      "https://github.com/hezohaib",
+      "https://www.linkedin.com/in/zohaib-ali-095716406/"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <svg class="pl-z" viewBox="0 0 32 32">
+      <path pathLength="100" d="M9 10 H23 L9 22 H23" />
+      <rect class="pl-dot" x="24.5" y="20.5" width="3.5" height="3.5" />
+    </svg>
+  </div>
+
+  <!-- Header / Navbar with Glassmorphic Styling -->
+  <header class="header">
+    <nav class="nav container">
+      <a href="#" class="logo">Zohaib</a>
+      <button type="button" id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false"
+        aria-controls="navMenu">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <div class="nav-menu" id="navMenu">
+        <p class="nav-menu-label" aria-hidden="true">navigation</p>
+        <ul class="nav-links">
+
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#reach">Reach out</a></li>
+        </ul>
+
+        <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="Switch to light theme"
+          title="Switch theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+            </path>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+   <slot />
+  </main>
+
+  <!-- Glassmorphism Smooth Contact Modal -->
+  <div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modalTitle">
+    <div class="modal-card contact-modal-card" data-lenis-prevent>
+      <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Get In Touch</h2>
+        <p class="modal-subtitle">Have a question, feedback, or want to collaborate? Send me a message below!</p>
+      </div>
+
+      <form id="contactForm" class="modal-form" method="POST">
+        <input type="hidden" name="access_key" value="5600b9e7-5055-4db0-a275-9e7ce4200d1a" />
+        <input type="hidden" name="subject" value="New message from Zohaib's portfolio" />
+        <input type="hidden" name="from_name" value="Zohaib Portfolio" />
+        <input type="hidden" name="replyto" id="replyTo" value="" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none"
+          aria-hidden="true" />
+
+        <div class="form-group">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" name="name" placeholder="Your Name" autocomplete="name" maxlength="100"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Your Email</label>
+          <input type="email" id="userEmail" name="email" placeholder="you@example.com" autocomplete="email"
+            maxlength="254" required />
+        </div>
+        <div class="form-group">
+          <label for="userMessage">Your Message</label>
+          <textarea id="userMessage" name="message" rows="5" placeholder="How can I help you?" maxlength="2000"
+            required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pill btn-pill-block">
+          <span class="submit-label">Send Message</span>
+          <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
+        </button>
+
+        <div id="formSuccessMessage" class="form-status form-success" role="status" aria-live="polite" hidden>
+          Thanks for reaching out! Your message has been sent.
+        </div>
+        <div id="formErrorMessage" class="form-status form-error" role="alert" aria-live="assertive" hidden></div>
+      </form>
+
+      <div class="quick-connect" role="group" aria-label="Quick connect">
+        
+        <button type="button" class="quick-connect-action quick-connect-email" data-email="zohaibatkh4x@gmail.com"
+          aria-label="Copy email address">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 5h18v14H3V5Zm0 1 9 7 9-7M3 19l6.5-6M21 19l-6.5-6" />
+          </svg>
+          <span class="quick-connect-label" role="status" aria-live="polite">Copy Email to Clipboard</span>
+        </button>
+        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
+          aria-label="Visit GitHub profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span class="quick-connect-label">View GitHub Profile</span>
+        </a>
+        <a class="quick-connect-action" href="https://www.linkedin.com/in/zohaib-ali-095716406/" target="_blank"
+          rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14ZM7.1 20.45H3.54V9H7.1v11.45Z" />
+          </svg>
+          <span class="quick-connect-label">View LinkedIn Profile</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="glass-footer">
+    <div class="ft">
+      <p class="ft-word" aria-hidden="true">ZOHAIB</p>
+      <p class="ft-tag">the best bugs are the ones users never see.</p>
+
+      <nav class="ft-cols" aria-label="Footer">
+        <ul class="ft-col ft-big">
+          <li><a href="#">home</a></li>
+          <li><a href="#about">about</a></li>
+          <li><a href="#contact">contact</a></li>
+        </ul>
+
+        <div class="ft-col">
+          <p class="ft-head">services</p>
+          <ul class="ft-small ft-services">
+            <li>web development</li>
+            <li>responsive design</li>
+            <li>performance optimization</li>
+            <li>ui implementation</li>
+          </ul>
+        </div>
+
+        <ul class="ft-col ft-big">
+          <li><a href="#projects">work</a></li>
+          <li><a href="#writting">writting</a></li>
+        </ul>
+
+        <div class="ft-col">
+          <p class="ft-head">elsewhere</p>
+          <ul class="ft-small">
+            <li><a href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer">github <span
+                  aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.linkedin.com/in/zohaib-ali-095716406/" target="_blank"
+                rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a></li>
+            <li><a href="mailto:zohaibatkh4x@gmail.com">email <span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <p class="ft-note">Designed, coded and deployed by hand. No templates.</p>
+      <p class="ft-made">Made in Pakistan // &copy; 2026 Zohaib</p>
+    </div>
+  </footer>
+  <!-- Main JavaScript File -->
+  <script>
+  import Lenis from 'lenis';
+  (window as any).Lenis = Lenis;
+  import '../scripts/main.js';
+</script>
+</body>
+
+</html>
