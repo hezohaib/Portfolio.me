@@ -1,14 +1,10 @@
-/**
- * Zohaib Portfolio - Core Interactive Features
- * - Fade-in on Scroll using IntersectionObserver
- * - Accessible Glassmorphism Contact Modal (focus trap + focus return)
- */
+//Js for portfolio
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* Preloader: site load hone par Z fade out */
+  // Preloader: Fade out Z when the site loads
   const preloader = document.getElementById('preloader');
   if (preloader) {
-    const MIN_SHOW = 1400;   // kam az kam itni der (ms) dikhe, taake Z poora draw ho
+    const MIN_SHOW = 1400;  // Minimum duration (in ms) to ensure Z is fully drawn
     let preloaderHidden = false;
     const hidePreloader = () => {
       if (preloaderHidden) return;
@@ -26,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(hidePreloader, 6000);   // safety: a slow font/image must never keep the site hidden
     }
   }
-  /* Smooth scroll (Lenis) */
+
+  // Smooth scroll (Lenis)
   let lenis = null;
   if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     lenis = new Lenis({
@@ -39,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(raf);
   }
 
-  /* Theme toggle: dark is the default, the choice is saved in localStorage */
+  // Theme toggle: dark is the default, the choice is saved in localStorage
   const themeToggleBtn = document.getElementById('themeToggle');
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
@@ -67,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
   }
-  /* ==========================================================================
-     1. Fade-In on Scroll Animations (IntersectionObserver)
-     ========================================================================== */
+
+  // Fade-In on Scroll Animations (IntersectionObserver)
+
   const revealElements = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window) {
@@ -80,20 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      root: null,
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
-    });
+    },
+      {
+        root: null,
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
 
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
     revealElements.forEach(el => el.classList.add('active'));
   }
 
-  /* ==========================================================================
-     3. Copy Email Button (with fallback for browsers without Clipboard API)
-     ========================================================================== */
+  // Copy Email Button (with fallback for browsers without Clipboard API)
   const copyTextFallback = (text) => {
     const area = document.createElement('textarea');
     area.value = text;
@@ -139,9 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ==========================================================================
-     4. Accessible Popup Contact Modal
-     ========================================================================== */
+  // Accessible Popup Contact Modal
+
   const contactModal = document.getElementById('contactModal');
   const openModalButtons = document.querySelectorAll('.open-contact-modal, #openContactModal');
   const closeModalBtn = document.getElementById('closeModalBtn');
@@ -257,9 +252,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ==========================================================================
-     5. Contact Form Submission
-     ========================================================================== */
+  // Contact Form Submission
+
   const GENERIC_ERROR = 'Something went wrong while sending your message. Please try again.';
 
   if (contactForm) {
@@ -377,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      if (out !== textEl.textContent) textEl.textContent = out;
+      if (out !== textEl.textContent) { textEl.textContent = out; textEl.dataset.text = out; }
       return done;
     };
 
@@ -385,8 +379,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (render(now)) { running = false; return; }
       requestAnimationFrame(loop);
     };
-
     const scramble = (to) => {
+
       if (reduceMotion) { textEl.textContent = to; return; }
 
       const now = performance.now();
@@ -407,9 +401,52 @@ document.addEventListener('DOMContentLoaded', () => {
         };
       });
 
+      glitch(650);   // scramble ke saath glitch burst
       if (!running) { running = true; requestAnimationFrame(loop); }
     };
+    /* Real glitch: random slices + RGB split, irregular timing, fades out */
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    let gTimer = null;
 
+    const glitchFrame = (p) => {
+      const slice = (k) => {
+        const top = rnd(0, 75), h = rnd(6, 32);
+        nameSwap.style.setProperty('--' + k + 't', top.toFixed(1) + '%');
+        nameSwap.style.setProperty('--' + k + 'b', Math.max(0, 100 - top - h).toFixed(1) + '%');
+      };
+      slice('a');
+      slice('b');
+      const dir = Math.random() < 0.5 ? -1 : 1;
+      nameSwap.style.setProperty('--gx', (rnd(2, 7) * p * dir).toFixed(1) + 'px');
+      nameSwap.style.setProperty('--mx', (Math.random() < 0.4 ? rnd(-7, 7) * p : 0).toFixed(1) + 'px');
+      nameSwap.style.setProperty('--sk', (Math.random() < 0.3 ? rnd(-9, 9) * p : 0).toFixed(1) + 'deg');
+      nameSwap.style.setProperty('--go', Math.random() < 0.85 ? 1 : 0);   // layers kabhi kabhi flicker karte hain
+    };
+
+    const glitch = (ms, power = 1) => {
+      if (reduceMotion) return;
+      clearTimeout(gTimer);
+      const t0 = performance.now();
+      nameSwap.classList.add('is-glitching');
+      const tick = () => {
+        const left = 1 - (performance.now() - t0) / ms;
+        if (left <= 0) { nameSwap.classList.remove('is-glitching'); return; }
+        glitchFrame(power * (0.3 + 0.7 * left));   // strength dheere dheere kam hoti hai
+        gTimer = setTimeout(tick, rnd(30, 120));   // irregular timing = real feel
+      };
+      tick();
+    };
+
+    const heroEl = document.querySelector('.hero');
+
+    const idleGlitch = () => {
+      setTimeout(() => {
+        if (!document.hidden && !hovering && !running && heroEl && heroEl.offsetParent !== null) {
+          glitch(rnd(160, 340), 0.7);
+        }
+        idleGlitch();
+      }, rnd(2500, 6500));
+    };
     let isAlt = false;
     let leaveTimer = null;
     let autoTimer = null;
@@ -465,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
       introStarted = true;
       scramble(original);   // same scramble effect as on hover
       scheduleAuto();       // the 5-second swap starts only after the name has appeared
+      idleGlitch();
     };
 
     if (!reduceMotion && preloader) {
@@ -718,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const jumpTo = (y) => {
-      if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y, { immediate: true });
+      if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y, { immediate: true, force: true });
       else window.scrollTo({ top: y, behavior: 'instant' });
     };
 
@@ -816,12 +854,15 @@ document.addEventListener('DOMContentLoaded', () => {
       typeHeading(target);
       setTitle(id);
       // About has a sticky panel, so use normal scrolling there (smooth scroll makes it shake)
-     if (lenis && lenis.options) lenis.options.smoothWheel = true;
+      if (lenis && lenis.options) lenis.options.smoothWheel = true;
       if (push) history.pushState({ view: id }, '', '#' + id);
     };
 
     const showHome = (push) => {
-      if (!document.body.classList.contains('view-mode')) return;
+      if (!document.body.classList.contains('view-mode')) {
+        jumpTo(0);          // already home: just go to the top
+        return;
+      }
       resetHeadings();
       document.body.classList.remove('view-mode');
       document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('is-current'));
@@ -893,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX = 8;          // never moves more than this many px
     const clamp = (v) => Math.max(-MAX, Math.min(MAX, v));
 
-    document.querySelectorAll('.btn-pill:not(.btn-pill-ghost), .ab-btn, .hero-buttons .btn-pill-ghost').forEach((btn) => {
+    document.querySelectorAll('.btn-pill:not(.btn-pill-ghost), .ab-btn, .hero-buttons .btn-pill-ghost, .sv-cta').forEach((btn) => {
       btn.addEventListener('pointermove', (e) => {
         if (btn.disabled) return;
         const r = btn.getBoundingClientRect();
@@ -1420,7 +1461,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loop = (now) => {
       raf = requestAnimationFrame(loop);
-        if (lenis && lenis.isScrolling) return; 
+      if (lenis && lenis.isScrolling) return;
       if (now - last < 33) return;
       const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
@@ -1619,7 +1660,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // a new page is open: remember what is on it
       boxEls = Array.from(now.querySelectorAll(BOXES));
-      cutEl = now.id === 'about' ? now.querySelector('.ab-story') : null;
+      cutEl = now.id === 'about' ? now.querySelector('.ab-story')
+      : now.id === 'services' ? now.querySelector('.sv-offer')
+      : null;
 
       fixedEls = Array.from(document.querySelectorAll('.header, .glass-footer'));
 
@@ -1823,7 +1866,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   })();
-  /* My story: slow, self-moving tiles (Game of Life) */
+
+  // My story section: slow, auto-moving tiles (based on Game of Life)
   (() => {
     const box = document.querySelector('.ab-life');
     if (!box) return;
@@ -1831,7 +1875,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ---- tune here ---- */
+    // tune here
     const CELL = 10;        // tile size (px)
     const GAP = 1;          // space between tiles
     const STEP_MS = 520;    // time between moves (bigger = slower)
@@ -1875,6 +1919,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       alive = next;
       gen++;
+
       // when the pattern dies out or gets stuck, start a fresh one
       if (count < alive.length * 0.04 || gen > 140) seed();
     };
@@ -1913,7 +1958,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loop = (now) => {
       raf = requestAnimationFrame(loop);
-       if (lenis && lenis.isScrolling) return; 
+      if (lenis && lenis.isScrolling) return;
       if (now - last < 33) return;
       const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
@@ -1946,14 +1991,14 @@ document.addEventListener('DOMContentLoaded', () => {
     new MutationObserver(() => { readTheme(); if (cols) draw(); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   })();
-  /* My story: panel runs from the 2nd line of the 2nd paragraph to the 3rd line of the last paragraph */
+  // My story: panel runs from the 2nd line of the 2nd paragraph to the 3rd line of the last paragraph
   (() => {
     const text = document.querySelector('.ab-story-text');
     const panel = document.querySelector('.ab-life');
     if (!text || !panel) return;
 
-    const START_LINES = 1;   // 1 = 2nd paragraph ki 2nd line se shuru (0 = bilkul top se)
-    const END_LINES = 3;     // 3 = last paragraph ki 3rd line tak
+    const START_LINES = 1;   // 1 = start from the 2nd line of the 2nd paragraph (0 = from the very top)
+    const END_LINES = 3;     // 3 = up to the 3rd line of the last paragraph
 
     const place = () => {
       const paras = text.querySelectorAll('p');
@@ -1977,12 +2022,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', place);
     place();
   })();
-  /* Tech stack: 4 columns, each shows one technology. Every column changes on its own timing */
-  /* script.js me paste karo: bilkul end me, aakhri `});` se pehle */
+
+  // Tech stack: 4 columns, each shows one technology. Every column changes on its own timing 
   (() => {
     const stack = document.querySelector('.stack');
     if (!stack) return;
-    // logos: har <li data-icon="..."> ke aage logo lagao
+    // logos: insert logo into each <li data-icon="..."> element
     stack.querySelectorAll('li[data-icon]').forEach((li) => {
       const ico = document.createElement('span');
       ico.className = 'st-ico';
@@ -1997,7 +2042,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cells = Array.from(stack.querySelectorAll('.stack-cell'));
     if (!cells.length || reduce) return;   // reduced motion: all names stay visible, no animation
 
-    /* ---- tune here ---- */
+    // tune here
     const GAP_MIN = 1200;   // ms: do changes ke beech kam az kam itna gap
     const GAP_MAX = 2600;   // ms: aur zyada se zyada itna
 
@@ -2006,11 +2051,10 @@ document.addEventListener('DOMContentLoaded', () => {
       i: 0
     }));
 
-    // first technology of every column is visible from the start
     stack.classList.add('is-live');
     cols.forEach((c) => { c.items[0].classList.add('is-active'); });
 
-    // column ke andar random naam dikhao (wohi dobara nahi)
+
     const advance = (c) => {
       if (c.items.length < 2) return;
       let n;
@@ -2031,7 +2075,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer = 0;
     let lastCol = -1;
 
-    // ek waqt me sirf ek column badalta hai, phir random gap ke baad agla
+
     const tick = () => {
       let k;
       do { k = Math.floor(Math.random() * cols.length); } while (k === lastCol && cols.length > 1);
@@ -2060,7 +2104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   })();
-    /* Mobile menu: hamburger opens / closes the links + theme toggle */
+
+  /* Mobile menu: hamburger opens / closes the links + theme toggle */
   (() => {
     const header = document.querySelector('.header');
     const toggle = document.getElementById('navToggle');
@@ -2068,7 +2113,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!header || !toggle || !menu) return;
 
     const setOpen = (open) => {
+      if (open === header.classList.contains('menu-open')) return;
       header.classList.toggle('menu-open', open);
+      if (lenis) (open ? lenis.stop() : lenis.start());
+      document.body.style.overflow = open ? 'hidden' : '';
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
@@ -2099,4 +2147,166 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window.innerWidth > 768) setOpen(false);
     });
   })();
+
+  // Hero: word-by-word reveal (starts after the preloader)
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // splits only the plain text directly inside el (the name-swap span stays untouched)
+    const split = (el, base, step) => {
+      if (!el) return;
+      let k = 0;
+      Array.from(el.childNodes)
+        .filter((n) => n.nodeType === 3 && n.textContent.trim())
+        .forEach((node) => {
+          const frag = document.createDocumentFragment();
+          node.textContent.trim().split(/\s+/).forEach((word) => {
+            const s = document.createElement('span');
+            s.className = 'word';
+            s.style.setProperty('--d', (base + k++ * step).toFixed(2) + 's');
+            s.textContent = word;
+            frag.append(s, ' ');
+          });
+          node.replaceWith(frag);
+        });
+    };
+
+    if (!reduce) {
+      split(document.querySelector('.hero-eyebrow'), 0.1, 0.1);
+      split(document.querySelector('.hero-title'), 0.35, 0.12);
+      split(document.querySelector('.hero-subtitle'), 0.8, 0.035);
+    }
+
+    const ready = () => document.body.classList.add('hero-ready');
+    if (document.getElementById('preloader')) {
+      window.addEventListener('preloader-done', ready, { once: true });
+      setTimeout(ready, 4000);   // safety
+    } else {
+      ready();
+    }
+  })();
+  // Card 1 icon: 9 boxes grid ke andar move karke patterns banate hain (hover/touch par)
+(() => {
+  const card = document.querySelector('.sv-grid .sv-card:first-child');
+  if (!card) return;
+  const ico = card.querySelector('.sv-ico');
+  const cells = Array.from(card.querySelectorAll('.sv-ico span'));
+  if (!ico || cells.length !== 9) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const rest = '101000101';   // 4 corners
+  const patterns = [
+    '111111111', // full
+    '010111010', // plus
+    '101010101', // X
+    '111101111', // ring
+    '100010001', // diagonal
+    '101000101', // corners
+    '010101010', // diamond
+    '001010100'  // anti-diagonal
+  ];
+
+  // har box ki maujooda halat
+  const state = cells.map(() => ({ x: 1, y: 1, vis: false }));
+
+  const paint = (i) => {
+    const s = state[i];
+    cells[i].style.setProperty('--x', s.x);
+    cells[i].style.setProperty('--y', s.y);
+    cells[i].classList.toggle('hide', !s.vis);
+  };
+
+  const spotsOf = (p) => {
+    const out = [];
+    for (let k = 0; k < 9; k++) if (p[k] === '1') out.push({ x: k % 3, y: Math.floor(k / 3) });
+    return out;
+  };
+
+  const apply = (p) => {
+    const targets = spotsOf(p);
+    const old = state.map((s) => ({ ...s }));
+    const srcs = [];
+    old.forEach((s, i) => { if (s.vis) srcs.push(i); });
+
+    // sab (box, jagah) jodon ko doori ke hisab se sort karo, qareeb wale pehle
+    const pairs = [];
+    srcs.forEach((i) => {
+      targets.forEach((t, j) => {
+        pairs.push({ i, j, d: Math.hypot(old[i].x - t.x, old[i].y - t.y) });
+      });
+    });
+    pairs.sort((a, b) => a.d - b.d);
+
+    const usedS = new Set();
+    const usedT = new Set();
+    pairs.forEach(({ i, j }) => {
+      if (usedS.has(i) || usedT.has(j)) return;
+      usedS.add(i);
+      usedT.add(j);
+      state[i] = { x: targets[j].x, y: targets[j].y, vis: true };
+    });
+
+    // jo box pattern mein nahi: wahin fade out
+    srcs.forEach((i) => {
+      if (!usedS.has(i)) state[i] = { x: old[i].x, y: old[i].y, vis: false };
+    });
+
+    // jin jagahon ko box nahi mila: chhupa hua box sab se qareebi box ki jagah se nikal kar aaye
+    const spawn = [];
+    const free = [];
+    old.forEach((s, i) => { if (!s.vis) free.push(i); });
+    targets.forEach((t, j) => {
+      if (usedT.has(j)) return;
+      const i = free.shift();
+      if (i === undefined) return;
+      let from = t;
+      let best = Infinity;
+      srcs.forEach((k) => {
+        const d = Math.hypot(old[k].x - t.x, old[k].y - t.y);
+        if (d < best) { best = d; from = old[k]; }
+      });
+      spawn.push({ i, from, to: t });
+    });
+
+    spawn.forEach(({ i, from }) => {
+      cells[i].classList.add('snap');
+      state[i] = { x: from.x, y: from.y, vis: false };
+      paint(i);
+    });
+    if (spawn.length) void ico.offsetWidth;   // browser ko snap ki jagah register karne do
+    spawn.forEach(({ i, to }) => {
+      cells[i].classList.remove('snap');
+      state[i] = { x: to.x, y: to.y, vis: true };
+    });
+
+    cells.forEach((_, i) => paint(i));
+  };
+
+  // shuru mein 4 corners, bina animation ke
+  cells.forEach((c) => c.classList.add('snap'));
+  const start = spotsOf(rest);
+  cells.forEach((_, i) => {
+    state[i] = i < start.length ? { ...start[i], vis: true } : { x: 1, y: 1, vis: false };
+    paint(i);
+  });
+  void ico.offsetWidth;
+  cells.forEach((c) => c.classList.remove('snap'));
+  ico.classList.add('js');
+
+  let timer = 0, i = 0;
+
+  card.addEventListener('pointerenter', () => {
+    if (reduce || timer) return;
+    i = 0;
+    apply(patterns[0]);
+    timer = setInterval(() => apply(patterns[++i % patterns.length]), 900);
+  });
+
+  card.addEventListener('pointerleave', () => {
+    clearInterval(timer);
+    timer = 0;
+    apply(rest);
+  });
+})();
 });
