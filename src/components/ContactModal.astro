@@ -1,0 +1,72 @@
+<div id="contactModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modalTitle">
+    <div class="modal-card contact-modal-card" data-lenis-prevent>
+      <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Get In Touch</h2>
+        <p class="modal-subtitle">Have a question, feedback, or want to collaborate? Send me a message below!</p>
+      </div>
+
+      <form id="contactForm" class="modal-form" method="POST">
+        <input type="hidden" name="access_key" value="5600b9e7-5055-4db0-a275-9e7ce4200d1a" />
+        <input type="hidden" name="subject" value="New message from Zohaib's portfolio" />
+        <input type="hidden" name="from_name" value="Zohaib Portfolio" />
+        <input type="hidden" name="replyto" id="replyTo" value="" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none"
+          aria-hidden="true" />
+
+        <div class="form-group">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" name="name" placeholder="Your Name" autocomplete="name" maxlength="100"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Your Email</label>
+          <input type="email" id="userEmail" name="email" placeholder="you@example.com" autocomplete="email"
+            maxlength="254" required />
+        </div>
+        <div class="form-group">
+          <label for="userMessage">Your Message</label>
+          <textarea id="userMessage" name="message" rows="5" placeholder="How can I help you?" maxlength="2000"
+            required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pill btn-pill-block">
+          <span class="submit-label">Send Message</span>
+          <span class="arrows" aria-hidden="true">&gt;&gt;&gt;</span>
+        </button>
+
+        <div id="formSuccessMessage" class="form-status form-success" role="status" aria-live="polite" hidden>
+          Thanks for reaching out! Your message has been sent.
+        </div>
+        <div id="formErrorMessage" class="form-status form-error" role="alert" aria-live="assertive" hidden></div>
+      </form>
+
+      <div class="quick-connect" role="group" aria-label="Quick connect">
+
+        <button type="button" class="quick-connect-action quick-connect-email" data-email="zohaibatkh4x@gmail.com"
+          aria-label="Copy email address">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 5h18v14H3V5Zm0 1 9 7 9-7M3 19l6.5-6M21 19l-6.5-6" />
+          </svg>
+          <span class="quick-connect-label" role="status" aria-live="polite">Copy Email to Clipboard</span>
+        </button>
+        <a class="quick-connect-action" href="https://github.com/hezohaib" target="_blank" rel="noopener noreferrer"
+          aria-label="Visit GitHub profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span class="quick-connect-label">View GitHub Profile</span>
+        </a>
+        <a class="quick-connect-action" href="https://www.linkedin.com/in/zohaib-ali-095716406/" target="_blank"
+          rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14ZM7.1 20.45H3.54V9H7.1v11.45Z" />
+          </svg>
+          <span class="quick-connect-label">View LinkedIn Profile</span>
+        </a>
+      </div>
+    </div>
+  </div>

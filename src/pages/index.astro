@@ -1,5 +1,7 @@
 ---
 import Layout from '../Layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects.js';
 ---
 
 <Layout>
@@ -244,76 +246,9 @@ import Layout from '../Layouts/Layout.astro';
         <div class="pj-grid">
 
           <!-- Project 1: Clothing Store -->
-          <article class="pj-card">
-            <div class="pj-image">
-              <img src="images/clothing-store-preview.webp" alt="Clothing Store E-Commerce Platform Preview"
-                loading="lazy">
-            </div>
-
-            <div class="pj-body">
-              <div class="pj-meta">
-                <span class="pj-year">2026</span>
-                <span class="pj-role">Full-Stack Project</span>
-              </div>
-
-              <h3 class="pj-title">Clothing Store</h3>
-
-              <p class="pj-desc">
-                A modern, full-featured e-commerce destination delivering a seamless and refined shopping experience.
-                Explore curated collections, effortless product discovery, and smooth, responsive checkout built for the
-                modern consumer.
-              </p>
-
-              <ul class="pj-tags">
-                <li>E-Commerce</li>
-                <li>Digital Store</li>
-                <li>Prisma</li>
-              </ul>
-
-              <div class="pj-links">
-                <a href="https://clothing-store-eight-puce.vercel.app/" target="_blank" rel="noopener noreferrer">Live
-                  demo →</a>
-                <a href="https://github.com/hezohaib/clothing-store" target="_blank" rel="noopener noreferrer">View
-                  source
-                  →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2: Growthly Dashboard -->
-          <article class="pj-card">
-            <div class="pj-image">
-              <img src="images/growthly-dashboard.webp" alt="Growthly Dashboard Preview" loading="lazy">
-            </div>
-
-            <div class="pj-body">
-              <div class="pj-meta">
-                <span class="pj-year">2026</span>
-                <span class="pj-role">Frontend Project</span>
-              </div>
-
-              <h3 class="pj-title">Growthly Dashboard</h3>
-
-              <p class="pj-desc">
-                A high-performance SaaS analytics platform designed to transform complex business data into actionable
-                growth insights. Track revenue streams, monitor active user dynamics, manage customer lifecycles, and
-                generate deep reporting through an intuitive interface.
-              </p>
-
-              <ul class="pj-tags">
-                <li>Analytics</li>
-                <li>SaaS</li>
-                <li>Charts</li>
-
-              </ul>
-
-              <div class="pj-links">
-                <a href="https://growthly-tau-two.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo →</a>
-                <a href="https://github.com/hezohaib/Growthly" target="_blank" rel="noopener noreferrer">View source
-                  →</a>
-              </div>
-            </div>
-          </article>
+         {projects.map((project) => (
+          <ProjectCard project={project} />
+          ))}
 
         </div>
       </div>

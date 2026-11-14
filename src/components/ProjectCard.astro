@@ -1,0 +1,31 @@
+---
+const { project } = Astro.props;
+---
+
+<article class="pj-card">
+  <div class="pj-image">
+    <img src={project.image} alt={project.alt} loading="lazy" />
+  </div>
+
+  <div class="pj-body">
+    <div class="pj-meta">
+      <span class="pj-year">{project.year}</span>
+      <span class="pj-role">{project.role}</span>
+    </div>
+
+    <h3 class="pj-title">{project.title}</h3>
+
+    <p class="pj-desc">{project.description}</p>
+
+    <ul class="pj-tags">
+      {project.tags.map((tag: string) => (
+        <li>{tag}</li>
+      ))}
+    </ul>
+
+    <div class="pj-links">
+      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Live demo →</a>
+      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">View source →</a>
+    </div>
+  </div>
+</article>
